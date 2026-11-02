@@ -9,16 +9,18 @@ O algorítmo Insertion Sort parte do seguinte princípio: Se eu tenho um vetor o
 Portanto, seu invariante é: a cada início de iteração, o meu subvetor, que vai da primeira posição do vetor até a posição anterior ao meu índice, já está ordenado.
 
 
-Implementação em C: a função recebe um ponteiro para vetor e um inteiro que define o último índice que deve ser ordenado. Ela não retorna resultado, apenas altera diretamente o vetor. O elemento de indice i é o que será inserido no vetor. O vetor ordenado é o elemento v[0] (um vetor unitário está sempre ordenado). Portanto, i começa em v[1]. O valor de i é armazenado na variável key e se cria um indice j que começa valendo i-1 (ultima posição e, portanto, maior elemento, do vetor ordenado). Nesse momento, cada elemento v[j] maior que v[i] tem seu valor copiado uma casa para a frente (j+1) e j diminui até que v[i] é maior que v[j]. Nesse momento, todos os elementos maiores que i foram deslocados uma casa pra frente (sobrescrevendo a posição inicial de i) e o primeiro elemento maior que i está escrito duas vezes. Dessa forma, insere-se o valor de v[i] armazenado em 'key' na primeira casa em que o elemento maior foi escrito.
+Implementação em C: a função recebe um ponteiro para vetor e um inteiro que define o último índice que deve ser ordenado. Ela não retorna resultado, apenas altera diretamente o vetor. 
+O elemento de indice i é o que será inserido no vetor. O vetor ordenado é o elemento v[0] (um vetor unitário está sempre ordenado). Portanto, i começa em v[1]. O valor de i é armazenado na variável key e se cria um indice j que começa valendo i-1 (ultima posição e, portanto, maior elemento, do vetor ordenado). Nesse momento, cada elemento v[j] maior que v[i] tem seu valor copiado uma casa para a frente (j+1) e j diminui até que v[i] é maior que v[j]. Nesse momento, todos os elementos maiores que i foram deslocados uma casa pra frente (sobrescrevendo a posição inicial de i) e o primeiro elemento maior que i está escrito duas vezes. Dessa forma, insere-se o valor de v[i] armazenado em 'key' na primeira casa em que o elemento maior foi escrito. 
+Como existem n iterações e a cada iteração se percorre o vetor até a posição i  (que pode estar no fim do vetor), a complexidade é O(n²).
 
 void insertionsort(int *vetor, int fim){
     for(int i=1;i<fim;i++){
-    int key=vetor[i];
-    int j=i-1;
-    while (j>=0 && vetor[j]>key){
-        vetor[j+1]=vetor[j];
-        j--;
-    }
+        int key=vetor[i];
+        int j=i-1;
+        while (j>=0 && vetor[j]>key){
+            vetor[j+1]=vetor[j];
+            j--;
+        }
     vetor[j+1]=key;
     }    
 }

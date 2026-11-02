@@ -1,0 +1,57 @@
+void intercala(int *vetor, int inicio, int meio, int tamanho){
+    int tamanhoesq=meio-inicio+1;
+    int tamanhodir=tamanho-meio;
+    int *aux=malloc((tamanhodir+tamanhoesq)*sizeof(int));
+    int i=0; int j=0; int k=0;
+    while (i<tamanhoesq && j<tamanhodir){
+        if(vetor[inicio+i]>vetor[meio+1+j]){
+        aux[k]=vetor[meio+j+1];
+        j++;
+        }
+        else{
+            aux[k]=vetor[inicio+i];
+            i++;
+        }
+        k++;
+    }
+    while(i<tamanhoesq){
+        aux[k]=vetor[inicio+i];
+        i++;k++;
+    }
+     while(j<tamanhodir){
+        aux[k]=vetor[meio+1+j];
+        j++;k++;
+    }
+    for(int l=0;l<tamanhoesq+tamanhodir;l++){
+        vetor[inicio + l] = aux[l];
+    }
+    free(aux);
+}
+
+
+void quicksort(int *vetor, int inicio, int fim){
+    if (inicio>=fim) return;
+    int pivo=vetor[fim];
+    int maioresq=inicio;
+    int menordir=fim-1;
+    int aux=0;
+
+    while (maioresq<=menordir){
+        while(maioresq<=menordir && vetor[maioresq] <= pivo){
+            maioresq++;
+        }
+        while(maioresq<=menordir && vetor[menordir] >= pivo){
+            menordir--;
+        }
+
+        if (maioresq < menordir){
+            aux = vetor[maioresq];
+            vetor[maioresq] = vetor[menordir];
+            vetor[menordir] = aux;
+        }
+    }
+    vetor[fim]=vetor[maioresq];
+    vetor[maioresq]=pivo;
+    quicksort(vetor, inicio, maioresq-1);
+    quicksort(vetor, maioresq+1, fim);
+}

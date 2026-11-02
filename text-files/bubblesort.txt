@@ -1,0 +1,25 @@
+1. Tecnica: Guloso
+2. Algoritmo: Bubblesort para vetores
+3. Autores: Edward Harry Friend (primeira menção formal na literatura)
+4. Data: 1956
+5. Conceitos: vetor
+6. Problema: Dada uma sequência de números, obter um vetor ordenado que contenha todos os índices da sequência (qualquer índice do vetor é menor ou igual ao próximo, se houver).
+
+
+
+
+
+void bubblesort(int *vetor, int tamanho){
+    int aux=0;
+    while(tamanho>1){
+        for (int i=0;i<tamanho-1;i++){
+        if(vetor[i]>vetor[i+1]){
+            aux=vetor[i];
+            vetor[i]=vetor[i+1];
+            vetor[i+1]=aux;
+        }
+    }
+    tamanho--;
+    }
+    
+}

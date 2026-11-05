@@ -11,6 +11,7 @@ Trabalho da disciplina MAC0122 - Princípios de desenvolvimento de algorítmos.
 - [ ] Heap Sort (vetor) 
 - [x] Quick Sort (vetor)
 - [ ] Radix Sort (vetor)
+- [ ] ordenação por tentativa e erro
 
 ### Ordenação de nomes
 - [ ] Bubble Sort
@@ -43,8 +44,7 @@ Trabalho da disciplina MAC0122 - Princípios de desenvolvimento de algorítmos.
 - [ ] Tipos 
 - [ ] Structs
 
-### Misc e algorítmos a conferir como requisito
+### Misc 
 - [ ] hanoi 
-- [ ] ordenação por tentativa e erro
 - [ ] kruskall
-- [ ] 
+- [ ] djikstra

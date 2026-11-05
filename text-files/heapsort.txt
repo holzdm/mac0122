@@ -1,0 +1,50 @@
+1. Tecnica: Divisão e Conquista
+2. Algoritmo: Heapsort (implementação em vetores) 
+3. Autores: Robert W. Floyd e J.W.J Williams.
+4. Data: 1964
+5. Conceitos: vetor, árvore binária, gráfo
+6. Problema: Dada uma sequência de números, obter um vetor ordenado que contenha todos os índices da sequência (qualquer índice do vetor é menor ou igual ao próximo, se houver).
+
+
+O algoriítmo heapsort utiliza de uma estrutura chamada max-heap para ordenar um vetor. O max-heap (ou monte) é uma árvore binária em que o valor de um pai (a[n]) é maior que o valor de seus dois filhos (a[2n], a[2n+1]). A ideia por trás (e invariante) do algorítmo é que a raíz de uma árvore com a propriedade de heap é o maior elemento do vetor. Logo, basta trocá-lo com o último elemento do vetor (uma das folhas), recuperar a propriedade do heap e repetir o processo com o vetor sem o último elemento. Após n repetições, o vetor estará ordenado.
+
+Para construir o heap, basta percorrer todo o vetor com um iterador e comparar o valor de um índice f com o índice do seu pai (f/2). Se o valor do filho for menor que o do pai, os dois são trocados, e f recebe o valor do pai (f/2) para ser comparado com seu novo pai. Cada iteração roda até que f seja igual a 1. Quando isso acontece, significa que esse caminho da árvore já possui a propriedade monte. Assim, isso se repete para todos os índices do vetor, e ao fim do algorítmo, o vetor inteiro apresenta a propriedade do heap.
+
+Com essa propriedade satisfeita, o algoriítmo troca o elemento raíz com o último elemento do vetor, e reconstrói o monte usando a lógica seguinte: Escolha o maior filho da nova raíz e compare o seu valor com o de seu pai. Se o valor do filho for maior, troque o filho e o pai e olhe o novo filho(antigo pai). Repita isso até que o valor do antigo pai seja maior que o do filho ou que o pai não tenha filhos (vire uma folha). Ao final dessas trocas, a propriedade monte é refeita e é possível repetir o processo até que o monte seja unitário e, portanto, todo o vetor tenha sido construído.
+
+Portanto, a ordenação de um dos ítens do vetor gasta algo da ordem de log(n) pela propriedade da árvore, e é necessário encaixar cada um dos ítens no vetor ordenado (n ítens). Dessa forma, a complexidade desse algorítmo é n*log(n).
+
+void troca(int a, int b){
+    int aux = a;
+    a = b
+    b = aux;  
+}
+
+void constroiHeap (int v[], int fim){
+   for (int k = 1; k <= fim; ++k){                   
+      int f = k+1;
+      while (f > 1 && v[f/2] < v[f]) {  
+         troca(v[f/2], v[f]);         
+         f /= 2;                        
+      }
+   }
+}
+
+void peneira(int v[],int fim){
+    int f=2;
+    while(f<=fim){
+        if (f<fim && v[f]<v[f+1]) ++f; //escolhe o filho mais valioso de f/2;
+        if (v[f/2] >= v[f]) break;
+        troca(v[f/2], v[f]);          
+        f *= 2; 
+    }
+}
+    
+
+void heapsort(int v[], int fim){
+    constroiHeap(v, fim);
+    for(int n=fim; n>=2; n--){
+        troca(v[1], v[n]);
+        peneira(v, n-1);
+    }
+}

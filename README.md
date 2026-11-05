@@ -6,10 +6,10 @@ Trabalho da disciplina MAC0122 - Princípios de desenvolvimento de algorítmos.
 ### Ordenação de números
 - [x] Bubble Sort (vetor)
 - [x] Selection Sort (vetor)
-- [ ] Insertion Sort (vetor) - vitor 
-- [ ] Merge Sort (vetor) - vitor
+- [x] Insertion Sort (vetor) 
+- [x] Merge Sort (vetor)
 - [ ] Heap Sort (vetor) 
-- [ ] Quick Sort (vetor) - vitor 
+- [x] Quick Sort (vetor)
 - [ ] Radix Sort (vetor)
 
 ### Ordenação de nomes

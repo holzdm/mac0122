@@ -1,0 +1,96 @@
+1. Tecnica: First-In-First-Out (FIFO) 
+2. Algoritmo:Fila (implementação em listas ligadas) 
+3. Autores: Newell, Shaw e Simon
+4. Data: 1955-1956
+5. Conceitos: listas (vetor), listas ligadas, pilhas(listas ligadas). 
+6. Problema: criar um metodo de estrutura de dados em que o primeiro elemento a entrar deve ser o primeiro a sair sem um limite fixo nem desperdiçar memoria
+
+A parte inicial, apresentando as melhorias em relação ao vetor e a introdução ao No e ao topo não será comentada, por já estar na parte de pilhas.
+
+Quando enfileiramos X, depois Y e depois Z, a estrutura fica assim:
+
+inicio                                  fim
+  |                                      |
+  v                                      v
+[ 'X' | * ]  --->  [ 'Y' | * ]  --->  [ 'Z' | NULL ]
+(1º a chegar)      (2º a chegar)      (Último a chegar)
+
+Repare na diferença crucial das setas em relação à pilha:
+
+Na pilha, o elemento novo apontava para trás (para quem estava embaixo dele).
+
+Na fila, cada elemento aponta para quem chegou depois dele (quem está atrás dele na fila). Quando o X for atendido e sair, o ponteiro inicio segue a seta do X para descobrir que o Y é o novo primeiro da fila. Já o último da fila (Z) aponta sempre para NULL, pois não há ninguém atrás dele.
+
+No* inicio = NULL;
+No* fim = NULL;
+ Dois ponteiros globais: um para o início (p) e outro para o fim (k)
+
+ void enfileira(char y) {
+    No* novo = (No*) malloc(sizeof(No));
+    novo->dado = y;
+    novo->proximo = NULL;
+
+    if (inicio == NULL) {
+        inicio = novo;
+    } else {
+        fim->proximo = novo;
+    }
+    fim = novo;
+}
+novo->dado = y;
+
+Coloca a letra recebida dentro da caixinha nova.
+
+novo->proximo = NULL;
+
+Como essa nova casa vai entrar no final da fila, ainda não existe ninguém atrás dela. Por isso, o ponteiro proximo dela nasce apontando para NULL.
+
+if (inicio == NULL) { inicio = novo; }
+
+Se a fila estava vazia, a nova informação passa a ser a primeira da fila (inicio = novo).
+
+else { fim->proximo = novo; }
+
+Se já havia gente na fila: Pegamos a casa que era a última até agora e fazemos a seta proximo dela apontar para a casa novo.
+
+fim = novo;
+
+Atualizamos o marcador oficial de fim da fila para apontar para o novo nó que acabou de entrar.
+
+char desenfileira(void) {
+    if (inicio == NULL) {
+        printf("Erro: A fila esta vazia!\n");
+        return '\0';
+    }
+
+    No* temp = inicio;
+    char letra = temp->dado;
+    inicio = temp->proximo;
+
+    if (inicio == NULL) {
+        fim = NULL;
+    }
+
+    free(temp);
+    return letra;
+}
+
+if (inicio == NULL) { ... }
+
+Proteção contra fila vazia. Se não há ninguém no inicio, avisa o erro e encerra.
+
+No* temp = inicio;
+
+Salva o endereço do primeiro nó da fila em um ponteiro temporário, para podermos apagá-lo da memória daqui a pouco.
+
+char letra = temp->dado;
+
+Copia a letra do primeiro da fila para a variável letra antes de destruir o nó.
+
+inicio = temp->proximo;
+
+O ponteiro inicio avança para o segundo elemento da fila.
+
+if (inicio == NULL) { fim = NULL; }
+
+Se só restava 1 pessoa na fila e ela acabou de sair, o inicio virou NULL. Porém, o ponteiro fim ainda estava apontando para o elemento que vai ser apagado, essa linha garante que, quando o ultimo elemento sai, o fim também volta a ser NULL, deixando a fila zerada de verdade.

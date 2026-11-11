@@ -19,7 +19,7 @@ Trabalho da disciplina MAC0122 - Princípios de desenvolvimento de algorítmos.
 
 ### Inserção e Remoção
 - [x] Pilha (vetor)
-- [ ] Pilha (lista ligada)
+- [x] Pilha (lista ligada)
 - [ ] Fila (vetor)
 - [ ] Fila (lista ligada)
 - [ ] Pilha (grafos)

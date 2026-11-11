@@ -1,0 +1,82 @@
+1. Tecnica: Last in First Out (LIFO) 
+2. Algoritmo:Pilha (implementação em listas ligadas) 
+3. Autores: Allen Newell, J. Clifford Shaw e Herbert A. Simon
+4. Data: 1955 - 1956
+5. Conceitos: pilhas (vetor), lista ligada. 
+6. Problema: criar um metodo de estrutura de dados em que o ultimo elemento a entrar deve ser o primeiro a sair sem um limite fixo nem desperdiçar memória.
+
+Vamos começar tratando de 2 limitações muito claras da aplicação anterior em vetores. 
+1 limite fixo : no documento anterior, o vetor precisa ter um tamanho fixo (pilha[0...N-1]), que, por exemplo, para N = 100, só podemos armazenar 100 itens, passando disso, causaria overflow.
+
+2 desperdicio de memória : para o mesmo exemplo de N = 100, se só guardarmos, por exemplo, 20 itens, teriamos desperdiçado 80 casa na memoria.
+
+No caso da lista ligada, ele começa sem nenhuma casa e pede e devolve mais casas ao computador conforme você empilha ou desempilha itens, resolvendo os dois problemas citados previamente. 
+
+Na lista ligada, os elementos não ficam lado a lado na memoria, eles ocupam qualquer espaço disponivel. Então, para acharmos esses elementos, associaremos ponteiros ao endereço deles, esse conjunto será chamado de nó. 
+
+para organizarmos, ao invés de uma variavel k, teremos um ponteiro chamado topo. Quando a pilha está vazia, topo aponta pra null, caso contrário, aponta pro elemento mais recentemente adicionado. 
+
+EXEMPLO : digamos que empilhamos X, depois Y e depois Z. a estrutura fica : 
+topo
+ |
+ v
+[ 'Z' | * ]  --->  [ 'Y' | * ]  --->  [ 'X' | NULL ]
+ (Topo atual)       (Embaixo do Z)     (Base da pilha)
+
+
+ Agora, vamos trazer as funções em C que fazem oque foi previamente explicado (nesse caso estaremos empilhando caracteres) : 
+
+ typedef struct No {
+    char dado;
+    struct No* proximo;
+} No; 
+cria um molde chamado No, que tem 2 variáveis internas : 
+char dado : guarda o caractere.
+struct No* proximo : guarda o endereço do struct No abaixo dele. 
+
+void empilha(char y) {
+    No* novo = (No*) malloc(sizeof(No));
+    novo->dado = y;
+    novo->proximo = topo;
+    topo = novo;
+}  
+sizeof(No) calcula quantos bytes um Nó precisa na memória.
+
+malloc(...) reserva o espaço calculado na memoria.
+
+No* novo guarda o endereço desse espaço.
+
+(->)  serve para acessar o que está dentro de um ponteiro de estrutura. Aqui, guardamos a letra y dentro do espaço novo, depois, fazemos a seta proximo da nova caixinha apontar para quem era o topo antigo.
+
+Agora que o novo nó já está conectado ao antigo topo, atualizamos o ponteiro topo oficial para apontar para esse novo nó. Ele passa a ser o topo da pilha.
+
+char desempilha(void) {
+    if (topo == NULL) {
+        printf("Erro: A pilha esta vazia!\n");
+        return '\0';
+    }
+    
+    No* temp = topo;
+    char letra = temp->dado;
+    topo = temp->proximo;
+    free(temp);
+    
+    return letra;
+}
+if (topo == NULL) { ... }
+
+Verifica se a pilha está vazia antes de tentar tirar algo. Se tentarmos acessar dados de um ponteiro NULL, o programa sofre uma falha de segmentação e fecha sozinho. Se estiver vazia, avisa o erro e retorna um caractere nulo.
+
+No* temp = topo;
+
+Criamos um ponteiro que segura o endereço do nó do topo atual. Precisamos dele porque vamos mudar o topo para o elemento de baixo, mas ainda precisamos saber onde estava o nó antigo para apagá-lo da memória.
+
+char letra = temp->dado;
+
+Copiamos a letra que está guardada no topo para uma variável, pois na linha 5 vamos destruir o nó da memória e perderíamos a letra se não a salvássemos antes.
+
+topo = temp->proximo;
+
+O topo oficial desce um degrau, passando a apontar para quem estava embaixo dele (temp->proximo).
+
+Depois, devolvemos a letra salva e a memoria guardada.

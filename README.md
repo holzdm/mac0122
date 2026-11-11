@@ -21,7 +21,7 @@ Trabalho da disciplina MAC0122 - Princípios de desenvolvimento de algorítmos.
 - [x] Pilha (vetor)
 - [x] Pilha (lista ligada)
 - [x] Fila (vetor)
-- [ ] Fila (lista ligada)
+- [x] Fila (lista ligada)
 - [ ] Pilha (grafos)
 - [ ] Fila (grafos)
 

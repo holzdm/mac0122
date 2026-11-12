@@ -10,7 +10,7 @@ Trabalho da disciplina MAC0122 - Princípios de desenvolvimento de algorítmos.
 - [x] Merge Sort (vetor)
 - [x] Heap Sort (vetor) 
 - [x] Quick Sort (vetor)
-- [ ] Radix Sort (vetor)
+- [x] Radix Sort (vetor)
 - [ ] ordenação por tentativa e erro
 
 ### Ordenação de nomes

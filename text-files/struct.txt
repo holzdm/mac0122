@@ -1,0 +1,55 @@
+Uma struct (abreviação de structure, inglês para estrutura) funciona em C como um pacote de variáveis, que podem até mesmo ter 
+tipos diferentes. Podemos, por exemplo, armazenar dados de uma pessoa em um struct: no mesmo "pacote", podemos armazenar CPF, endereço,
+idade e quaisquer dados tiver interesse, mesmo sendo de tipos diferentes. Isso é bastante útil na organização de informações e permite 
+usos mais sofisticados.
+
+Em C, declara-se uma struct da seguinte forma:
+
+struct pessoa {
+int NUSP;
+int CPF;
+char Letra;
+};
+
+As structs do tipo "pessoa" agora vão representar pacotes como descrito acima:
+
+struct pessoa {
+int NUSP;
+int CPF;
+char Letra;
+};
+struct pessoa Mateus; //cria uma struct da forma mostrada acima, com nome Mateus
+struct pessoa x; // cria uma struct da forma mostrada acima, com nome x
+
+Para acessar uma variável dentro do struct, chamo a struct seguida de um ponto e qual variável quero atualizar:
+
+Mateus.NUSP = 12345678;
+
+Para facilitar a escrita, posso definir a struct que criei como um tipo de dados específico (ficha, por exemplo). Veja:
+
+typedef struct pessoa ficha; //cria um tipo de dados com a struct que foi construída
+ficha Mateus; //cria uma ficha (tipo de dados) chamada "Mateus"
+
+Uma estrutura muito útil quando se trabalha com structs é o uso de ponteiros. Podemos definir por exemplo:
+
+ficha *p; //definimos um ponteiro p que aponta para uma struct
+ficha Mateus;
+p = &Mateus; //agora, p aponta para a ficha Mateus
+//posso usar o ponto para acessar variáveis da mesma forma:
+(*p).NUSP = 12345678; //define o NUSP de Mateus como 12345678
+
+Uma observação importante é que o ponto tem prioridade sobre o asterisco, então é necessário o uso de parênteses.
+
+Temos uma ferramenta muito útil e visualmente muito intuitiva para trabalhar com ponteiros em structs, que é a seta ->.
+Vale que:
+(*p).NUSP é equivalente a p->NUSP
+Não só o p->NUSP é mais curto como também permite uma visão intuitiva de "p aponta para NUSP" que facilita muito a execução do código!
+Essa notação será muito usada daqui pra frente.
+
+Referências:
+
+Projeto de Algoritmos em Linguagem C - Paulo Feofiloff
+Disponível em: https://users.ime.usp.br/~pf/algoritmos_em_grafos/aulas/grafos.html
+
+Programação em C/C++ - Márcio Pinho
+Disponível em: https://www.inf.pucrs.br/~pinho/LaproI/Structs/Structs.htm

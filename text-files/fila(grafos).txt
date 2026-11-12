@@ -1,0 +1,148 @@
+1. Tecnica: First-In-First-Out (FIFO) 
+2. Algoritmo:Fila (implementação em grafos) 
+3. Autores: Edward F. Moore
+4. Data: 1959
+5. Conceitos: listas (listas ligadas), grafos. 
+6. Problema: Achar o caminho mais curto em grafos não ponderados.
+
+A aplicação de uma fila sobre um grafo transforma uma rede arbitrária de conexões em uma estrutura organizada por camadas de distância. 
+Esse algoritmo, a busca em largura, calcula a distancia minima entre a origem e os outros pontos, formando, assim, a árvore de caminhos mínimos.
+
+A diferença principal entre essa aplicação e as outras vistas anteriormente é que vetores e listas ligadas são estruturas lineares, ou seja, existe apenas um caminho a seguir. Em um grafo, cada vértice pode se ramificar em vários outros e conter ciclos.
+
+Para explorar um grafo sem entrar em um loop e garantir que os pontos mais próximos sejam analisados primeiro, a fila trabalha em conjunto com a classificação dos vértices em três estados ao longo do tempo:
+Não descoberto (Inexplorado): O algoritmo ainda não sabe como chegar até este vértice.
+
+Descoberto: O vértice já foi alcançado, mas seus vizinhos ainda não foram inspecionados. No vetor da fila, são exatamente os elementos que estão entre os índices p e k - 1.
+
+Processado (Fechado): O vértice já saiu da fila e todos os seus vizinhos diretos já foram descobertos.
+
+Agora uma questão importante : Por que a fila garante o menor caminho e a pilha não?
+
+Porque a fila obedece a uma propriedade matemática: em qualquer instante, a fila contém apenas vértices de uma distância u seguidos por vértices de distância u + 1.
+
+exemplo: 
+A origem entra na fila com distância 0.
+Ao sair, ela coloca no fim da fila todos os seus vizinhos, que recebem distância 1.
+Nenhum vértice de distância 2 será processado antes que todos os vértices de distância 1 tenham saído da frente da fila.
+
+Para fazermos o código desse algoritmo usaremos 3 vetores: 
+fila[N] (com os índices p e u): Controla a ordem de expansão da fronteira.
+
+dist[N] (Vetor de Distâncias): Guarda quantas arestas são necessárias para ir da origem até cada vértice. 
+
+pai[N] (Vetor de Predecessores / Árvore de Busca): Guarda quem descobriu quem. Se o vértice x descobriu o vértice y, fazemos pai[y] = x. Isso permite reconstruir o trajeto exato de trás para frente (do destino até a origem).
+
+Agora, vou dividir o codigo final de um caso para aplicarmos os conceitos vistos.
+
+int grafo[6][6] = {
+    {  0, 1, 1, 0, 0, 0 },
+    {  0, 0, 0, 1, 1, 0 },
+    {  0, 0, 0, 0, 1, 1 },
+    {  0, 0, 0, 0, 0, 1 },
+    {  0, 0, 0, 0, 0, 1 },
+    {  0, 0, 0, 0, 0, 0 }
+};
+
+int fila[6];
+int p = 0, u = 0;
+int dist[6];
+int pai[6];
+
+int grafo[6][6] = { ... };: Cria uma matriz de 6 linhas por 6 colunas. Cada linha x e coluna y guarda 1 se houver uma aresta ligando o vértice x ao vértice y, ou 0 se não houver ligação.
+criamos os vetores fila, dist e pai, além de os dois marcadores de fila, p e u, começando no zero.
+
+
+void busca_em_largura(int origem) {
+    for (int i = 0; i < 6; i++) {
+        dist[i] = -1;
+        pai[i] = -1;
+    }
+
+    dist[origem] = 0;
+    pai[origem] = origem;
+    fila[u++] = origem;
+
+    while (p != u) {
+        int x = fila[p++];
+
+        for (int y = 0; y < 6; y++) {
+            if (grafo[x][y] == 1 && dist[y] == -1) {
+                dist[y] = dist[x] + 1;
+                pai[y] = x;
+                fila[u++] = y;
+            }
+        }
+    }
+}
+
+Laço for (i de 0 até 6 - 1): Percorre todas as 6 posições dos vetores antes de começar a busca.
+
+dist[i] = -1; e pai[i] = -1;: Preenche tudo com -1. Como não existe distância negativa, o valor -1 serve como um aviso de que o vértice ainda não foi visitado.
+
+dist[origem] = 0;: A distância do ponto de partida até ele mesmo é de 0 passos.
+
+pai[origem] = origem;: Como ninguém descobriu a origem, marcamos que o pai dela é ela mesma.
+
+fila[u++] = origem;: Enfileira a origem. Guarda o vértice 0 na gaveta fila[0] e aumenta o u para 1.
+
+while (p != u): Enquanto p for diferente de u, significa que ainda existem vértices esperando na fila. Quando p alcançar u, a fila esvaziou e o laço para.
+
+Laço for dos vizinhos (y de 0 até 6 - 1): Testa todos os vértices y do grafo para ver quais são vizinhos de x.
+
+if (grafo[x][y] == 1 && dist[y] == -1) :
+
+grafo[x][y] == 1: Existe uma seta saindo de x para y?
+dist[y] == -1: O vértice y ainda é inédito ?
+
+dist[y] = dist[x] + 1;: Se as duas respostas forem sim, a distância para chegar até y é a distância que levamos para chegar até x somada a 1 passo.
+
+pai[y] = x;: Anota no histórico que foi o vértice x quem descobriu o vértice y.
+
+fila[u++] = y;: Enfileira o vizinho. Coloca y no final da fila para que os vizinhos dele também sejam explorados mais tarde, e avança o u.
+
+void imprime_caminho(int origem, int destino) {
+    if (dist[destino] == -1) {
+        printf("Nao existe caminho de %d ate %d.\n", origem, destino);
+        return;
+    }
+
+    int caminho[V];
+    int t = 0;
+
+    int atual = destino;
+    while (atual != origem) {
+        caminho[t++] = atual;
+        atual = pai[atual];
+    }
+    caminho[t++] = origem;
+
+    printf("Menor caminho de %d ate %d (%d passos): ", origem, destino, dist[destino]);
+    while (t != 0) {
+        printf("%d", caminho[--t]);
+        if (t != 0) printf(" -> ");
+    }
+    printf("\n");
+}
+
+void imprime_caminho(int origem, int destino): Função que recebe o ponto inicial (0) e final (5) para mostrar a rota na tela.
+
+if (dist[destino] == -1): Se após a busca em largura a distância do destino continuou -1, é impossível chegar até lá. Imprime o aviso e encerra a função;.
+
+int caminho[V]; e int t = 0;: Cria uma pilha auxiliar chamada caminho e seu marcador de topo t = 0. Precisamos de uma pilha porque o vetor pai[] só sabe voltar do destino para a origem, e queremos imprimir na ordem inversa.
+
+int atual = destino;: Cria uma variável de rastreamento que começa no destino.
+
+while (atual != origem): Enquanto não voltarmos até a origem, repete os dois passos abaixo:
+
+caminho[t++] = atual;: Empilha o vértice atual no topo da pilha (usamos a pilha como recurso no printf, mas, essa e a parte de filas) e aumenta t.
+
+atual = pai[atual];: Dá um passo para trás na árvore genealógica (se atual era 5, olha pai[5] e descobre que agora atual passa a ser 2).
+
+caminho[t++] = origem;: Quando o while termina, atual chegou na origem. Essa linha empilha a origem no topo da pilha.
+
+while (t != 0): Enquanto a pilha não esvaziar (t diferente de zero):
+
+printf("%d", caminho[--t]);: Desempilha. Diminui t em 1 primeiro e imprime o número que estava no topo da pilha.
+
+if (t != 0) printf(" -> ");: Se ainda sobrou algum número na pilha (t ainda não chegou a zero), imprime uma setinha para separar os números. Quando for o último número, não imprime seta.

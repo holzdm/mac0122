@@ -23,7 +23,7 @@ Trabalho da disciplina MAC0122 - Princípios de desenvolvimento de algorítmos.
 - [x] Fila (vetor)
 - [x] Fila (lista ligada)
 - [x] Pilha (grafos)
-- [ ] Fila (grafos)
+- [x] Fila (grafos)
 
 ### Hashing
 - [ ] Espalhamento para conjunto de strings

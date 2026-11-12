@@ -1,0 +1,101 @@
+1. Tecnica: Last in First Out (LIFO)  
+2. Algoritmo:Pilha (implementação em grafos) 
+3. Autores: John Hopcroft e Robert Tarjan
+4. Data: 1971
+5. Conceitos: pilhas (listas ligadas), grafos, filas (grafos). 
+6. Problema: Achar o caminho mais curto em grafos não ponderados.
+
+Enquanto a fila atende os vértices por ordem de chegada, a pilha prioriza sempre o último vértice que acabou de ser descoberto.
+
+Avanço em Profundidade: Sempre que o algoritmo descobre um novo vizinho, esse vizinho vai para o topo da pilha e é explorado no passo seguinte, deixando os outros caminhos no fundo da pilha.
+Backtracking: Quando o algoritmo chega a um vértice que não possui mais vizinhos inéditos, ele desempilha, voltando automaticamente para a encruzilhada mais recente que ainda tinha caminhos pendentes na pilha.
+
+Como explicado na parte de filas,pilhas não calculam a distância mínima.
+
+Em compensação, a pilha resolve problemas que a fila não consegue resolver facilmente:
+
+Detecção de Ciclos e Dependências Circulares: Descobrir se uma rede ou conjunto de tarefas possui um loop fechado.
+
+Exploração de Labirintos e Jogos (Backtracking): Avançar até o fim de uma tentativa e voltar exatamente para a última bifurcação caso dê errado.
+
+Ordenação Topológica: Definir a ordem em que tarefas devem ser realizadas respeitando os pré-requisitos.
+
+Para controlar a Busca em Profundidade sem misturar outras estruturas, utilizamos três vetores:
+
+pilha : (com o índice t de topo): Controla os caminhos pendentes usando pilha[t++] para empilhar e pilha[--t] para desempilhar.
+visitado : Marca com 0 quem ainda não foi descoberto e com 1 quem já entrou na pilha, impedindo que o programa entre em loop infinito.
+pai : Guarda quem descobriu quem (pai[y] = x), permitindo rastrear o caminho percorrido do destino de volta até a origem.
+
+Codigo: 
+
+int grafo[6][6] = {
+    {  0, 1, 1, 0, 0, 0 }, 
+    {  0, 0, 0, 0, 0, 1 }, 
+    {  0, 0, 0, 1, 0, 0 }, 
+    {  0, 0, 0, 0, 1, 0 }, 
+    {  0, 0, 0, 0, 0, 1 }, 
+    {  0, 0, 0, 0, 0, 0 }  
+};
+
+int pilha[6];
+int t = 0; 
+
+int visitado[6]; 
+int pai[6];
+
+void busca_em_profundidade(int origem) {
+    for (int i = 0; i < 6; i++) {
+        visitado[i] = 0;
+        pai[i] = -1;
+    }
+
+    visitado[origem] = 1;
+    pai[origem] = origem;
+    pilha[t++] = origem;
+
+    printf("Ordem em que os vertices sairam da pilha (DFS): ");
+
+    while (t != 0) {
+        int x = pilha[--t];
+        printf("%d ", x);
+
+        for (int y = 0; y < V; y++) {
+            
+            if (grafo[x][y] == 1 && visitado[y] == 0) {
+                visitado[y] = 1; 
+                pai[y] = x;     
+                pilha[t++] = y;  
+            }
+        }
+    }
+    printf("\n\n");
+}
+
+void imprime_caminho_direto(int origem, int destino) {
+    if (visitado[destino] == 0) {
+        printf("Nao existe caminho de %d ate %d.\n", origem, destino);
+        return;
+    }
+
+    printf("Caminho encontrado pela Pilha (voltando de %d ate %d): ", destino, origem);
+
+    int atual = destino;
+    while (atual != origem) {
+        printf("%d <- ", atual);
+        atual = pai[atual];
+    }
+    printf("%d\n", origem);
+}
+Como já comentamos grande parte do código na parte de listas, focaremos nas diferenças entre eles. 
+
+int pilha[6]; e int t = 0;: Em vez de dois índices (p e u) andando em pontas opostas, temos apenas o marcador de topo t.
+
+pilha[t++] = origem;: Coloca a origem na gaveta 0 e sobe o topo t para 1.
+
+while (t != 0): Na fila, a condição de parada era p != u. Na pilha, a busca continua enquanto o topo t não voltar para a base 0.
+
+int x = pilha[--t];: Em vez de pegar o elemento mais antigo (fila[p++]), o pré-decremento --t recua para o elemento que acabou de ser inserido no passo anterior. 
+
+if (grafo[x][y] == 1 && visitado[y] == 0): Verifica se há ligação de x para y e se y nunca entrou na pilha antes.
+
+pilha[t++] = y;: Empilha o novo vizinho no topo para ser processado imediatamente na próxima volta do while.

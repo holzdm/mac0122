@@ -35,7 +35,7 @@ Trabalho da disciplina MAC0122 - Princípios de desenvolvimento de algorítmos.
 
 ### Definições
 - [x] Grafo
-- [ ] Estruturas de gráfos (árovre, ciclos, conexos, etc)
+- [x] Estruturas de gráfos (árovre, ciclos, conexos, etc)
 - [ ] Lista ligada
 - [ ] Pilha
 - [ ] Fila

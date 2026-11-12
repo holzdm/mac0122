@@ -1,3 +1,5 @@
+Conceitos: Grafos, Definições
+
 Seguem algumas definições de estruturas de grafos:
 
 1) Passeio 

@@ -42,7 +42,7 @@ Trabalho da disciplina MAC0122 - Princípios de desenvolvimento de algorítmos.
 - [ ] Hashing
 - [ ] Ordenação
 - [ ] Tipos 
-- [ ] Structs
+- [x] Structs
 
 ### Misc 
 - [ ] hanoi 

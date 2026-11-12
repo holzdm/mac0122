@@ -1,0 +1,47 @@
+Seguem algumas definições de estruturas de grafos:
+
+1) Passeio 
+É qualquer sequência de vértices {Vi, Vi+1, ..., Vj-1, Vj} que satisfaz VkVk+1 pertence a A (ou seja, existe uma aresta que liga Vk a Vk+1) para todo k entre 
+i e j-1.
+
+2) Caminho
+É todo passeio em que não há repetição de vértices.
+
+3) Grafo Conexo
+Diz-se que um grafo G é conexo se, dados quaisquer dois vértices Vi e Vj, existe um caminho entre eles.
+
+4) Ciclo
+Um ciclo em um grafo é a união entre um caminho representado por {Vi, Vi+1, ..., Vj-1, Vj} e a aresta VjVi. Ou seja, consigo "sair" de Vi 
+e "voltar" para ele sem repetir vértices.
+
+5) Subgrafo 
+É um grafo contido no grafo principal. Um subconjunto dos vértices junto com um subconjunto das arestas.
+
+6) Componente conexa
+É um subgrafo conexo.
+
+7) Árvore
+Um grafo é uma árvore se não tem ciclos e é conexo.
+
+8) Raiz
+É o primeiro nó que escolhemos analisar numa árvore.
+
+9) Profundidade de um nó
+É o tamanho do caminho entre o nó e a raiz numa árvore.
+
+10) Pais e filhos
+Dizemos que um nó V1 é filho de outro V2 em uma árvore se existe uma aresta ligando-os e se a profundidade de V1 é maior do que a de V2.
+
+11) Folha
+É um nó sem filhos.
+
+12) Árvore Binária
+É uma árvore em que cada nó tem no máximo dois filhos.
+
+Referências:
+
+Introdução às Estruturas de Dados: grafos e Arvores - Leônidas Brandão
+Disponível em: https://edisciplinas.usp.br/pluginfile.php/9699769/mod_resource/content/3/grafos_arvores_v1_4_2026_11_11.pdf
+
+Teoria dos Grafos Semana Olímpica 2025 - Rafael Filipe
+Disponível em: https://www.obm.org.br/content/uploads/2025/01/28_SO_Combinatoria_Teoria_dos_Grafos_N3_Rafael_Filipe.pdf

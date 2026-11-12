@@ -34,7 +34,7 @@ Trabalho da disciplina MAC0122 - Princípios de desenvolvimento de algorítmos.
 - [ ] Busca em profundidade (gráfos)
 
 ### Definições
-- [ ] Grafo
+- [x] Grafo
 - [ ] Estruturas de gráfos (árovre, ciclos, conexos, etc)
 - [ ] Lista ligada
 - [ ] Pilha

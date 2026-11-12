@@ -29,3 +29,16 @@ pre {
     color: #75715e;
     font-style: italic;
 }
+
+.igual {
+    color: #f92672;
+}
+
+.colchete {
+    color: #fd971f;
+    font-weight: bold;
+}
+
+.conteudo_colchete {
+    color: #ae81ff;
+}

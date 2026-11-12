@@ -3,36 +3,19 @@
 #include <string.h>
 #include <ctype.h>
 #include <dirent.h>
-
+#include "./filter-aux.c"
 #ifdef _WIN32
     #include <direct.h>
 #else
     #include <sys/stat.h>
 #endif
 
-void escreve_char_html(int c, FILE *saida) {
-    switch (c) {
-        case '<': fputs("&#60", saida); break;
-        case '>': fputs("&#62", saida); break;
-        case '&': fputs("&#38", saida); break;
-        default:  fputc(c, saida); break;
-    }
-}
-
-int palavra_reservada(const char *palavra, const char *vetor[]) {
-    for (int i = 0; vetor[i] != NULL; i++) {
-        if (strcmp(palavra, vetor[i]) == 0) {
-            return 1;
-        }
-    }
-    return 0; 
-}
-
 typedef enum {
     normal,
     comentario_linha,
     comentario_bloco,
-    string
+    string,
+    colchetes
 } estado;
 
 const char *tipos[] = {
@@ -42,7 +25,7 @@ const char *tipos[] = {
 };
 
 const char *comandos[] = {
-    "if", "else", "for", "while", "do", 
+    "if", "else", "for", "while", 
     "switch", "case", "break", "continue", "return", "default", 
     NULL
 };
@@ -87,6 +70,15 @@ void gera_html(FILE *entrada, FILE *saida) {
                             estado_atual = string;
                             break;
 
+                        case '=':
+                            fputs("<span class=\"igual\">=</span>", saida);
+                            break;
+
+                        case '[':
+                            fputs("<span class=\"colchete\">[</span><span class=\"conteudo_colchete\">", saida);
+                            estado_atual = colchetes;
+                            break;
+
                         case '/': {
                             int prox = fgetc(entrada);
                             if (prox == '/') {
@@ -108,6 +100,15 @@ void gera_html(FILE *entrada, FILE *saida) {
                             escreve_char_html(c, saida);
                             break;
                     }
+                }
+                break;
+
+            case colchetes:
+                if (c == ']') {
+                    fputs("</span><span class=\"colchete\">]</span>", saida);
+                    estado_atual = normal;
+                } else {
+                    escreve_char_html(c, saida);
                 }
                 break;
 
@@ -152,7 +153,7 @@ void gera_html(FILE *entrada, FILE *saida) {
         }
     }
 
-    // Fecha o span caso o arquivo termine no meio de uma string ou comentário
+    // Fecha o span caso o arquivo termine no meio de um estado aberto
     if (estado_atual != normal) {
         fputs("</span>", saida);
     }

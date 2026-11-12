@@ -37,11 +37,7 @@ Trabalho da disciplina MAC0122 - Princípios de desenvolvimento de algorítmos.
 - [x] Grafo
 - [x] Estruturas de gráfos (árovre, ciclos, conexos, etc)
 - [x] Lista ligada
-- [ ] Pilha
-- [ ] Fila
 - [ ] Hashing
-- [ ] Ordenação
-- [ ] Tipos 
 - [x] Structs
 
 ### Misc 

@@ -1,0 +1,60 @@
+Autores: Allen Newell, Cliff Shaw, e Herbert A. Simon 
+Data: 1956
+Conceitos: Structs, ponteiros, alocação dinâmica
+Problema: Construir uma lista sequenciada de elementos que pode ser editada, aumentada ou diminuída
+
+Uma lista ligada é uma aplicação muito esperta do struct: percebe-se que, se quisermos fazer uma lista sequenciada em que só importa
+um valor, podemos guardar esse valor em uma variável no struct e utilizar a outra variável para registrar o próximo elemento da lista 
+(isto é, o próximo struct), de modo que seja fácil acessá-lo. 
+Para fazer isso, definimos nosso struct da seguinte forma:
+
+struct no {
+int valor;
+struct no *prox;
+};
+
+Veja que "prox" é um ponteiro para um struct do tipo no, que contém um ponteiro por si também (para o prox). A notação vista no texto sobre
+structs torna isso ainda mais conveniente, pois podemos tomar:
+
+no->prox 
+
+como notação, que é bastante intuitiva para a construção de uma lista ligada.
+Da mesma forma, podemos tomar
+
+no->valor
+
+para acessar o valor do nó da lista
+Veja que a dinamicidade da lista ligada permite alterações nela de forma mais flexível do que um vetor, por exemplo, sendo essa uma vantagem
+interessante explorada em outros textos. 
+
+É interessante definirmos a "cabeça" e a "cauda" da lista: a cabeça é o último nó, que não aponta para nenhum outro, enquanto a cauda 
+(que também é chamada de endereço da lista), primeiro elemento, não tem ninguém apontando para ela. Definimos que:
+
+cabeca->prox = NULL;
+
+de modo que, para monitorar a chegada no fim da lista, só precisamos verificar se no->prox é NULL.
+Outro ponto interessante de listas ligadas é a facilidade para analisar próximas posições: assim como podemos fazer 
+
+no->prox;
+
+podemos também fazer
+
+no->prox->prox
+
+que equivale a ver duas posições a frente da lista. 
+
+Buscar elementos dentro de uma lista ligada é um processo relativamente simples: basta percorrer a lista com um laço verificando se 
+o elemento está presente em no->valor, o que deve repetir até que no->prox == NULL.
+Para adicionarmos e retirarmos elementos da lista ligada, precisamos tomar cuidado para corrigir os ponteiros, pois podemos acabar
+perdendo informações importantes. Mostraremos métodos com pilha e fila para realizar operações, mas, numa perspectiva intuitiva, o que
+precisamos é:
+1) ao tirar do fim da lista, o anterior à cabeça deve apontar para NULL agora (pois se torna cabeça),
+2) ao tirar do começo da lista, precisamos saber o endereço da nova "cauda" para entender onde a lista começa,
+3) ao adicionar no começo da lista, basta fazer com  que o novo elemento aponte para a antiga cauda e
+4) ao adicionar no final da lista, basta que a antiga cabeça aponte para a nova.
+É sempre importante, também, olhar para os casos degenerados, ou seja, em que a lista está vazia, ou que só tem um elemento, para 
+evitar possíveis problemas com os códigos.
+Os códigos em si serão construídos na aba de pilhas e filas.
+
+Esse tipo de remoção e adição muitas vezes tem complexidade constante (nem sempre), o que melhora consideravelmente o desempenho do programa
+e mostra uma vantagem em relação ao uso de vetores.

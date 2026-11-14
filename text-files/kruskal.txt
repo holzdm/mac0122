@@ -1,0 +1,15 @@
+1. Técnica: Método Guloso
+2. Algoritmo: Kruskal (árvore espalhada mínima)
+3. Autores: Joseph Kruskal
+4. Data: 1956
+5. Conceitos: Grafos, Árvores, recursividade, árvore espalhada mínima
+6. Problema: Dado um grafo não direcionado com custos nas arestas, determinar a árvore geradora de menor custo
+
+Se temos um grafo não direcionado com pesos nas suas arestas, queremos descobrir a árvore geradora de menor custo (ou seja, cuja soma
+dos custos das arestas é mínimo). Para isso, vamos analisar a construção de um grafo por um algoritmo guloso em que, a cada passo, 
+escolhemos uma aresta para adicionar no grafo. 
+Para fazer essa escolha, vamos utilizar o seguinte raciocínio:
+1) Toda árvore tem exatamente n-1 arestas, onde n é o número de vértices;
+2) A árvore tem que ser conexa;
+Isso nos permite intuir que, em um determinado passo, a melhor decisão é escolher a aresta de menor custo que une duas componentes conexas.
+Vamos, em breve, provar que isso funciona e que é um bom algoritmo. 

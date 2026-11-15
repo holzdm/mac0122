@@ -6,6 +6,34 @@ typedef struct {
     int custo;
 } Aresta;
 
+void inicializa(int familia[], int tamanho[], int n) {
+    for (int i = 0; i < n; i++) {
+        familia[i] = i; // no começo, cada vértice é sua própria família
+        tamanho[i] = 1;  // cada componente começa com tamanho 1
+    }
+}
+
+void union_f(int familia[], int tamanho[], int n, int A, int B) { //union é palavra reservada
+    if (A == B) return;
+    int maior, menor;
+    if (tamanho[A] >= tamanho[B]) {
+        maior = A;
+        menor = B;
+    } else {
+        maior = B;
+        menor = A;
+    }
+//aqui em cima já conseguimos quem é maior ou menor
+    for (int i = 0; i < n; i++) {
+        if (familia[i] == menor) {
+            familia[i] = maior;
+        }
+    }
+//aqui varremos o vetor todo e mudamos quem é do menor para ser do maior
+//na próxima, vamos só mudar os tamanhos, pois somamos os dois agora, já que unimos
+    tamanho[maior] += tamanho[menor];
+    tamanho[menor] = 0;
+}
 int comparar_arestas(const void *a, const void *b) {
     Aresta *arestaA = (Aresta *)a;
     Aresta *arestaB = (Aresta *)b;

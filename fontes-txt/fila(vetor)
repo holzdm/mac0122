@@ -12,10 +12,14 @@ vamos supor que nossa lista será implementada num vetor de tamanho fila[0..N-1]
 A fila estará vazia se p = k e cheia se k = N.
 
 Para tirar (delete, de-queue),considerando, claramente, que a fila não está vazia, um elemento da fila basta fazer: 
+@c
 x = fila[p++];  
+@c
 O programa acessa a casa p do vetor fila e guarda o valor encontrado dentro da variavel x. Depois que a leitura foi feita, o valor de p aumenta em 1 (p = p + 1), passando a apontar para o próximo elemento da fila.
 
 Para colocar (insert, en-queue), um objeto y na fila basta fazer : 
 
+@c
  fila[u++] = y; 
+@c
  O programa armazena y na casa atual u, depois, soma 1  um para avançar a casa. 

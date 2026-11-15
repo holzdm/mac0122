@@ -14,6 +14,7 @@ Com essa propriedade satisfeita, o algoriítmo troca o elemento raíz com o últ
 
 Portanto, a ordenação de um dos ítens do vetor gasta algo da ordem de log(n) pela propriedade da árvore, e é necessário encaixar cada um dos ítens no vetor ordenado (n ítens). Dessa forma, a complexidade desse algorítmo é n*log(n).
 
+@c
 void troca(int a, int b){
     int aux = a;
     a = b
@@ -48,3 +49,4 @@ void heapsort(int v[], int fim){
         peneira(v, n-1);
     }
 }
+@c

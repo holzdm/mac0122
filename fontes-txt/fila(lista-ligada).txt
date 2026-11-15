@@ -21,10 +21,13 @@ Na pilha, o elemento novo apontava para trás (para quem estava embaixo dele).
 
 Na fila, cada elemento aponta para quem chegou depois dele (quem está atrás dele na fila). Quando o X for atendido e sair, o ponteiro inicio segue a seta do X para descobrir que o Y é o novo primeiro da fila. Já o último da fila (Z) aponta sempre para NULL, pois não há ninguém atrás dele.
 
+@c
 No* inicio = NULL;
 No* fim = NULL;
+@c
  Dois ponteiros globais: um para o início (p) e outro para o fim (k)
 
+@c
  void enfileira(char y) {
     No* novo = (No*) malloc(sizeof(No));
     novo->dado = y;
@@ -38,25 +41,35 @@ No* fim = NULL;
     fim = novo;
 }
 novo->dado = y;
+@c
 
 Coloca a letra recebida dentro da caixinha nova.
 
+@c
 novo->proximo = NULL;
+@c
 
 Como essa nova casa vai entrar no final da fila, ainda não existe ninguém atrás dela. Por isso, o ponteiro proximo dela nasce apontando para NULL.
 
+@c
 if (inicio == NULL) { inicio = novo; }
+@c
 
 Se a fila estava vazia, a nova informação passa a ser a primeira da fila (inicio = novo).
 
+@c
 else { fim->proximo = novo; }
+@c
 
 Se já havia gente na fila: Pegamos a casa que era a última até agora e fazemos a seta proximo dela apontar para a casa novo.
 
+@c
 fim = novo;
+@c
 
 Atualizamos o marcador oficial de fim da fila para apontar para o novo nó que acabou de entrar.
 
+@c
 char desenfileira(void) {
     if (inicio == NULL) {
         printf("Erro: A fila esta vazia!\n");
@@ -76,21 +89,30 @@ char desenfileira(void) {
 }
 
 if (inicio == NULL) { ... }
+@c
 
 Proteção contra fila vazia. Se não há ninguém no inicio, avisa o erro e encerra.
 
+@c
 No* temp = inicio;
+@c
 
 Salva o endereço do primeiro nó da fila em um ponteiro temporário, para podermos apagá-lo da memória daqui a pouco.
 
+@c
 char letra = temp->dado;
+@c
 
 Copia a letra do primeiro da fila para a variável letra antes de destruir o nó.
 
+@c
 inicio = temp->proximo;
+@c
 
 O ponteiro inicio avança para o segundo elemento da fila.
 
+@c
 if (inicio == NULL) { fim = NULL; }
+@c
 
 Se só restava 1 pessoa na fila e ela acabou de sair, o inicio virou NULL. Porém, o ponteiro fim ainda estava apontando para o elemento que vai ser apagado, essa linha garante que, quando o ultimo elemento sai, o fim também volta a ser NULL, deixando a fila zerada de verdade.

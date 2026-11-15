@@ -11,6 +11,7 @@ Essa implementação faz essa divisão da seguinte forma: primeiro troca-se o pi
 Nota-se que a escolha do pivô influencia diretamente no tempo necessário para que o algorítmo funcione. Se o pivô escolhido for a mediana dos valores do vetor, ele funcionará de forma parecida com o mergesort, portanto, tendo complexidade n*log(n) pelos mesmos motivos. no entanto, se o pivô escolhido for o maior ou o menor elemento do vetor(pior caso), o tempo necessário escala com O(n²). Além disso, esse algorítmo não é estável, ou seja, não vale que elementos que possuam valores iguais sempre mantém a ordem inicial após a ordenação. 
 
 
+@c
 void quicksort(int *vetor, int inicio, int fim){
     if (inicio>=fim) return;
     int pivo=vetor[fim];
@@ -37,3 +38,4 @@ void quicksort(int *vetor, int inicio, int fim){
     quicksort(vetor, inicio, maioresq-1);
     quicksort(vetor, maioresq+1, fim);
 }
+@c

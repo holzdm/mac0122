@@ -14,6 +14,7 @@ typedef enum {
     normal,
     comentario_linha,
     comentario_bloco,
+    pragma,
     string,
     colchetes
 } estado;
@@ -30,8 +31,25 @@ const char *comandos[] = {
     NULL
 };
 
+static void descarrega_buffer(char *buffer, int *i, FILE *saida) {
+    if (*i == 0) {
+        return;
+    }
+
+    buffer[*i] = '\0';
+    if (palavra_reservada(buffer, tipos)) {
+        fprintf(saida, "<span class=\"tipo\">%s</span>", buffer);
+    } else if (palavra_reservada(buffer, comandos)) {
+        fprintf(saida, "<span class=\"comando\">%s</span>", buffer);
+    } else {
+        fputs(buffer, saida);
+    }
+    *i = 0;
+}
+
 void gera_html(FILE *entrada, FILE *saida) {
     estado estado_atual = normal;
+    int colorindo = 0;
     char buffer[100] = {0};
     int i = 0;
     int c;
@@ -47,22 +65,36 @@ void gera_html(FILE *entrada, FILE *saida) {
     fputs("<body>\n<pre>\n", saida);
 
     while ((c = fgetc(entrada)) != EOF) {
+        if (c == '@') {
+            int prox = fgetc(entrada);
+            if (prox == 'c') {
+                if (colorindo) {
+                    descarrega_buffer(buffer, &i, saida);
+                    if (estado_atual != normal) {
+                        fputs("</span>", saida);
+                    }
+                }
+                colorindo = !colorindo;
+                estado_atual = normal;
+                c_anterior = 0;
+                continue;
+            }
+            if (prox != EOF) {
+                ungetc(prox, entrada);
+            }
+        }
+
+        if (!colorindo) {
+            escreve_char_html(c, saida);
+            continue;
+        }
+
         switch (estado_atual) {
             case normal:
                 if (isalnum(c) || c == '_') {
                     buffer[i++] = c;
                 } else {
-                    if (i > 0) {
-                        buffer[i] = '\0';
-                        if (palavra_reservada(buffer, tipos)) {
-                            fprintf(saida, "<span class=\"tipo\">%s</span>", buffer);
-                        } else if (palavra_reservada(buffer, comandos)) {
-                            fprintf(saida, "<span class=\"comando\">%s</span>", buffer);
-                        } else {
-                            fputs(buffer, saida);
-                        }
-                        i = 0;
-                    }
+                    descarrega_buffer(buffer, &i, saida);
 
                     switch (c) {
                         case '"':
@@ -72,6 +104,11 @@ void gera_html(FILE *entrada, FILE *saida) {
 
                         case '=':
                             fputs("<span class=\"igual\">=</span>", saida);
+                            break;
+
+                        case '#':
+                            fputs("<span class=\"pragma\">#", saida);
+                            estado_atual = pragma;
                             break;
 
                         case '[':
@@ -130,6 +167,16 @@ void gera_html(FILE *entrada, FILE *saida) {
                 }
                 break;
 
+            case pragma:
+                if (c == '\n') {
+                    fputs("</span>", saida);
+                    escreve_char_html(c, saida);
+                    estado_atual = normal;
+                } else {
+                    escreve_char_html(c, saida);
+                }
+                break;
+
             case comentario_bloco:
                 escreve_char_html(c, saida);
                 if (c_anterior == '*' && c == '/') {
@@ -142,19 +189,10 @@ void gera_html(FILE *entrada, FILE *saida) {
     }
 
     // Descarrega eventual palavra que ficou no buffer antes do EOF
-    if (i > 0) {
-        buffer[i] = '\0';
-        if (palavra_reservada(buffer, tipos)) {
-            fprintf(saida, "<span class=\"tipo\">%s</span>", buffer);
-        } else if (palavra_reservada(buffer, comandos)) {
-            fprintf(saida, "<span class=\"comando\">%s</span>", buffer);
-        } else {
-            fputs(buffer, saida);
-        }
-    }
+    descarrega_buffer(buffer, &i, saida);
 
     // Fecha o span caso o arquivo termine no meio de um estado aberto
-    if (estado_atual != normal) {
+    if (colorindo && estado_atual != normal) {
         fputs("</span>", saida);
     }
 
@@ -164,7 +202,7 @@ void gera_html(FILE *entrada, FILE *saida) {
 }
 
 int main(void) {
-    const char *pasta_entrada = "../text-files";
+    const char *pasta_entrada = "../fontes-txt";
     const char *pasta_saida = "filter-output";
 
     #ifdef _WIN32

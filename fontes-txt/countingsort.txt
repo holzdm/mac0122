@@ -10,6 +10,7 @@ Ele funciona de forma bem diferente dos outros, e seu tempo de execução depend
 
 Implementação em C: O algorítmo itera por uma sequência de índices e do vetor e, a cada índice, usa o valor do elemento como índice para um segundo vetor fp[] (esse segundo vetor será chamado vetor de frequências parciais). Ao fim da primeira iteração, as frequencias de cada elemento i estão em fp[i+1]. Após isso, o algorítmo calcula a frequência acumulada para cada índice (a soma da frequência dele com todas as anteriores). Assim, se quisermos colocar um elemento i na posição correta do vetor, basta olhar pra fp[i]. Esse elemento conterá a frequência f de todos os números menores ou iguais a ele no vetor. Usando esses f elementos pra preencher o vetor ordenado, obteremos um vetor ordenado das posições [v0] até v[f-1]. Portanto, basta colocar o elemento i na posição v[f] e aumentar em 1 o índice do vetor fp para que o próximo elemento possa ser encaixado no índice correto. Ao fim dessa iteração, só percorrer todo o vetor ordenado e substituir as entradas do vetor original pelas entradas do ordenado. A complexidade desse algorítmo depende da cardinalidade do conjunto de índices e do tamanho do vetor de forma que a complexidade em forma big O é O(n+r). Se r é constante, é da ordem de O(n).
 
+@c
 void countingsort(int *v, int n, int R){
     int r;
     int *fp, *aux;
@@ -37,3 +38,4 @@ void countingsort(int *v, int n, int R){
     free (fp);
     free (aux);
 }
+@c

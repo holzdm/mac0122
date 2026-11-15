@@ -35,6 +35,7 @@ pai[N] (Vetor de Predecessores / Árvore de Busca): Guarda quem descobriu quem. 
 
 Agora, vou dividir o codigo final de um caso para aplicarmos os conceitos vistos.
 
+@c
 int grafo[6][6] = {
     {  0, 1, 1, 0, 0, 0 },
     {  0, 0, 0, 1, 1, 0 },
@@ -48,11 +49,13 @@ int fila[6];
 int p = 0, u = 0;
 int dist[6];
 int pai[6];
+@c
 
 int grafo[6][6] = { ... };: Cria uma matriz de 6 linhas por 6 colunas. Cada linha x e coluna y guarda 1 se houver uma aresta ligando o vértice x ao vértice y, ou 0 se não houver ligação.
 criamos os vetores fila, dist e pai, além de os dois marcadores de fila, p e u, começando no zero.
 
 
+@c
 void busca_em_largura(int origem) {
     for (int i = 0; i < 6; i++) {
         dist[i] = -1;
@@ -75,6 +78,7 @@ void busca_em_largura(int origem) {
         }
     }
 }
+@c
 
 Laço for (i de 0 até 6 - 1): Percorre todas as 6 posições dos vetores antes de começar a busca.
 
@@ -90,7 +94,9 @@ while (p != u): Enquanto p for diferente de u, significa que ainda existem vért
 
 Laço for dos vizinhos (y de 0 até 6 - 1): Testa todos os vértices y do grafo para ver quais são vizinhos de x.
 
+@c
 if (grafo[x][y] == 1 && dist[y] == -1) :
+@c
 
 grafo[x][y] == 1: Existe uma seta saindo de x para y?
 dist[y] == -1: O vértice y ainda é inédito ?
@@ -101,6 +107,7 @@ pai[y] = x;: Anota no histórico que foi o vértice x quem descobriu o vértice 
 
 fila[u++] = y;: Enfileira o vizinho. Coloca y no final da fila para que os vizinhos dele também sejam explorados mais tarde, e avança o u.
 
+@c
 void imprime_caminho(int origem, int destino) {
     if (dist[destino] == -1) {
         printf("Nao existe caminho de %d ate %d.\n", origem, destino);
@@ -124,6 +131,7 @@ void imprime_caminho(int origem, int destino) {
     }
     printf("\n");
 }
+@c
 
 void imprime_caminho(int origem, int destino): Função que recebe o ponto inicial (0) e final (5) para mostrar a rota na tela.
 

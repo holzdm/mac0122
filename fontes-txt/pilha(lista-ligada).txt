@@ -26,20 +26,24 @@ topo
 
  Agora, vamos trazer as funções em C que fazem oque foi previamente explicado (nesse caso estaremos empilhando caracteres) : 
 
+@c
  typedef struct No {
     char dado;
     struct No* proximo;
 } No; 
+@c
 cria um molde chamado No, que tem 2 variáveis internas : 
 char dado : guarda o caractere.
 struct No* proximo : guarda o endereço do struct No abaixo dele. 
 
+@c
 void empilha(char y) {
     No* novo = (No*) malloc(sizeof(No));
     novo->dado = y;
     novo->proximo = topo;
     topo = novo;
 }  
+@c
 sizeof(No) calcula quantos bytes um Nó precisa na memória.
 
 malloc(...) reserva o espaço calculado na memoria.
@@ -50,6 +54,7 @@ No* novo guarda o endereço desse espaço.
 
 Agora que o novo nó já está conectado ao antigo topo, atualizamos o ponteiro topo oficial para apontar para esse novo nó. Ele passa a ser o topo da pilha.
 
+@c
 char desempilha(void) {
     if (topo == NULL) {
         printf("Erro: A pilha esta vazia!\n");
@@ -64,18 +69,25 @@ char desempilha(void) {
     return letra;
 }
 if (topo == NULL) { ... }
+@c
 
 Verifica se a pilha está vazia antes de tentar tirar algo. Se tentarmos acessar dados de um ponteiro NULL, o programa sofre uma falha de segmentação e fecha sozinho. Se estiver vazia, avisa o erro e retorna um caractere nulo.
 
+@c
 No* temp = topo;
+@c
 
 Criamos um ponteiro que segura o endereço do nó do topo atual. Precisamos dele porque vamos mudar o topo para o elemento de baixo, mas ainda precisamos saber onde estava o nó antigo para apagá-lo da memória.
 
+@c
 char letra = temp->dado;
+@c
 
 Copiamos a letra que está guardada no topo para uma variável, pois na linha 5 vamos destruir o nó da memória e perderíamos a letra se não a salvássemos antes.
 
+@c
 topo = temp->proximo;
+@c
 
 O topo oficial desce um degrau, passando a apontar para quem estava embaixo dele (temp->proximo).
 

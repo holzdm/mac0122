@@ -9,6 +9,7 @@ O algorítmo selectionsort acha o menor elemento do vetor e troca ele diretament
 Como o algorítmo itera para todos os índices do vetor, e a cada iteração o vetor é percorrído até o final, a complexidade desse algorítmo é O(n²). 
 
 
+@c
 void selectionsort(int *v, int fim){
     for(int i=0;i<fim-1;i++){
         int min = i;
@@ -22,3 +23,4 @@ void selectionsort(int *v, int fim){
         }
     }
 }
+@c

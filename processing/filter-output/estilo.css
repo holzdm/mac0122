@@ -30,6 +30,11 @@ pre {
     font-style: italic;
 }
 
+.pragma {
+    color: #a6e22e;
+    font-weight: bold;
+}
+
 .igual {
     color: #f92672;
 }

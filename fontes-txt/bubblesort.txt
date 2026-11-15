@@ -11,7 +11,8 @@ Para cada valor de fim (n vezes), o iterador percorre o vetor inteiro e faz 1 co
 
 Implementação em C: a função recebe um ponteiro para vetor e um inteiro que define o último índice que deve ser ordenado. Ela não retorna resultado, apenas altera diretamente o vetor.
 
-
+@c
+#include <stdio.h>
 void bubblesort(int *vetor, int fim){
     int aux=0;
     while(fim > 1){
@@ -26,3 +27,4 @@ void bubblesort(int *vetor, int fim){
     }
     
 }
+@c

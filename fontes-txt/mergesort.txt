@@ -9,6 +9,7 @@ O algorítmo mergesort é do tipo recursivo e usa da divisão e conquista para o
 O invariante da função intercala (merge) é que no início da junção, os dois subvetores já estão ordenados, tornando a união muito mais simples. 
 Esse algorítmo divide o vetor em dois vetores menores até que o tamanho dos vetores seja igual a 1. Portanto, a quantidade de vezes que ele é dividido é calcualda pela equação: n / (2^qtde) = 1. Assim, nota-se que a quantidade de divisões é log2(n). Por fim, para intercalar cada vetor, é necessário percorrê-lo até o fim uma vez (da ordem de n). Como para cada divisão é necessário intercalar os subvetores, esse algorítmo é da ordem de n*log(n).  
 
+@c
 void intercala(int *vetor, int inicio, int meio, int tamanho){
     int tamanhoesq=meio-inicio+1;
     int tamanhodir=tamanho-meio;
@@ -47,3 +48,4 @@ void mergesort(int *vetor, int inicio, int tamanho){
         intercala(vetor, inicio, meio, tamanho);
     }
 }
+@c

@@ -10,11 +10,15 @@ Primeiro, devemos definir oque é pilha. Pilha é uma estrutura de dados que per
 Para mostrar a aplicação em um vetor, vamos supor que nossa pilha está em um vetor pilha[0...N-1] e ocupa a parte  pilha[0...k-1]. Logicamente, k-1 indica o topo da lista e, se k = 0 a pilha está vazia, e se k = N, a pilha está cheia.
 
 Para remover um item da pilha, realizaremos a operação desempilhar ( pop ), dada por  : 
+@c
    return pilha[--t];
+@c
 
 O codigo, basicamente, diminui o valor de t em 1 casa, fazendo com que o ultimo elemento da pilha não faça mais parte dela. 
 
 Para adicionar um item na pilha, usa-se a operação empilhar (push), dada por : 
+@c
    pilha[t++] = y;
+@c
 
 O codigo aumenta o valor de t em uma casa, e, nesse novo elemento da pilha, coloca y.

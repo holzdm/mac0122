@@ -5,14 +5,17 @@ usos mais sofisticados.
 
 Em C, declara-se uma struct da seguinte forma:
 
+@c
 struct pessoa {
 int NUSP;
 int CPF;
 char Letra;
 };
+@c
 
 As structs do tipo "pessoa" agora vão representar pacotes como descrito acima:
 
+@c
 struct pessoa {
 int NUSP;
 int CPF;
@@ -20,23 +23,30 @@ char Letra;
 };
 struct pessoa Mateus; //cria uma struct da forma mostrada acima, com nome Mateus
 struct pessoa x; // cria uma struct da forma mostrada acima, com nome x
+@c
 
 Para acessar uma variável dentro do struct, chamo a struct seguida de um ponto e qual variável quero atualizar:
 
+@c
 Mateus.NUSP = 12345678;
+@c
 
 Para facilitar a escrita, posso definir a struct que criei como um tipo de dados específico (ficha, por exemplo). Veja:
 
+@c
 typedef struct pessoa ficha; //cria um tipo de dados com a struct que foi construída
 ficha Mateus; //cria uma ficha (tipo de dados) chamada "Mateus"
+@c
 
 Uma estrutura muito útil quando se trabalha com structs é o uso de ponteiros. Podemos definir por exemplo:
 
+@c
 ficha *p; //definimos um ponteiro p que aponta para uma struct
 ficha Mateus;
 p = &Mateus; //agora, p aponta para a ficha Mateus
 //posso usar o ponto para acessar variáveis da mesma forma:
 (*p).NUSP = 12345678; //define o NUSP de Mateus como 12345678
+@c
 
 Uma observação importante é que o ponto tem prioridade sobre o asterisco, então é necessário o uso de parênteses.
 

@@ -8,20 +8,26 @@ um valor, podemos guardar esse valor em uma variável no struct e utilizar a out
 (isto é, o próximo struct), de modo que seja fácil acessá-lo. 
 Para fazer isso, definimos nosso struct da seguinte forma:
 
+@c
 struct no {
 int valor;
 struct no *prox;
 };
+@c
 
 Veja que "prox" é um ponteiro para um struct do tipo no, que contém um ponteiro por si também (para o prox). A notação vista no texto sobre
 structs torna isso ainda mais conveniente, pois podemos tomar:
 
+@c
 no->prox 
+@c
 
 como notação, que é bastante intuitiva para a construção de uma lista ligada.
 Da mesma forma, podemos tomar
 
+@c
 no->valor
+@c
 
 para acessar o valor do nó da lista
 Veja que a dinamicidade da lista ligada permite alterações nela de forma mais flexível do que um vetor, por exemplo, sendo essa uma vantagem
@@ -30,16 +36,22 @@ interessante explorada em outros textos.
 É interessante definirmos a "cabeça" e a "cauda" da lista: a cabeça é o último nó, que não aponta para nenhum outro, enquanto a cauda 
 (que também é chamada de endereço da lista), primeiro elemento, não tem ninguém apontando para ela. Definimos que:
 
+@c
 cabeca->prox = NULL;
+@c
 
 de modo que, para monitorar a chegada no fim da lista, só precisamos verificar se no->prox é NULL.
 Outro ponto interessante de listas ligadas é a facilidade para analisar próximas posições: assim como podemos fazer 
 
+@c
 no->prox;
+@c
 
 podemos também fazer
 
+@c
 no->prox->prox
+@c
 
 que equivale a ver duas posições a frente da lista. 
 

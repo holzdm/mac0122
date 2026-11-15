@@ -28,6 +28,7 @@ pai : Guarda quem descobriu quem (pai[y] = x), permitindo rastrear o caminho per
 
 Codigo: 
 
+@c
 int grafo[6][6] = {
     {  0, 1, 1, 0, 0, 0 }, 
     {  0, 0, 0, 0, 0, 1 }, 
@@ -86,6 +87,7 @@ void imprime_caminho_direto(int origem, int destino) {
     }
     printf("%d\n", origem);
 }
+@c
 Como já comentamos grande parte do código na parte de listas, focaremos nas diferenças entre eles. 
 
 int pilha[6]; e int t = 0;: Em vez de dois índices (p e u) andando em pontas opostas, temos apenas o marcador de topo t.

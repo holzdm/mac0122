@@ -1,3 +1,6 @@
 /processing/filter-output/*
 !/processing/filter-output/estilo.css
 !/processing/filter-output/*.html
+/fontes-c/bin/
+/fontes-c/*.o
+/fontes-c/*.a

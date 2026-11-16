@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto - MAC0122</title>
+  <link rel="stylesheet" href="../../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="../../output/index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="../../output/index.html">Início</a></li>
+        <li><a href="../../output/tecnicas.html">Técnicas</a></li>
+        <li><a href="../../output/complexidades.html">Complexidade</a></li>
+        <li><a href="../../output/algoritmos.html">Algoritmos</a></li>
+        <li><a href="../../output/definicoes.html">Definições</a></li>
+        <li><a href="../../output/autores.html">Autores</a></li>
+        <li><a href="../../output/datas.html">Datas</a></li>
+        <li><a href="../../output/conceitos.html">Conceitos</a></li>
+        <li><a href="../../output/problemas.html">Problemas</a></li>
+        <li><a href="../../output/referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a class="voltar pagina-voltar" href="../../output/index.html">&larr; Voltar ao índice</a>
+<pre>
+1. Técnica: Outro
+2. Algoritmo: Fila (Implementação em Vetores)
+3. Autores: Agner Krarup Erlang / David G. Kendall
+4. Data: 1909/1953 
+5. Conceitos: Vetor
+6. Problema: Estruturas: criar um metodo de estrutura de dados em que o primeiro elemento a entrar deve ser o primeiro a sair (FIFO)
+7. Complexidade: O(1)
+
+Começaremos definindo oque é fila. Fila é uma estrutura de dados dinâmica que admite adição e remoção de novos elementos, de maneira que a remoção sempre ocorra com o elemento mais antigo da fila.
+
+vamos supor que nossa lista será implementada num vetor de tamanho fila[0..N-1], e que essa fila ocupa fila[p..k-1], em que o primeiro elemento está na posição p e o ultimo na k-1.
+
+A fila estará vazia se p = k e cheia se k = N.
+
+Para tirar (delete, de-queue),considerando, claramente, que a fila não está vazia, um elemento da fila basta fazer: 
+
+x <span class="igual">=</span> fila<span class="colchete">[</span><span class="conteudo_colchete">p++</span><span class="colchete">]</span>;  
+
+O programa acessa a casa p do vetor fila e guarda o valor encontrado dentro da variavel x. Depois que a leitura foi feita, o valor de p aumenta em 1 (p = p + 1), passando a apontar para o próximo elemento da fila.
+
+Para colocar (insert, en-queue), um objeto y na fila basta fazer : 
+
+
+ fila<span class="colchete">[</span><span class="conteudo_colchete">u++</span><span class="colchete">]</span> <span class="igual">=</span> y; 
+
+ O programa armazena y na casa atual u, depois, soma 1  um para avançar a casa. 
+
+</pre>
+</body>
+</html>

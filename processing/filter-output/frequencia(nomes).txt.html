@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto - MAC0122</title>
+  <link rel="stylesheet" href="../../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="../../output/index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="../../output/index.html">Início</a></li>
+        <li><a href="../../output/tecnicas.html">Técnicas</a></li>
+        <li><a href="../../output/complexidades.html">Complexidade</a></li>
+        <li><a href="../../output/algoritmos.html">Algoritmos</a></li>
+        <li><a href="../../output/definicoes.html">Definições</a></li>
+        <li><a href="../../output/autores.html">Autores</a></li>
+        <li><a href="../../output/datas.html">Datas</a></li>
+        <li><a href="../../output/conceitos.html">Conceitos</a></li>
+        <li><a href="../../output/problemas.html">Problemas</a></li>
+        <li><a href="../../output/referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a class="voltar pagina-voltar" href="../../output/index.html">&larr; Voltar ao índice</a>
+<pre>
+1. Técnica: Outro
+2. Algoritmo: Contagem de Frequência de Nomes
+3. Autores: Adaptação didática, sem atribuição histórica nesta ficha
+4. Data: Não especificada nesta ficha
+5. Conceitos: Vetor, strcmp, Ordenação, Frequência
+6. Problema: Frequência: Informar quantas vezes cada nome aparece em uma sequência e apresentar os nomes em ordem lexicográfica.
+7. Complexidade: O(n² L)
+
+Depois de ordenar os nomes, todas as ocorrências de um mesmo texto ficam juntas. Assim, basta percorrer o vetor, contar cada grupo de nomes iguais e imprimir uma linha por grupo.
+
+Por exemplo, {"Bia", "Ana", "Bia", "Caio", "Ana", "Bia"} passa a ser {"Ana", "Ana", "Bia", "Bia", "Bia", "Caio"}. As frequências são Ana: 2, Bia: 3 e Caio: 1.
+
+Implementação em C: esta versão inclui a ordenação para poder ser usada sozinha. As strings devem ser válidas e terminadas em '\0'. O vetor de ponteiros é reorganizado; os textos não são alterados.
+
+
+<span class="pragma">#include &#60;stdio.h&#62;</span>
+<span class="pragma">#include &#60;string.h&#62;</span>
+
+<span class="tipo">void</span> frequencia_nomes(<span class="tipo">const</span> <span class="tipo">char</span> *nomes<span class="colchete">[</span><span class="conteudo_colchete"></span><span class="colchete">]</span>, <span class="tipo">int</span> n){
+    <span class="comando">for</span>(<span class="tipo">int</span> fim <span class="igual">=</span> n; fim &#62; 1; fim--){
+        <span class="tipo">int</span> trocou <span class="igual">=</span> 0;
+        <span class="comando">for</span>(<span class="tipo">int</span> i <span class="igual">=</span> 0; i &#60; fim - 1; i++){
+            <span class="comando">if</span> (strcmp(nomes<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>, nomes<span class="colchete">[</span><span class="conteudo_colchete">i + 1</span><span class="colchete">]</span>) &#62; 0){
+                <span class="tipo">const</span> <span class="tipo">char</span> *aux <span class="igual">=</span> nomes<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>;
+                nomes<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span> <span class="igual">=</span> nomes<span class="colchete">[</span><span class="conteudo_colchete">i + 1</span><span class="colchete">]</span>;
+                nomes<span class="colchete">[</span><span class="conteudo_colchete">i + 1</span><span class="colchete">]</span> <span class="igual">=</span> aux;
+                trocou <span class="igual">=</span> 1;
+            }
+        }
+        <span class="comando">if</span>(!trocou)<span class="comando">break</span>;
+    }
+    <span class="tipo">int</span> i <span class="igual">=</span> 0;
+    <span class="comando">while</span> (i &#60; n){
+        <span class="tipo">int</span> j <span class="igual">=</span> i + 1;
+        <span class="comando">while</span>(j &#60; n &#38;&#38; strcmp(nomes<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>, nomes<span class="colchete">[</span><span class="conteudo_colchete">j</span><span class="colchete">]</span>) <span class="igual">=</span><span class="igual">=</span> 0)j++;
+        printf(<span class="string">"%s: %d\n"</span>, nomes<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>, j - i);
+        i <span class="igual">=</span> j;
+    }
+}
+
+
+i marca o primeiro elemento do grupo. j avança até o primeiro nome diferente ou até o fim do vetor. Portanto, j - i é a quantidade de ocorrências. Ao definir i = j, começamos exatamente no próximo grupo, sem contar nomes duas vezes. Se n for zero, nenhum acesso ao vetor será feito.
+
+O invariante da contagem é que todos os grupos anteriores a i já foram contados e impressos. Como o vetor está ordenado, nenhuma ocorrência do nome atual pode aparecer depois de um grupo diferente.
+
+Se L é o maior comprimento dos nomes, a ordenação por bubble sort custa O(n² L) no pior caso. A contagem posterior custa O(n L), desconsiderando o custo da saída. A memória auxiliar é O(1). Se o vetor já estiver ordenado, podemos usar apenas a parte da contagem. Para entradas grandes, uma ordenação mais eficiente ou uma tabela hash pode reduzir o tempo.
+
+As comparações distinguem maiúsculas e minúsculas: "Ana" e "ana" são nomes diferentes nesta implementação. A ordem é a dos bytes definida por strcmp, sem tratamento especial de acentos.
+
+</pre>
+</body>
+</html>

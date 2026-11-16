@@ -1,9 +1,10 @@
 1. Técnica: Método Guloso
-2. Algoritmo: Kruskal (árvore espalhada mínima)
+2. Algoritmo: Kruskal (Árvore Espalhada Mínima)
 3. Autores: Joseph Kruskal
 4. Data: 1956
-5. Conceitos: Grafos, Árvores, recursividade, árvore espalhada mínima
-6. Problema: Dado um grafo não direcionado com custos nas arestas, determinar a árvore geradora de menor custo
+5. Conceitos: Grafo, Árvore, Recursão
+6. Problema: Árvores: Dado um grafo não direcionado com custos nas arestas, determinar a árvore geradora de menor custo
+7. Complexidade: O(E log E + V²)
 
 Se temos um grafo não direcionado com pesos nas suas arestas, queremos descobrir a árvore geradora de menor custo (ou seja, cuja soma
 dos custos das arestas é mínimo). Para isso, vamos analisar a construção de um grafo por um algoritmo guloso em que, a cada passo, 
@@ -22,6 +23,7 @@ Vamos implementar isso definindo um vetor "Famílias" de n posições em que, na
 Já union vai comparar os conjuntos A e B: como a única ação que toma mais do que O(1) numa união é a mudança dos valores no vetor, faz sentido minimizar essa ação definindo que, dados conjuntos A e B, se |A|>|B|, mudamos todos os vértices em B para em A, pois realizamos o menor número de operações. Como o tamanho é demorado para calcular na hora (precisaríamos fazer uma busca), vamos fazer um vetor "tamanho" que guarda o tamanho de cada componente conexa, de modo que tamanho[c] representa o tamanho da componente c. Então, union é uma operação que muda nosso vetor. É interessante, também, fazer uma função que inicializa o nosso vetor com familia[i] = i para todo i.
 Veja a implementação das funções em C:
 
+@c
 //Essa função inicializa o vetor:
 
 void inicializa(int familia[], int tamanho[], int n) {
@@ -30,11 +32,15 @@ void inicializa(int familia[], int tamanho[], int n) {
         tamanho[i] = 1;  // cada componente começa com tamanho 1
     }
 }
+@c
 
+@c
 //Já para o find podemos só tomar a família de v:
 
 familia [v]
+@c
 
+@c
 //Por fim, a union:
 
 void union_f(int familia[], int tamanho[], int n, int A, int B) { //union é palavra reservada
@@ -58,6 +64,7 @@ void union_f(int familia[], int tamanho[], int n, int A, int B) { //union é pal
     tamanho[maior] += tamanho[menor];
     tamanho[menor] = 0;
 }
+@c
 
 Por fim, podemos implementar o algoritmo de Kruskal da seguinte forma:
 
@@ -71,6 +78,7 @@ Por fim, podemos implementar o algoritmo de Kruskal da seguinte forma:
 Para facilitar a implementação, faz sentido definir um struct com a aresta e seu custo;
 Implementação em C completa:
 
+@c
 #include <stdio.h>
 #include <stdlib.h>
 typedef struct {
@@ -155,5 +163,14 @@ int main() {
     kruskal(n, m, arestas);
 
     free(arestas);
-    return 0;
+
+        return 0;
 }
+@c
+
+Referências:
+
+Projeto de Algoritmos em Linguagem C - Paulo Feofiloff
+Disponível em: https://users.ime.usp.br/~pf/algoritmos_em_grafos/aulas/grafos.html
+
+Algorithm Design - Kleinberg & Tardos

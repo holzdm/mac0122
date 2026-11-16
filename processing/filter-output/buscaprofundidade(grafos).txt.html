@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto - MAC0122</title>
+  <link rel="stylesheet" href="../../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="../../output/index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="../../output/index.html">Início</a></li>
+        <li><a href="../../output/tecnicas.html">Técnicas</a></li>
+        <li><a href="../../output/complexidades.html">Complexidade</a></li>
+        <li><a href="../../output/algoritmos.html">Algoritmos</a></li>
+        <li><a href="../../output/definicoes.html">Definições</a></li>
+        <li><a href="../../output/autores.html">Autores</a></li>
+        <li><a href="../../output/datas.html">Datas</a></li>
+        <li><a href="../../output/conceitos.html">Conceitos</a></li>
+        <li><a href="../../output/problemas.html">Problemas</a></li>
+        <li><a href="../../output/referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a class="voltar pagina-voltar" href="../../output/index.html">&larr; Voltar ao índice</a>
+<pre>
+1. Técnica: Tentativa e Erro
+2. Algoritmo: Busca em Profundidade (DFS)
+3. Autores: Sem atribuição histórica nesta ficha
+4. Data: Não especificada nesta ficha
+5. Conceitos: Grafo, Matriz, Recursão, Vértices Visitados
+6. Problema: Busca: Visitar os vértices alcançáveis a partir de uma origem em um grafo.
+7. Complexidade: O(V²)
+
+A busca em profundidade visita um vértice e continua por um vizinho ainda não visitado. Antes de tentar outro vizinho do vértice inicial, ela explora os caminhos que partem desse primeiro vizinho. Quando não existem novos vizinhos, a função retorna à chamada anterior e continua a exploração.
+
+É necessário marcar o vértice antes de explorar seus vizinhos. Isso impede que um ciclo provoque chamadas repetidas indefinidamente. A pilha de chamadas da recursão guarda os vértices cuja exploração ainda não terminou.
+
+Usaremos grafo[x][y] igual a 1 quando existir uma aresta de x para y. Em um grafo não dirigido, preenchemos também grafo[y][x]. Os vértices são numerados de 0 até V-1.
+
+Implementação em C:
+
+
+<span class="pragma">#include &#60;stdio.h&#62;</span>
+<span class="pragma">#define V 6</span>
+
+<span class="tipo">void</span> dfs(<span class="tipo">int</span> grafo<span class="colchete">[</span><span class="conteudo_colchete">V</span><span class="colchete">]</span><span class="colchete">[</span><span class="conteudo_colchete">V</span><span class="colchete">]</span>, <span class="tipo">int</span> x, <span class="tipo">int</span> visitado<span class="colchete">[</span><span class="conteudo_colchete">V</span><span class="colchete">]</span>, <span class="tipo">int</span> pai<span class="colchete">[</span><span class="conteudo_colchete">V</span><span class="colchete">]</span>){
+    visitado<span class="colchete">[</span><span class="conteudo_colchete">x</span><span class="colchete">]</span> <span class="igual">=</span> 1;
+    printf(<span class="string">"%d "</span>, x);
+    <span class="comando">for</span>(<span class="tipo">int</span> y <span class="igual">=</span> 0; y &#60; V; y++){
+        <span class="comando">if</span>(grafo<span class="colchete">[</span><span class="conteudo_colchete">x</span><span class="colchete">]</span><span class="colchete">[</span><span class="conteudo_colchete">y</span><span class="colchete">]</span> &#38;&#38; !visitado<span class="colchete">[</span><span class="conteudo_colchete">y</span><span class="colchete">]</span>){
+            pai<span class="colchete">[</span><span class="conteudo_colchete">y</span><span class="colchete">]</span> <span class="igual">=</span> x;
+            dfs(grafo, y, visitado, pai);
+        }
+    }
+}
+
+<span class="tipo">void</span> busca_profundidade(<span class="tipo">int</span> grafo<span class="colchete">[</span><span class="conteudo_colchete">V</span><span class="colchete">]</span><span class="colchete">[</span><span class="conteudo_colchete">V</span><span class="colchete">]</span>, <span class="tipo">int</span> origem, <span class="tipo">int</span> visitado<span class="colchete">[</span><span class="conteudo_colchete">V</span><span class="colchete">]</span>, <span class="tipo">int</span> pai<span class="colchete">[</span><span class="conteudo_colchete">V</span><span class="colchete">]</span>){
+    <span class="comando">for</span>(<span class="tipo">int</span> x <span class="igual">=</span> 0; x &#60; V; x++){
+        visitado<span class="colchete">[</span><span class="conteudo_colchete">x</span><span class="colchete">]</span> <span class="igual">=</span> 0;
+        pai<span class="colchete">[</span><span class="conteudo_colchete">x</span><span class="colchete">]</span> <span class="igual">=</span> -1;
+    }
+    <span class="comando">if</span>(origem &#60; 0 || origem &#62;<span class="igual">=</span> V)<span class="comando">return</span>;
+    dfs(grafo, origem, visitado, pai);
+}
+
+
+visitado[x] informa se x já foi descoberto. pai[y] registra qual vértice descobriu y; a origem e os vértices não alcançados permanecem com pai igual a -1. A condição !visitado[y] garante que cada vértice seja descoberto uma única vez.
+
+Por exemplo, com arestas não dirigidas 0-1, 0-2, 1-3 e 2-4, a busca iniciada em 0 imprime 0 1 3 2 4. O vértice 5 não é alcançado. A ordem depende da ordem em que os vizinhos são examinados.
+
+Para percorrer todo o grafo, inclusive componentes desconexas, inicializamos os vetores uma única vez e chamamos dfs para cada vértice ainda não visitado. Não reinicializamos os vetores entre essas chamadas.
+
+Com matriz de adjacência, cada vértice visitado exige examinar V posições: o pior caso custa O(V²). Com listas de adjacência, custa O(V+E), em que E é o número de arestas. A memória auxiliar, incluindo a recursão, é O(V), além da representação do grafo. A DFS não garante o caminho com menor número de arestas.
+
+Referência:
+Paulo Feofiloff — Algoritmo genérico de busca em grafos.
+https://www.ime.usp.br/~pf/algoritmos_em_grafos/aulas/busca.html
+
+</pre>
+</body>
+</html>

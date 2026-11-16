@@ -1,7 +1,9 @@
+1. Técnica: Outro
+2. Definição: Lista Ligada
 Autores: Allen Newell, Cliff Shaw, e Herbert A. Simon 
 Data: 1956
-Conceitos: Structs, ponteiros, alocação dinâmica
-Problema: Construir uma lista sequenciada de elementos que pode ser editada, aumentada ou diminuída
+Conceitos: Lista, Struct, Ponteiros, Alocação Dinâmica
+Problema: Estruturas: Construir uma lista sequenciada de elementos que pode ser editada, aumentada ou diminuída
 
 Uma lista ligada é uma aplicação muito esperta do struct: percebe-se que, se quisermos fazer uma lista sequenciada em que só importa
 um valor, podemos guardar esse valor em uma variável no struct e utilizar a outra variável para registrar o próximo elemento da lista 

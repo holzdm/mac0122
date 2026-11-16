@@ -1,0 +1,35 @@
+1. Técnica: Divisão e Conquista
+2. Algoritmo: Busca Binária (Implementação em Vetores)
+3. Autores: Sem atribuição histórica nesta ficha
+4. Data: Não especificada nesta ficha
+5. Conceitos: Vetor, Índices, Comparação
+6. Problema: Busca: Encontrar a posição de um valor em um vetor ordenado, ou indicar que ele não está presente.
+7. Complexidade: O(log n)
+
+A busca binária exige que o vetor esteja ordenado. Em cada iteração, comparamos o valor procurado com o elemento do meio do intervalo. Se forem iguais, a busca termina. Se o valor procurado for menor, continuamos apenas na metade esquerda; se for maior, continuamos na metade direita.
+
+Por exemplo, no vetor {2, 5, 8, 12, 16, 23, 38}, para procurar 23, começamos pelo 12. Como 23 é maior, descartamos 12 e todos os elementos à sua esquerda. No intervalo restante, o meio contém 23, e retornamos seu índice, 5.
+
+O invariante é: se o valor procurado estiver no vetor, pelo menos uma ocorrência estará no intervalo [esq, dir]. Quando esq ultrapassa dir, esse intervalo está vazio e podemos retornar -1. Com elementos repetidos, esta versão pode devolver qualquer ocorrência.
+
+Implementação em C: n é a quantidade de elementos. O vetor deve estar em ordem crescente ou não decrescente, e n deve ser não negativo.
+
+@c
+int busca_binaria(const int v[], int n, int x){
+    int esq = 0;
+    int dir = n - 1;
+    while(esq <= dir){
+        int meio = esq + (dir-esq) / 2;
+        if (v[meio] == x) return meio;
+        if (v[meio] < x) esq = meio + 1;
+        else dir = meio - 1;
+    }
+    return -1;
+}
+@c
+
+A expressão usada para calcular meio evita a soma direta de dois índices potencialmente grandes. Cada comparação elimina aproximadamente metade dos candidatos. O pior caso custa O(log n), o melhor caso custa O(1), e a memória auxiliar é O(1). Ordenar previamente um vetor desordenado tem um custo separado.
+
+Referência:
+Paulo Feofiloff — Como encontrar algo em um vetor rapidamente: busca binária.
+https://www.ime.usp.br/~pf/algoritmos/aulas/bubi.html

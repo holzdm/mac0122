@@ -1,3 +1,5 @@
+1. Técnica: Outro
+2. Definição: Struct
 Uma struct (abreviação de structure, inglês para estrutura) funciona em C como um pacote de variáveis, que podem até mesmo ter 
 tipos diferentes. Podemos, por exemplo, armazenar dados de uma pessoa em um struct: no mesmo "pacote", podemos armazenar CPF, endereço,
 idade e quaisquer dados tiver interesse, mesmo sendo de tipos diferentes. Isso é bastante útil na organização de informações e permite 

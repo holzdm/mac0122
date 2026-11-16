@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto - MAC0122</title>
+  <link rel="stylesheet" href="../../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="../../output/index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="../../output/index.html">Início</a></li>
+        <li><a href="../../output/tecnicas.html">Técnicas</a></li>
+        <li><a href="../../output/complexidades.html">Complexidade</a></li>
+        <li><a href="../../output/algoritmos.html">Algoritmos</a></li>
+        <li><a href="../../output/definicoes.html">Definições</a></li>
+        <li><a href="../../output/autores.html">Autores</a></li>
+        <li><a href="../../output/datas.html">Datas</a></li>
+        <li><a href="../../output/conceitos.html">Conceitos</a></li>
+        <li><a href="../../output/problemas.html">Problemas</a></li>
+        <li><a href="../../output/referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a class="voltar pagina-voltar" href="../../output/index.html">&larr; Voltar ao índice</a>
+<pre>
+1. Técnica: Método Guloso
+2. Algoritmo: Heapsort (Implementação em Vetores)
+3. Autores: Robert W. Floyd e J.W.J Williams.
+4. Data: 1964
+5. Conceitos: Vetor, Árvore, Grafo
+6. Problema: Ordenação: Dada uma sequência de números, obter um vetor ordenado que contenha todos os índices da sequência (qualquer índice do vetor é menor ou igual ao próximo, se houver).
+7. Complexidade: O(n log n)
+
+
+O algoriítmo heapsort utiliza de uma estrutura chamada max-heap para ordenar um vetor. O max-heap (ou monte) é uma árvore binária em que o valor de um pai (a[n]) é maior que o valor de seus dois filhos (a[2n], a[2n+1]). A ideia por trás (e invariante) do algorítmo é que a raíz de uma árvore com a propriedade de heap é o maior elemento do vetor. Logo, basta trocá-lo com o último elemento do vetor (uma das folhas), recuperar a propriedade do heap e repetir o processo com o vetor sem o último elemento. Após n repetições, o vetor estará ordenado.
+
+Para construir o heap, basta percorrer todo o vetor com um iterador e comparar o valor de um índice f com o índice do seu pai (f/2). Se o valor do filho for menor que o do pai, os dois são trocados, e f recebe o valor do pai (f/2) para ser comparado com seu novo pai. Cada iteração roda até que f seja igual a 1. Quando isso acontece, significa que esse caminho da árvore já possui a propriedade monte. Assim, isso se repete para todos os índices do vetor, e ao fim do algorítmo, o vetor inteiro apresenta a propriedade do heap.
+
+Com essa propriedade satisfeita, o algoriítmo troca o elemento raíz com o último elemento do vetor, e reconstrói o monte usando a lógica seguinte: Escolha o maior filho da nova raíz e compare o seu valor com o de seu pai. Se o valor do filho for maior, troque o filho e o pai e olhe o novo filho(antigo pai). Repita isso até que o valor do antigo pai seja maior que o do filho ou que o pai não tenha filhos (vire uma folha). Ao final dessas trocas, a propriedade monte é refeita e é possível repetir o processo até que o monte seja unitário e, portanto, todo o vetor tenha sido construído.
+
+Portanto, a ordenação de um dos ítens do vetor gasta algo da ordem de log(n) pela propriedade da árvore, e é necessário encaixar cada um dos ítens no vetor ordenado (n ítens). Dessa forma, a complexidade desse algorítmo é n*log(n).
+
+
+<span class="tipo">void</span> troca(<span class="tipo">int</span> a, <span class="tipo">int</span> b){
+    <span class="tipo">int</span> aux <span class="igual">=</span> a;
+    a <span class="igual">=</span> b
+    b <span class="igual">=</span> aux;  
+}
+
+<span class="tipo">void</span> constroiHeap (<span class="tipo">int</span> v<span class="colchete">[</span><span class="conteudo_colchete"></span><span class="colchete">]</span>, <span class="tipo">int</span> fim){
+   <span class="comando">for</span> (<span class="tipo">int</span> k <span class="igual">=</span> 1; k &#60;<span class="igual">=</span> fim; ++k){                   
+      <span class="tipo">int</span> f <span class="igual">=</span> k+1;
+      <span class="comando">while</span> (f &#62; 1 &#38;&#38; v<span class="colchete">[</span><span class="conteudo_colchete">f/2</span><span class="colchete">]</span> &#60; v<span class="colchete">[</span><span class="conteudo_colchete">f</span><span class="colchete">]</span>) {  
+         troca(v<span class="colchete">[</span><span class="conteudo_colchete">f/2</span><span class="colchete">]</span>, v<span class="colchete">[</span><span class="conteudo_colchete">f</span><span class="colchete">]</span>);         
+         f /<span class="igual">=</span> 2;                        
+      }
+   }
+}
+
+<span class="tipo">void</span> peneira(<span class="tipo">int</span> v<span class="colchete">[</span><span class="conteudo_colchete"></span><span class="colchete">]</span>,<span class="tipo">int</span> fim){
+    <span class="tipo">int</span> f<span class="igual">=</span>2;
+    <span class="comando">while</span>(f&#60;<span class="igual">=</span>fim){
+        <span class="comando">if</span> (f&#60;fim &#38;&#38; v<span class="colchete">[</span><span class="conteudo_colchete">f</span><span class="colchete">]</span>&#60;v<span class="colchete">[</span><span class="conteudo_colchete">f+1</span><span class="colchete">]</span>) ++f; <span class="comentario">//escolhe o filho mais valioso de f/2;</span>
+        <span class="comando">if</span> (v<span class="colchete">[</span><span class="conteudo_colchete">f/2</span><span class="colchete">]</span> &#62;<span class="igual">=</span> v<span class="colchete">[</span><span class="conteudo_colchete">f</span><span class="colchete">]</span>) <span class="comando">break</span>;
+        troca(v<span class="colchete">[</span><span class="conteudo_colchete">f/2</span><span class="colchete">]</span>, v<span class="colchete">[</span><span class="conteudo_colchete">f</span><span class="colchete">]</span>);          
+        f *<span class="igual">=</span> 2; 
+    }
+}
+    
+
+<span class="tipo">void</span> heapsort(<span class="tipo">int</span> v<span class="colchete">[</span><span class="conteudo_colchete"></span><span class="colchete">]</span>, <span class="tipo">int</span> fim){
+    constroiHeap(v, fim);
+    <span class="comando">for</span>(<span class="tipo">int</span> n<span class="igual">=</span>fim; n&#62;<span class="igual">=</span>2; n--){
+        troca(v<span class="colchete">[</span><span class="conteudo_colchete">1</span><span class="colchete">]</span>, v<span class="colchete">[</span><span class="conteudo_colchete">n</span><span class="colchete">]</span>);
+        peneira(v, n-1);
+    }
+}
+
+
+</pre>
+</body>
+</html>

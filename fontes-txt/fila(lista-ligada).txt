@@ -1,9 +1,10 @@
-1. Tecnica: First-In-First-Out (FIFO) 
-2. Algoritmo:Fila (implementação em listas ligadas) 
+1. Técnica: Outro
+2. Algoritmo: Fila (Implementação em Listas Ligadas)
 3. Autores: Newell, Shaw e Simon
 4. Data: 1955-1956
-5. Conceitos: listas (vetor), listas ligadas, pilhas(listas ligadas). 
-6. Problema: criar um metodo de estrutura de dados em que o primeiro elemento a entrar deve ser o primeiro a sair sem um limite fixo nem desperdiçar memoria
+5. Conceitos: Lista, Pilha
+6. Problema: Estruturas: criar um metodo de estrutura de dados em que o primeiro elemento a entrar deve ser o primeiro a sair sem um limite fixo nem desperdiçar memoria
+7. Complexidade: O(1)
 
 A parte inicial, apresentando as melhorias em relação ao vetor e a introdução ao No e ao topo não será comentada, por já estar na parte de pilhas.
 

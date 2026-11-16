@@ -1,0 +1,48 @@
+1. Técnica: Outro
+2. Algoritmo: Contagem de Frequência de Nomes
+3. Autores: Adaptação didática, sem atribuição histórica nesta ficha
+4. Data: Não especificada nesta ficha
+5. Conceitos: Vetor, strcmp, Ordenação, Frequência
+6. Problema: Frequência: Informar quantas vezes cada nome aparece em uma sequência e apresentar os nomes em ordem lexicográfica.
+7. Complexidade: O(n² L)
+
+Depois de ordenar os nomes, todas as ocorrências de um mesmo texto ficam juntas. Assim, basta percorrer o vetor, contar cada grupo de nomes iguais e imprimir uma linha por grupo.
+
+Por exemplo, {"Bia", "Ana", "Bia", "Caio", "Ana", "Bia"} passa a ser {"Ana", "Ana", "Bia", "Bia", "Bia", "Caio"}. As frequências são Ana: 2, Bia: 3 e Caio: 1.
+
+Implementação em C: esta versão inclui a ordenação para poder ser usada sozinha. As strings devem ser válidas e terminadas em '\0'. O vetor de ponteiros é reorganizado; os textos não são alterados.
+
+@c
+#include <stdio.h>
+#include <string.h>
+
+void frequencia_nomes(const char *nomes[], int n){
+    for(int fim = n; fim > 1; fim--){
+        int trocou = 0;
+        for(int i = 0; i < fim - 1; i++){
+            if (strcmp(nomes[i], nomes[i + 1]) > 0){
+                const char *aux = nomes[i];
+                nomes[i] = nomes[i + 1];
+                nomes[i + 1] = aux;
+                trocou = 1;
+            }
+        }
+        if(!trocou)break;
+    }
+    int i = 0;
+    while (i < n){
+        int j = i + 1;
+        while(j < n && strcmp(nomes[i], nomes[j]) == 0)j++;
+        printf("%s: %d\n", nomes[i], j - i);
+        i = j;
+    }
+}
+@c
+
+i marca o primeiro elemento do grupo. j avança até o primeiro nome diferente ou até o fim do vetor. Portanto, j - i é a quantidade de ocorrências. Ao definir i = j, começamos exatamente no próximo grupo, sem contar nomes duas vezes. Se n for zero, nenhum acesso ao vetor será feito.
+
+O invariante da contagem é que todos os grupos anteriores a i já foram contados e impressos. Como o vetor está ordenado, nenhuma ocorrência do nome atual pode aparecer depois de um grupo diferente.
+
+Se L é o maior comprimento dos nomes, a ordenação por bubble sort custa O(n² L) no pior caso. A contagem posterior custa O(n L), desconsiderando o custo da saída. A memória auxiliar é O(1). Se o vetor já estiver ordenado, podemos usar apenas a parte da contagem. Para entradas grandes, uma ordenação mais eficiente ou uma tabela hash pode reduzir o tempo.
+
+As comparações distinguem maiúsculas e minúsculas: "Ana" e "ana" são nomes diferentes nesta implementação. A ordem é a dos bytes definida por strcmp, sem tratamento especial de acentos.

@@ -1,9 +1,10 @@
-1. Tecnica: First-In-First-Out (FIFO) 
-2. Algoritmo:Fila (implementação em grafos) 
+1. Técnica: Outro
+2. Algoritmo: Fila (Implementação em Grafos)
 3. Autores: Edward F. Moore
 4. Data: 1959
-5. Conceitos: listas (listas ligadas), grafos. 
-6. Problema: Achar o caminho mais curto em grafos não ponderados.
+5. Conceitos: Lista, Grafo
+6. Problema: Caminhos: Achar o caminho mais curto em grafos não ponderados.
+7. Complexidade: O(V²)
 
 A aplicação de uma fila sobre um grafo transforma uma rede arbitrária de conexões em uma estrutura organizada por camadas de distância. 
 Esse algoritmo, a busca em largura, calcula a distancia minima entre a origem e os outros pontos, formando, assim, a árvore de caminhos mínimos.

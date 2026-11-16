@@ -1,0 +1,812 @@
+/* ==========================================================================
+   estilo.css — EP de MAC0122
+   Tema Monokai (versão escura) para todas as páginas do site.
+
+   Mantém as classes que o filtro de código C (processing/filter.c) já gera:
+   .tipo .comando .string .comentario .pragma .igual .colchete .conteudo_colchete
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. Variáveis: cores, fontes e tamanhos
+   -------------------------------------------------------------------------- */
+:root {
+  /* Paleta Monokai */
+  --mk-fundo:        #272822;  /* fundo principal          */
+  --mk-fundo-escuro: #1e1f1c;  /* navbar, blocos de código */
+  --mk-fundo-claro:  #3e3d32;  /* bordas, hover            */
+  --mk-selecao:      #49483e;  /* seleção de texto         */
+  --mk-texto:        #f8f8f2;  /* texto principal          */
+  --mk-comentario:   #75715e;  /* texto secundário         */
+  --mk-amarelo:      #e6db74;
+  --mk-laranja:      #fd971f;
+  --mk-vermelho:     #f92672;
+  --mk-roxo:         #ae81ff;
+  --mk-azul:         #66d9ef;
+  --mk-verde:        #a6e22e;
+
+  /* Fontes */
+  --fonte-mono: 'Consolas', 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
+
+  /* Tamanhos de texto */
+  --tam-pequeno: 0.85rem;
+  --tam-normal:  1rem;
+  --tam-medio:   1.2rem;
+  --tam-grande:  1.6rem;
+  --tam-titulo:  2.2rem;
+
+  /* Medidas gerais */
+  --altura-linha: 1.6;
+  --raio:         6px;
+  --largura-max:  960px;
+  --altura-nav:   58px;
+}
+
+
+/* --------------------------------------------------------------------------
+   2. Base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 15px;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--altura-nav) + 1rem);
+}
+
+body {
+  margin: 0;
+  background-color: var(--mk-fundo);
+  color: var(--mk-texto);
+  font-family: var(--fonte-mono);
+  font-size: var(--tam-normal);
+  line-height: var(--altura-linha);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--mk-selecao);
+  color: var(--mk-texto);
+}
+
+:focus-visible {
+  outline: 2px solid var(--mk-amarelo);
+  outline-offset: 2px;
+}
+
+
+/* --------------------------------------------------------------------------
+   3. Tipografia
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4 {
+  line-height: 1.25;
+  margin: 1.6em 0 0.6em;
+}
+
+h1 { font-size: var(--tam-titulo); color: var(--mk-texto); }
+h2 { font-size: var(--tam-grande); color: var(--mk-verde); }
+h3 { font-size: var(--tam-medio);  color: var(--mk-azul); }
+h4 { font-size: var(--tam-normal); color: var(--mk-laranja); }
+
+h1:first-child,
+h2:first-child,
+h3:first-child {
+  margin-top: 0;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--mk-azul);
+  text-decoration: none;
+  border-bottom: 1px dashed currentColor;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+a:hover {
+  color: var(--mk-verde);
+}
+
+strong, b { color: var(--mk-laranja); }
+em, i     { color: var(--mk-amarelo); }
+
+small {
+  font-size: var(--tam-pequeno);
+  color: var(--mk-comentario);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--mk-fundo-claro);
+  margin: 2rem 0;
+}
+
+ul, ol {
+  margin: 0 0 1em;
+  padding-left: 1.5em;
+}
+
+li {
+  margin-bottom: 0.3em;
+}
+
+li::marker {
+  color: var(--mk-vermelho);
+}
+
+blockquote {
+  margin: 1.5em 0;
+  padding: 0.5em 1.25em;
+  border-left: 3px solid var(--mk-roxo);
+  background: var(--mk-fundo-escuro);
+  color: var(--mk-comentario);
+  font-style: italic;
+}
+
+
+/* --------------------------------------------------------------------------
+   4. Código
+   -------------------------------------------------------------------------- */
+code {
+  font-family: var(--fonte-mono);
+  font-size: 0.92em;
+  background: var(--mk-fundo-escuro);
+  color: var(--mk-amarelo);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+pre {
+  margin: 1.5em 0;
+  padding: 1rem 1.25rem;
+  background: var(--mk-fundo-escuro);
+  border-left: 3px solid var(--mk-verde);
+  border-radius: var(--raio);
+  overflow-x: auto;
+  font-family: var(--fonte-mono);
+  font-size: 0.93rem;
+  line-height: 1.5;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* Páginas geradas pelo filtro: o conteúdo inteiro vem num <pre> direto no <body> */
+body > pre {
+  max-width: var(--largura-max);
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  background: none;
+  border: none;
+  border-radius: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: var(--tam-normal);
+}
+
+/* Cores do código C (mesmas classes do filter.c) */
+.tipo              { color: var(--mk-azul);     font-style: italic; }
+.comando           { color: var(--mk-vermelho); font-weight: bold; }
+.string            { color: var(--mk-amarelo); }
+.comentario        { color: var(--mk-comentario); font-style: italic; }
+.pragma            { color: var(--mk-verde);    font-weight: bold; }
+.igual             { color: var(--mk-vermelho); }
+.colchete          { color: var(--mk-laranja);  font-weight: bold; }
+.conteudo_colchete { color: var(--mk-roxo); }
+.numero            { color: var(--mk-roxo); }
+
+
+/* --------------------------------------------------------------------------
+   5. Tabelas
+   -------------------------------------------------------------------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.95rem;
+}
+
+th, td {
+  padding: 0.6em 0.9em;
+  border: 1px solid var(--mk-fundo-claro);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--mk-fundo-escuro);
+  color: var(--mk-azul);
+  font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+tbody tr:hover {
+  background: var(--mk-selecao);
+}
+
+
+/* --------------------------------------------------------------------------
+   6. Navbar
+   -------------------------------------------------------------------------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--mk-fundo-escuro);
+  border-bottom: 2px solid var(--mk-vermelho);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+.navbar-conteudo {
+  width: 100%;
+  min-height: var(--altura-nav);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.navbar a {
+  border-bottom: none;
+}
+
+.navbar-marca {
+  margin-right: auto;
+  color: var(--mk-texto);
+  font-weight: bold;
+  font-size: var(--tam-medio);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.navbar-marca .chave {
+  color: var(--mk-laranja);
+}
+
+.navbar-marca:hover {
+  color: var(--mk-texto);
+}
+
+.navbar-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0 0 0 auto;
+  padding: 0;
+}
+
+.navbar-menu li {
+  margin: 0;
+}
+
+.navbar-menu a {
+  display: block;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--raio);
+  color: var(--mk-texto);
+  font-size: 0.92rem;
+}
+
+.navbar-menu a:hover {
+  background: var(--mk-fundo-claro);
+  color: var(--mk-verde);
+}
+
+/* página atual: use aria-current="page" (ou a classe .ativo) no link */
+.navbar-menu a[aria-current="page"],
+.navbar-menu a.ativo {
+  color: var(--mk-vermelho);
+  background: var(--mk-fundo);
+  box-shadow: inset 0 -2px 0 var(--mk-vermelho);
+}
+
+/* Botão de menu no celular (funciona só com CSS, sem JavaScript) */
+.navbar-toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.navbar-botao {
+  display: none;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--mk-fundo-claro);
+  border-radius: var(--raio);
+  color: var(--mk-texto);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+}
+
+.navbar-botao:hover {
+  color: var(--mk-verde);
+  border-color: var(--mk-verde);
+}
+
+.navbar-toggle:focus-visible + .navbar-botao {
+  outline: 2px solid var(--mk-amarelo);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1200px) {
+  .navbar-botao {
+    display: block;
+  }
+
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0;
+    padding-bottom: 0.75rem;
+  }
+
+  .navbar-toggle:checked ~ .navbar-menu {
+    display: flex;
+  }
+
+  .navbar-menu a {
+    padding: 0.6rem 0.75rem;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   7. Layout das páginas
+   -------------------------------------------------------------------------- */
+.conteudo {
+  max-width: var(--largura-max);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+}
+
+/* Lista usada nas páginas de índice (Técnicas, Algoritmos, Autores...) */
+.indice {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.indice li {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background: var(--mk-fundo-escuro);
+  border: 1px solid var(--mk-fundo-claro);
+  border-left: 3px solid var(--mk-azul);
+  border-radius: var(--raio);
+  transition: border-color 0.15s;
+}
+
+.indice li:hover {
+  border-left-color: var(--mk-verde);
+}
+
+.indice a {
+  border-bottom: none;
+  font-weight: bold;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.indice li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.indice .contagem {
+  flex: none;
+  padding: 0.15em 0.6em;
+  border: 1px solid var(--mk-roxo);
+  border-radius: 999px;
+  color: var(--mk-roxo);
+  font-size: var(--tam-pequeno);
+  white-space: nowrap;
+}
+
+.grade-indices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.resumo-indice {
+  display: block;
+  min-height: 100%;
+  padding: 1.25rem;
+  background: var(--mk-fundo-escuro);
+  border: 1px solid var(--mk-fundo-claro);
+  border-left: 3px solid var(--mk-azul);
+  border-radius: var(--raio);
+  color: var(--mk-texto);
+  text-decoration: none;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.resumo-indice:hover {
+  background: var(--mk-selecao);
+  border-left-color: var(--mk-verde);
+}
+
+.resumo-indice h2,
+.resumo-indice h3 {
+  margin: 0 0 0.5rem;
+  color: var(--mk-azul);
+}
+
+.resumo-indice p:last-child {
+  margin-bottom: 0;
+}
+
+.cartao {
+  margin: 0 0 1rem;
+  padding: 1.25rem;
+  background: var(--mk-fundo-escuro);
+  border: 1px solid var(--mk-fundo-claro);
+  border-left: 3px solid var(--mk-azul);
+  border-radius: var(--raio);
+}
+
+.cartao h2 {
+  margin: 0 0 0.5rem;
+}
+
+.referencia-url {
+  overflow-wrap: anywhere;
+}
+
+.cartao .metadados {
+  margin-bottom: 0.6rem;
+  color: var(--mk-comentario);
+  font-size: var(--tam-pequeno);
+}
+
+.cartao-problema .enunciado-problema {
+  font-size: var(--tam-pequeno);
+}
+
+.cartao-problema .metadados {
+  margin-bottom: 0;
+}
+
+.voltar {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: var(--mk-azul);
+}
+
+.voltar:hover {
+  color: var(--mk-verde);
+}
+
+/* Retorno nas páginas de código geradas em processing/filter-output. */
+.pagina-voltar {
+  display: block;
+  max-width: var(--largura-max);
+  margin: 2rem auto 0;
+  padding: 0 1.5rem;
+}
+
+/* Etiquetas para os marcadores do TXT (Técnica, Data, Conceitos...) */
+.etiqueta {
+  display: inline-block;
+  padding: 0.1em 0.6em;
+  margin: 0 0.3em 0.3em 0;
+  border: 1px solid var(--mk-roxo);
+  border-radius: 999px;
+  color: var(--mk-roxo);
+  font-size: var(--tam-pequeno);
+}
+
+/* Rodapé do site */
+.rodape-site {
+  border-top: 1px solid var(--mk-fundo-claro);
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--mk-comentario);
+  font-size: var(--tam-pequeno);
+}
+
+
+/* --------------------------------------------------------------------------
+   8. Capa (index.html)
+   -------------------------------------------------------------------------- */
+.capa {
+  width: 100%;
+  max-width: 210mm;
+  min-height: 297mm;
+  margin: 2.5rem auto;
+  padding: 22mm 20mm;
+  background: var(--mk-fundo);
+  border: 1px solid var(--mk-fundo-claro);
+  border-radius: var(--raio);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+}
+
+body:has(.capa) {
+  background: var(--mk-fundo-escuro);
+}
+
+.capa-instituicao {
+  text-align: center;
+}
+
+.capa-universidade {
+  font-size: 1.25rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.capa-instituto {
+  margin-top: 0.25rem;
+  color: var(--mk-comentario);
+  letter-spacing: 0.04em;
+}
+
+.capa-filete {
+  width: 70%;
+  margin: 1.5rem auto 0;
+  border: none;
+  border-top: 2px solid var(--mk-vermelho);
+}
+
+.capa-centro {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.75rem;
+  padding: 2.5rem 0;
+}
+
+.capa-disciplina {
+  text-align: center;
+}
+
+.capa-selo {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.15rem 0.75rem;
+  border: 1px solid var(--mk-vermelho);
+  border-radius: 4px;
+  color: var(--mk-vermelho);
+  font-weight: bold;
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+}
+
+.capa-disciplina h2 {
+  margin: 0;
+  color: var(--mk-texto);
+  font-size: 1.35rem;
+  font-weight: normal;
+  line-height: 1.4;
+}
+
+.capa-titulo {
+  text-align: center;
+}
+
+.capa-titulo h1 {
+  margin: 0;
+  font-size: 2.6rem;
+  line-height: 1.2;
+}
+
+.capa-titulo .chave {
+  color: var(--mk-laranja);
+}
+
+.capa-subtitulo {
+  margin: 0.75rem 0 0;
+  color: var(--mk-amarelo);
+  font-size: 1.1rem;
+}
+
+.capa-fase {
+  margin: 0.6rem 0 0;
+  color: var(--mk-roxo);
+  font-size: var(--tam-pequeno);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.capa .trecho {
+  align-self: center;
+  max-width: 100%;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.capa-chamada {
+  align-self: center;
+  display: inline-block;
+  padding: 0.7rem 1.2rem;
+  border: 1px solid var(--mk-verde);
+  border-radius: var(--raio);
+  background: var(--mk-fundo-escuro);
+  color: var(--mk-verde);
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.capa-chamada:hover {
+  background: var(--mk-verde);
+  color: var(--mk-fundo-escuro);
+}
+
+.capa-pessoas {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.capa-rotulo {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--mk-azul);
+  font-style: italic;
+  font-size: var(--tam-pequeno);
+}
+
+.capa-rotulo::before {
+  content: "// ";
+  color: var(--mk-comentario);
+  font-style: normal;
+}
+
+.capa-pessoas a {
+  color: var(--mk-texto);
+  border-bottom-color: var(--mk-comentario);
+}
+
+.capa-pessoas a:hover {
+  color: var(--mk-verde);
+  border-bottom-color: var(--mk-verde);
+}
+
+.capa-alunos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.capa-alunos li {
+  margin: 0;
+  line-height: 1.8;
+}
+
+.capa-alunos li::before {
+  content: "> ";
+  color: var(--mk-vermelho);
+}
+
+.capa-rodape {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--mk-fundo-claro);
+  text-align: center;
+  color: var(--mk-comentario);
+}
+
+.capa-rodape .local {
+  color: var(--mk-texto);
+}
+
+@media (max-width: 640px) {
+  .indice li {
+    flex-wrap: wrap;
+  }
+
+  .indice .contagem {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .capa {
+    min-height: auto;
+    margin: 1rem auto;
+    padding: 2rem 1.25rem;
+    border-radius: 0;
+  }
+
+  .capa-titulo h1 {
+    font-size: 1.9rem;
+  }
+
+  .capa-pessoas {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .capa .trecho {
+    font-size: 0.75rem;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   9. Impressão: versão clara, sem navbar (economiza tinta)
+   -------------------------------------------------------------------------- */
+@media print {
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+
+  body,
+  body:has(.capa) {
+    background: #fff;
+    color: #000;
+  }
+
+  .navbar,
+  .rodape-site,
+  .pagina-voltar {
+    display: none;
+  }
+
+  h1, h2, h3, h4, strong, em, a,
+  .capa-disciplina h2,
+  .capa-rodape .local,
+  .capa-pessoas a {
+    color: #000;
+  }
+
+  a {
+    border-bottom: none;
+  }
+
+  pre,
+  code,
+  blockquote,
+  .indice li,
+  .resumo-indice,
+  .cartao,
+  .capa-chamada {
+    background: #f4f4f0;
+  }
+
+  .resumo-indice,
+  .resumo-indice h2,
+  .resumo-indice h3,
+  .capa-chamada,
+  .indice .contagem {
+    color: #000;
+  }
+
+  .capa {
+    min-height: calc(297mm - 30mm);
+    margin: 0;
+    padding: 10mm;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    max-width: none;
+  }
+}

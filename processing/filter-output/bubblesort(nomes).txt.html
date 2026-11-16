@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto - MAC0122</title>
+  <link rel="stylesheet" href="../../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="../../output/index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="../../output/index.html">Início</a></li>
+        <li><a href="../../output/tecnicas.html">Técnicas</a></li>
+        <li><a href="../../output/complexidades.html">Complexidade</a></li>
+        <li><a href="../../output/algoritmos.html">Algoritmos</a></li>
+        <li><a href="../../output/definicoes.html">Definições</a></li>
+        <li><a href="../../output/autores.html">Autores</a></li>
+        <li><a href="../../output/datas.html">Datas</a></li>
+        <li><a href="../../output/conceitos.html">Conceitos</a></li>
+        <li><a href="../../output/problemas.html">Problemas</a></li>
+        <li><a href="../../output/referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a class="voltar pagina-voltar" href="../../output/index.html">&larr; Voltar ao índice</a>
+<pre>
+1. Técnica: Método Guloso
+2. Algoritmo: Bubblesort (Ordenação de Nomes)
+3. Autores: Adaptação didática, sem atribuição histórica nesta ficha
+4. Data: Não especificada nesta ficha
+5. Conceitos: Vetor, Ponteiros, strcmp, Ordenação
+6. Problema: Ordenação: Colocar uma sequência de nomes em ordem lexicográfica.
+7. Complexidade: O(n² L)
+
+O funcionamento é o mesmo do bubble sort para números, mas a comparação precisa usar strcmp. Em C, comparar strings com &#62; ou == compara os ponteiros, não o conteúdo dos nomes.
+
+strcmp(a, b) retorna um valor negativo quando a vem antes de b, zero quando os textos são iguais e um valor positivo quando a vem depois de b. Não devemos supor que os valores retornados sejam exatamente -1 e 1.
+
+Implementação em C: o vetor contém ponteiros para strings válidas e terminadas em '\0'. A função troca os ponteiros no vetor, sem alterar os caracteres das strings.
+
+
+<span class="pragma">#include &#60;string.h&#62;</span>
+
+<span class="tipo">void</span> bubblesort_nomes(<span class="tipo">const</span> <span class="tipo">char</span> *nomes<span class="colchete">[</span><span class="conteudo_colchete"></span><span class="colchete">]</span>, <span class="tipo">int</span> n){
+    <span class="comando">for</span>(<span class="tipo">int</span> fim <span class="igual">=</span> n; fim &#62; 1; fim--){
+        <span class="tipo">int</span> trocou <span class="igual">=</span> 0;
+        <span class="comando">for</span>(<span class="tipo">int</span> i <span class="igual">=</span> 0; i &#60; fim - 1; i++){
+            <span class="comando">if</span>(strcmp(nomes<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>, nomes<span class="colchete">[</span><span class="conteudo_colchete">i + 1</span><span class="colchete">]</span>) &#62; 0){
+                <span class="tipo">const</span> <span class="tipo">char</span> *aux <span class="igual">=</span> nomes<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>;
+                nomes<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span> <span class="igual">=</span> nomes<span class="colchete">[</span><span class="conteudo_colchete">i + 1</span><span class="colchete">]</span>;
+                nomes<span class="colchete">[</span><span class="conteudo_colchete">i + 1</span><span class="colchete">]</span> <span class="igual">=</span> aux;
+                trocou <span class="igual">=</span> 1;
+            }
+        }
+        <span class="comando">if</span>(!trocou)<span class="comando">break</span>;
+    }
+}
+
+
+Exemplo de chamada:
+
+
+<span class="tipo">const</span> <span class="tipo">char</span> *nomes<span class="colchete">[</span><span class="conteudo_colchete"></span><span class="colchete">]</span> <span class="igual">=</span> {<span class="string">"Carlos"</span>, <span class="string">"Ana"</span>, <span class="string">"Bruno"</span>, <span class="string">"Ana"</span>};
+bubblesort_nomes(nomes, 4);
+
+
+O resultado é {"Ana", "Ana", "Bruno", "Carlos"}. Ao final de cada passagem, o maior nome do intervalo ainda em análise está em sua posição definitiva. Se uma passagem não realiza trocas, o vetor já está ordenado e podemos encerrar.
+
+A comparação usa &#62; 0, e não &#62;= 0. Portanto, nomes iguais não são trocados entre si e o algoritmo é estável.
+
+Se L é o maior comprimento de um nome, cada comparação pode custar O(L). O pior caso custa O(n²L); com a verificação de trocou, um vetor já ordenado custa O(n L). A memória auxiliar é O(1), pois trocamos somente ponteiros.
+
+strcmp usa a ordem dos bytes, distingue maiúsculas e minúsculas e não implementa a ordem alfabética própria do português para nomes acentuados. Aqui, ordem lexicográfica significa a ordem definida por strcmp.
+
+</pre>
+</body>
+</html>

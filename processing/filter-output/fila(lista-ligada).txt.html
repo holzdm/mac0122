@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto - MAC0122</title>
+  <link rel="stylesheet" href="../../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="../../output/index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="../../output/index.html">Início</a></li>
+        <li><a href="../../output/tecnicas.html">Técnicas</a></li>
+        <li><a href="../../output/complexidades.html">Complexidade</a></li>
+        <li><a href="../../output/algoritmos.html">Algoritmos</a></li>
+        <li><a href="../../output/definicoes.html">Definições</a></li>
+        <li><a href="../../output/autores.html">Autores</a></li>
+        <li><a href="../../output/datas.html">Datas</a></li>
+        <li><a href="../../output/conceitos.html">Conceitos</a></li>
+        <li><a href="../../output/problemas.html">Problemas</a></li>
+        <li><a href="../../output/referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a class="voltar pagina-voltar" href="../../output/index.html">&larr; Voltar ao índice</a>
+<pre>
+1. Técnica: Outro
+2. Algoritmo: Fila (Implementação em Listas Ligadas)
+3. Autores: Newell, Shaw e Simon
+4. Data: 1955-1956
+5. Conceitos: Lista, Pilha
+6. Problema: Estruturas: criar um metodo de estrutura de dados em que o primeiro elemento a entrar deve ser o primeiro a sair sem um limite fixo nem desperdiçar memoria
+7. Complexidade: O(1)
+
+A parte inicial, apresentando as melhorias em relação ao vetor e a introdução ao No e ao topo não será comentada, por já estar na parte de pilhas.
+
+Quando enfileiramos X, depois Y e depois Z, a estrutura fica assim:
+
+inicio                                  fim
+  |                                      |
+  v                                      v
+[ 'X' | * ]  ---&#62;  [ 'Y' | * ]  ---&#62;  [ 'Z' | NULL ]
+(1º a chegar)      (2º a chegar)      (Último a chegar)
+
+Repare na diferença crucial das setas em relação à pilha:
+
+Na pilha, o elemento novo apontava para trás (para quem estava embaixo dele).
+
+Na fila, cada elemento aponta para quem chegou depois dele (quem está atrás dele na fila). Quando o X for atendido e sair, o ponteiro inicio segue a seta do X para descobrir que o Y é o novo primeiro da fila. Já o último da fila (Z) aponta sempre para NULL, pois não há ninguém atrás dele.
+
+
+No* inicio <span class="igual">=</span> NULL;
+No* fim <span class="igual">=</span> NULL;
+
+ Dois ponteiros globais: um para o início (p) e outro para o fim (k)
+
+
+ <span class="tipo">void</span> enfileira(<span class="tipo">char</span> y) {
+    No* novo <span class="igual">=</span> (No*) malloc(sizeof(No));
+    novo-&#62;dado <span class="igual">=</span> y;
+    novo-&#62;proximo <span class="igual">=</span> NULL;
+
+    <span class="comando">if</span> (inicio <span class="igual">=</span><span class="igual">=</span> NULL) {
+        inicio <span class="igual">=</span> novo;
+    } <span class="comando">else</span> {
+        fim-&#62;proximo <span class="igual">=</span> novo;
+    }
+    fim <span class="igual">=</span> novo;
+}
+novo-&#62;dado <span class="igual">=</span> y;
+
+
+Coloca a letra recebida dentro da caixinha nova.
+
+
+novo-&#62;proximo <span class="igual">=</span> NULL;
+
+
+Como essa nova casa vai entrar no final da fila, ainda não existe ninguém atrás dela. Por isso, o ponteiro proximo dela nasce apontando para NULL.
+
+
+<span class="comando">if</span> (inicio <span class="igual">=</span><span class="igual">=</span> NULL) { inicio <span class="igual">=</span> novo; }
+
+
+Se a fila estava vazia, a nova informação passa a ser a primeira da fila (inicio = novo).
+
+
+<span class="comando">else</span> { fim-&#62;proximo <span class="igual">=</span> novo; }
+
+
+Se já havia gente na fila: Pegamos a casa que era a última até agora e fazemos a seta proximo dela apontar para a casa novo.
+
+
+fim <span class="igual">=</span> novo;
+
+
+Atualizamos o marcador oficial de fim da fila para apontar para o novo nó que acabou de entrar.
+
+
+<span class="tipo">char</span> desenfileira(<span class="tipo">void</span>) {
+    <span class="comando">if</span> (inicio <span class="igual">=</span><span class="igual">=</span> NULL) {
+        printf(<span class="string">"Erro: A fila esta vazia!\n"</span>);
+        <span class="comando">return</span> '\0';
+    }
+
+    No* temp <span class="igual">=</span> inicio;
+    <span class="tipo">char</span> letra <span class="igual">=</span> temp-&#62;dado;
+    inicio <span class="igual">=</span> temp-&#62;proximo;
+
+    <span class="comando">if</span> (inicio <span class="igual">=</span><span class="igual">=</span> NULL) {
+        fim <span class="igual">=</span> NULL;
+    }
+
+    free(temp);
+    <span class="comando">return</span> letra;
+}
+
+<span class="comando">if</span> (inicio <span class="igual">=</span><span class="igual">=</span> NULL) { ... }
+
+
+Proteção contra fila vazia. Se não há ninguém no inicio, avisa o erro e encerra.
+
+
+No* temp <span class="igual">=</span> inicio;
+
+
+Salva o endereço do primeiro nó da fila em um ponteiro temporário, para podermos apagá-lo da memória daqui a pouco.
+
+
+<span class="tipo">char</span> letra <span class="igual">=</span> temp-&#62;dado;
+
+
+Copia a letra do primeiro da fila para a variável letra antes de destruir o nó.
+
+
+inicio <span class="igual">=</span> temp-&#62;proximo;
+
+
+O ponteiro inicio avança para o segundo elemento da fila.
+
+
+<span class="comando">if</span> (inicio <span class="igual">=</span><span class="igual">=</span> NULL) { fim <span class="igual">=</span> NULL; }
+
+
+Se só restava 1 pessoa na fila e ela acabou de sair, o inicio virou NULL. Porém, o ponteiro fim ainda estava apontando para o elemento que vai ser apagado, essa linha garante que, quando o ultimo elemento sai, o fim também volta a ser NULL, deixando a fila zerada de verdade.
+
+</pre>
+</body>
+</html>

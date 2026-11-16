@@ -1,9 +1,10 @@
-1. Tecnica: Last in First Out (LIFO)  
-2. Algoritmo:Pilha (implementação em grafos) 
+1. Técnica: Tentativa e Erro
+2. Algoritmo: Pilha (Implementação em Grafos)
 3. Autores: John Hopcroft e Robert Tarjan
 4. Data: 1971
-5. Conceitos: pilhas (listas ligadas), grafos, filas (grafos). 
-6. Problema: Achar o caminho mais curto em grafos não ponderados.
+5. Conceitos: Pilha, Grafo, Fila
+6. Problema: Caminhos: Achar o caminho mais curto em grafos não ponderados.
+7. Complexidade: O(V²)
 
 Enquanto a fila atende os vértices por ordem de chegada, a pilha prioriza sempre o último vértice que acabou de ser descoberto.
 

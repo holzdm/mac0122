@@ -1,4 +1,6 @@
-Conceitos: Grafos, Definições
+1. Técnica: Outro
+2. Definição: Estruturas de Grafos
+Conceitos: Grafo, Definições
 
 Seguem algumas definições de estruturas de grafos:
 

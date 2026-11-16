@@ -1,4 +1,6 @@
-Conceitos: Grafos, Definições, Teoria
+1. Técnica: Outro
+2. Definição: Grafo
+Conceitos: Grafo, Definições, Teoria
 
 Define-se um grafo como uma estrutura com dois conjuntos: vértices e arestas. Pode-se imaginar um grafo como vários pontos ligados por
 arestas. 

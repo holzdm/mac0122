@@ -1,0 +1,94 @@
+1. Técnica: Outro
+2. Algoritmo: Tabela Hash de Strings com Contagem de Frequência
+3. Autores: Adaptação didática, sem atribuição histórica nesta ficha
+4. Data: Não especificada nesta ficha
+5. Conceitos: Strings, Ponteiros, Struct, Alocação Dinâmica, Lista
+6. Problema: Frequência: Armazenar palavras e consultar sua frequência sem percorrer todas as palavras já armazenadas.
+7. Complexidade: O(NL)
+
+Uma função hash transforma uma string em um índice da tabela. Inserção e busca calculam esse mesmo índice e examinam somente a lista correspondente. Strings diferentes podem produzir o mesmo índice: isso é uma colisão, e não significa que as strings sejam iguais. A igualdade precisa ser verificada com strcmp.
+
+Nesta implementação, cada posição contém uma lista ligada. Cada nó guarda uma cópia da palavra, sua frequência e o ponteiro para o próximo nó. Ao inserir uma palavra já presente, aumentamos a frequência; caso contrário, criamos um nó.
+
+Implementação em C:
+
+@c
+#include <stdlib.h>
+#include <string.h>
+#define M 101
+
+typedef struct No{
+    char *palavra;
+    int frequencia;
+    struct No*prox;
+}No;
+
+typedef struct{
+    No *lista[M];
+} Tabela;
+
+unsigned hash(const char *s) {
+    unsigned h = 0;
+    while(*s != '\0'){
+        h = (31u * h + (unsigned char)*s) % M;
+        s++;
+    }
+    return h;
+}
+
+void inicializa(Tabela *t){
+    for(int i = 0; i < M; i++)t->lista[i] = NULL;
+}
+
+No *busca(Tabela *t, const char *s){
+    unsigned h = hash(s);
+    for(No *p = t->lista[h]; p != NULL; p = p->prox){
+        if(strcmp(p->palavra, s) == 0)return p;
+    }
+    return NULL;
+}
+
+int insere(Tabela *t, const char *s){
+    No *p = busca(t, s);
+    if(p != NULL){
+        p->frequencia++;
+        return 1;
+    }
+    No *novo = malloc(sizeof *novo);
+    if(novo == NULL)return 0;
+    novo->palavra = malloc(strlen(s) + 1);
+    if(novo->palavra == NULL){
+        free(novo);
+        return 0;
+    }
+    strcpy(novo->palavra, s);
+    novo->frequencia = 1;
+    unsigned h = hash(s);
+    novo->prox = t->lista[h];
+    t->lista[h] = novo;
+    return 1;
+}
+
+void libera(Tabela *t){
+    for(int i = 0; i < M; i++){
+        No *p = t->lista[i];
+        while(p != NULL){
+            No *prox = p->prox;
+            free(p->palavra);
+            free(p);
+            p = prox;
+        }
+        t->lista[i] = NULL;
+    }
+}
+@c
+
+Antes de usar, declaramos Tabela t; e chamamos inicializa(&t). A função insere retorna 1 em caso de sucesso e 0 se faltar memória. A busca retorna NULL quando a palavra não existe. Ao terminar, chamamos libera(&t). As entradas devem ser strings válidas terminadas em '\0', e as frequências devem caber em int.
+
+O cálculo h = (31*h + caractere) % M incorpora a ordem dos caracteres e mantém o índice entre 0 e M-1. O número 31 é uma escolha desta implementação, sem garantia de eliminar colisões. O cast para unsigned char evita interpretar bytes de caracteres como números negativos.
+
+strlen(s) + 1 reserva também o terminador '\0'. A cópia permite reutilizar ou modificar o texto original sem alterar a palavra armazenada. novo->prox recebe a antiga cabeça da lista, e a tabela passa a apontar para novo.
+
+Exemplo: inserir "ana", "bia" e "ana" produz dois nós; a frequência de "ana" é 2 e a de "bia" é 1. "Ana" é uma chave diferente de "ana". A tabela não mantém as palavras ordenadas.
+
+Se N é a quantidade de palavras distintas, alfa = N/M é a carga média. Sob uma distribuição adequada dos índices, busca e inserção custam em média O(L(1+alfa)), considerando palavras de até L caracteres. Com carga limitada, isso é O(L), pois calcular o hash já exige ler a palavra. No pior caso, todas as palavras colidem e uma operação custa O(NL). A memória é O(M + N + S), em que S é a soma dos tamanhos das palavras armazenadas. Para manter bom desempenho com o crescimento de N, seria necessário aumentar a tabela e recalcular os índices.

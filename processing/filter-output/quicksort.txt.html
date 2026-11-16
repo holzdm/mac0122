@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto - MAC0122</title>
+  <link rel="stylesheet" href="../../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="../../output/index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="../../output/index.html">Início</a></li>
+        <li><a href="../../output/tecnicas.html">Técnicas</a></li>
+        <li><a href="../../output/complexidades.html">Complexidade</a></li>
+        <li><a href="../../output/algoritmos.html">Algoritmos</a></li>
+        <li><a href="../../output/definicoes.html">Definições</a></li>
+        <li><a href="../../output/autores.html">Autores</a></li>
+        <li><a href="../../output/datas.html">Datas</a></li>
+        <li><a href="../../output/conceitos.html">Conceitos</a></li>
+        <li><a href="../../output/problemas.html">Problemas</a></li>
+        <li><a href="../../output/referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a class="voltar pagina-voltar" href="../../output/index.html">&larr; Voltar ao índice</a>
+<pre>
+1. Técnica: Divisão e Conquista
+2. Algoritmo: Quick Sort (Implementação em Vetores)
+3. Autores: C.A.R. Hoare
+4. Data: 1960
+5. Conceitos: Vetor
+6. Problema: Ordenação: Dada uma sequência de números, obter um vetor ordenado que contenha todos os índices da sequência (qualquer índice do vetor é menor ou igual ao próximo, se houver).
+7. Complexidade: O(n²)
+
+O quicksort é um algorítmo que usa da divisão e conquista de uma forma variável: o divisor do vetor (onde o vetor maior será quebrado em subvetores) pode ser escolhido, e com isso, pode se ganhar muita agilidade ou perder desempenho. 
+O algorítmo começa escolhendo um determinado elemento dentro do vetor que será o divisor (nesse texto, ele será chamado de pivô). Com o pivô escolhido, a ideia é reorganizar o vetor de forma que todos os elementos à direita do pivô sejam menores que ele, e todos à esquerda sejam maiores. Dessa forma, teremos dois subvetores ordenados que podem ser divididos em mais subvetores ordenados até que eles tenham tamanho unitário (portanto, o vetor completo estará ordenado).
+Essa implementação faz essa divisão da seguinte forma: primeiro troca-se o pivô com o último índice do vetor. então um vetor de tamanho n vai ter o pivô na posição n-1 e todos os outros elementos ocuparão as posições 0 a n-2. Nesse subvetor [0:n-2], uma função while vai procurar 2 elementos: O primeiro elemento começando da esquerda que é maior que o pivô, e o primeiro elemento começando da direita que é menor que o pivô. Ao achar esses dois elementos, ele salva os índices e os compara. Se o elemento maior que o pivô está à esquerda do elemento menor, eles trocam de lugar, e o while tenta achar o próximo par de elementos que satisfaz as condições. Como o algorítmo sempre troca os primeiros índices estritamente maiores e menores que o pivô, ele garante que os intervalos já visitados contém, respectivamente, somente elementos menores e iguais OU somente elementos maiores que o pivô. Então, quando a busca pela esquerda acessa o primeiro lugar já buscado pela direita, significa que o vetor tem todos os elementos à esquerda menores que o pivô, e que a partir do primeiro índice da direita, todos os elementos são maiores que o pivô. Nesse momento, o primeiro índice da direita está armazenado na variável que busca pela esquerda. Então, basta trocar o pivô (última posição) pelo elemento cujo índice é a variável que está na busca pela esquerda. Assim, o vetor está dividido em três subvetores: um do início até a posição anterior ao pivô, que contem elementos estritamente menores ou iguais a ele, um vetor que contém o pivô, e um depois do pivô até o fim, que contém elementos estritamente maiores que ele. Portanto, ao repetir esse algorítmo para cada subvetor até que os subvetores restantes sejam unitários, o vetor estará completamente ordenado. 
+Nota-se que a escolha do pivô influencia diretamente no tempo necessário para que o algorítmo funcione. Se o pivô escolhido for a mediana dos valores do vetor, ele funcionará de forma parecida com o mergesort, portanto, tendo complexidade n*log(n) pelos mesmos motivos. no entanto, se o pivô escolhido for o maior ou o menor elemento do vetor(pior caso), o tempo necessário escala com O(n²). Além disso, esse algorítmo não é estável, ou seja, não vale que elementos que possuam valores iguais sempre mantém a ordem inicial após a ordenação. 
+
+
+
+<span class="tipo">void</span> quicksort(<span class="tipo">int</span> *vetor, <span class="tipo">int</span> inicio, <span class="tipo">int</span> fim){
+    <span class="comando">if</span> (inicio&#62;<span class="igual">=</span>fim) <span class="comando">return</span>;
+    <span class="tipo">int</span> pivo<span class="igual">=</span>vetor<span class="colchete">[</span><span class="conteudo_colchete">fim</span><span class="colchete">]</span>;
+    <span class="tipo">int</span> maioresq<span class="igual">=</span>inicio;
+    <span class="tipo">int</span> menordir<span class="igual">=</span>fim-1;
+    <span class="tipo">int</span> aux<span class="igual">=</span>0;
+
+    <span class="comando">while</span> (maioresq&#60;<span class="igual">=</span>menordir){
+        <span class="comando">while</span>(maioresq&#60;<span class="igual">=</span>menordir &#38;&#38; vetor<span class="colchete">[</span><span class="conteudo_colchete">maioresq</span><span class="colchete">]</span> &#60;<span class="igual">=</span> pivo){
+            maioresq++;
+        }
+        <span class="comando">while</span>(maioresq&#60;<span class="igual">=</span>menordir &#38;&#38; vetor<span class="colchete">[</span><span class="conteudo_colchete">menordir</span><span class="colchete">]</span> &#62;<span class="igual">=</span> pivo){
+            menordir--;
+        }
+
+        <span class="comando">if</span> (maioresq &#60; menordir){
+            aux <span class="igual">=</span> vetor<span class="colchete">[</span><span class="conteudo_colchete">maioresq</span><span class="colchete">]</span>;
+            vetor<span class="colchete">[</span><span class="conteudo_colchete">maioresq</span><span class="colchete">]</span> <span class="igual">=</span> vetor<span class="colchete">[</span><span class="conteudo_colchete">menordir</span><span class="colchete">]</span>;
+            vetor<span class="colchete">[</span><span class="conteudo_colchete">menordir</span><span class="colchete">]</span> <span class="igual">=</span> aux;
+        }
+    }
+    vetor<span class="colchete">[</span><span class="conteudo_colchete">fim</span><span class="colchete">]</span><span class="igual">=</span>vetor<span class="colchete">[</span><span class="conteudo_colchete">maioresq</span><span class="colchete">]</span>;
+    vetor<span class="colchete">[</span><span class="conteudo_colchete">maioresq</span><span class="colchete">]</span><span class="igual">=</span>pivo;
+    quicksort(vetor, inicio, maioresq-1);
+    quicksort(vetor, maioresq+1, fim);
+}
+
+</pre>
+</body>
+</html>

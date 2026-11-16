@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto - MAC0122</title>
+  <link rel="stylesheet" href="../../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="../../output/index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="../../output/index.html">Início</a></li>
+        <li><a href="../../output/tecnicas.html">Técnicas</a></li>
+        <li><a href="../../output/complexidades.html">Complexidade</a></li>
+        <li><a href="../../output/algoritmos.html">Algoritmos</a></li>
+        <li><a href="../../output/definicoes.html">Definições</a></li>
+        <li><a href="../../output/autores.html">Autores</a></li>
+        <li><a href="../../output/datas.html">Datas</a></li>
+        <li><a href="../../output/conceitos.html">Conceitos</a></li>
+        <li><a href="../../output/problemas.html">Problemas</a></li>
+        <li><a href="../../output/referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a class="voltar pagina-voltar" href="../../output/index.html">&larr; Voltar ao índice</a>
+<pre>
+1. Técnica: Outro
+2. Algoritmo: Counting Sort (Implementação em Vetores)
+3. Autores: Harold H. Seward
+4. Data: 1954
+5. Conceitos: Vetor
+6. Problema: Ordenação: Dada uma sequência de números, obter um vetor ordenado que contenha todos os índices da sequência (qualquer índice do vetor é menor ou igual ao próximo, se houver).
+7. Complexidade: O(n + R)
+
+O algorítmo counting sort funciona calculando a frequência parcial de todos os ítens dentro de um vetor v[] menores ou iguais ao elemento v[i]. Assim, é possível encaixar o elemento v[i] na posição imediatamente posterior à obtida pela frequência dos predecessores. 
+Ele funciona de forma bem diferente dos outros, e seu tempo de execução depende não somente do tamanho do vetor, mas da grandeza dos índices. 
+
+Implementação em C: O algorítmo itera por uma sequência de índices e do vetor e, a cada índice, usa o valor do elemento como índice para um segundo vetor fp[] (esse segundo vetor será chamado vetor de frequências parciais). Ao fim da primeira iteração, as frequencias de cada elemento i estão em fp[i+1]. Após isso, o algorítmo calcula a frequência acumulada para cada índice (a soma da frequência dele com todas as anteriores). Assim, se quisermos colocar um elemento i na posição correta do vetor, basta olhar pra fp[i]. Esse elemento conterá a frequência f de todos os números menores ou iguais a ele no vetor. Usando esses f elementos pra preencher o vetor ordenado, obteremos um vetor ordenado das posições [v0] até v[f-1]. Portanto, basta colocar o elemento i na posição v[f] e aumentar em 1 o índice do vetor fp para que o próximo elemento possa ser encaixado no índice correto. Ao fim dessa iteração, só percorrer todo o vetor ordenado e substituir as entradas do vetor original pelas entradas do ordenado. A complexidade desse algorítmo depende da cardinalidade do conjunto de índices e do tamanho do vetor de forma que a complexidade em forma big O é O(n+r). Se r é constante, é da ordem de O(n).
+
+
+<span class="tipo">void</span> countingsort(<span class="tipo">int</span> *v, <span class="tipo">int</span> n, <span class="tipo">int</span> R){
+    <span class="tipo">int</span> r;
+    <span class="tipo">int</span> *fp, *aux;
+
+    fp<span class="igual">=</span>malloc((R+1)*sizeof(<span class="tipo">int</span>));
+    aux<span class="igual">=</span>malloc(n*sizeof(<span class="tipo">int</span>));
+
+    <span class="comando">for</span> (r<span class="igual">=</span>0;r&#60;<span class="igual">=</span>R;r++){
+        fp<span class="colchete">[</span><span class="conteudo_colchete">r</span><span class="colchete">]</span><span class="igual">=</span>0;
+    }
+    <span class="comando">for</span> (<span class="tipo">int</span> i<span class="igual">=</span>0;i&#60;n;i++){
+        r<span class="igual">=</span>v<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>;
+        fp<span class="colchete">[</span><span class="conteudo_colchete">r+1</span><span class="colchete">]</span>++;
+    }
+    <span class="comando">for</span> (r<span class="igual">=</span>1;r&#60;R; ++r)
+    fp<span class="colchete">[</span><span class="conteudo_colchete">r</span><span class="colchete">]</span>+<span class="igual">=</span>fp<span class="colchete">[</span><span class="conteudo_colchete">r-1</span><span class="colchete">]</span>;
+
+    <span class="comando">for</span> (<span class="tipo">int</span> i<span class="igual">=</span>0;i&#60;n;i++){
+        r<span class="igual">=</span>v<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>;
+        aux<span class="colchete">[</span><span class="conteudo_colchete">fp[r</span><span class="colchete">]</span>]<span class="igual">=</span>v<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>;
+        fp<span class="colchete">[</span><span class="conteudo_colchete">r</span><span class="colchete">]</span>++;
+    }   <span class="comando">for</span> (<span class="tipo">int</span> i <span class="igual">=</span> 0; i &#60; n; ++i) 
+      v<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span> <span class="igual">=</span> aux<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>;
+
+    free (fp);
+    free (aux);
+}
+
+</pre>
+</body>
+</html>

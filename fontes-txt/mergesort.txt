@@ -1,9 +1,10 @@
-1. Tecnica: Divisão e Conquista
-2. Algoritmo: Merge Sort (implementação em vetores) 
+1. Técnica: Divisão e Conquista
+2. Algoritmo: Merge Sort (Implementação em Vetores)
 3. Autores: John Von Neumann
 4. Data: 1945
-5. Conceitos: vetor
-6. Problema: Dada uma sequência de números, obter um vetor ordenado que contenha todos os índices da sequência (qualquer índice do vetor é menor ou igual ao próximo, se houver).
+5. Conceitos: Vetor
+6. Problema: Ordenação: Dada uma sequência de números, obter um vetor ordenado que contenha todos os índices da sequência (qualquer índice do vetor é menor ou igual ao próximo, se houver).
+7. Complexidade: O(n log n)
 
 O algorítmo mergesort é do tipo recursivo e usa da divisão e conquista para ordenar o vetor de forma mais rápida que os algorítmos de ordenação que seguem o paradigma guloso. A ideia é: Separar o vetor recursivamente em duas metades de tamanho igual, ordenar as metades individualmente e intercalá-las. Nessa implementação, Um vetor de tamanho n é dividido em duas metades e cada subvetor gerado também é dividido repetidas vezes até que sobrem n vetores de tamanho unitário. Quando isso acontece, os dois vetores unitários mais próximos (que estavam num vetor de tamanho 2 antes de terem sido divididos) são comparados e colocados em ordem no vetor de tamanho 2. Esse processo se repete até que os outros vetores de tamanho 2 estejam prontos, e a partir daí, o algorítmo compara o menor elemento de cada vetor e coloca na primeira posição do vetor de tamanho 4 o menor entre os dois. Então, ele compara o próximo elemento do vetor que teve o elemento escolhido com o menor elemento do outro vetor e preenche a próxima posição do vetor de tamanho 4. Por fim, se um dos vetores já tiver sido inteiramente percorrido, o outro vetor é copiado em ordem. Caso contrário, a comparação será feita com o elemento não escolhido e o próximo elemento do vetor que teve o elemento escolhido. Esse processo é repetido até que os vetores de tamanho 4 estejam completamente ordenados e também é feito para os vetores maiores até que o vetor principal esteja completamente ordenado. 
 O invariante da função intercala (merge) é que no início da junção, os dois subvetores já estão ordenados, tornando a união muito mais simples. 

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto - MAC0122</title>
+  <link rel="stylesheet" href="../../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="../../output/index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="../../output/index.html">Início</a></li>
+        <li><a href="../../output/tecnicas.html">Técnicas</a></li>
+        <li><a href="../../output/complexidades.html">Complexidade</a></li>
+        <li><a href="../../output/algoritmos.html">Algoritmos</a></li>
+        <li><a href="../../output/definicoes.html">Definições</a></li>
+        <li><a href="../../output/autores.html">Autores</a></li>
+        <li><a href="../../output/datas.html">Datas</a></li>
+        <li><a href="../../output/conceitos.html">Conceitos</a></li>
+        <li><a href="../../output/problemas.html">Problemas</a></li>
+        <li><a href="../../output/referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a class="voltar pagina-voltar" href="../../output/index.html">&larr; Voltar ao índice</a>
+<pre>
+1. Técnica: Outro
+2. Algoritmo: Pilha (Implementação em Listas Ligadas)
+3. Autores: Allen Newell, J. Clifford Shaw e Herbert A. Simon
+4. Data: 1955 - 1956
+5. Conceitos: Pilha, Lista
+6. Problema: Estruturas: criar um metodo de estrutura de dados em que o ultimo elemento a entrar deve ser o primeiro a sair sem um limite fixo nem desperdiçar memória.
+7. Complexidade: O(1)
+
+Vamos começar tratando de 2 limitações muito claras da aplicação anterior em vetores. 
+1 limite fixo : no documento anterior, o vetor precisa ter um tamanho fixo (pilha[0...N-1]), que, por exemplo, para N = 100, só podemos armazenar 100 itens, passando disso, causaria overflow.
+
+2 desperdicio de memória : para o mesmo exemplo de N = 100, se só guardarmos, por exemplo, 20 itens, teriamos desperdiçado 80 casa na memoria.
+
+No caso da lista ligada, ele começa sem nenhuma casa e pede e devolve mais casas ao computador conforme você empilha ou desempilha itens, resolvendo os dois problemas citados previamente. 
+
+Na lista ligada, os elementos não ficam lado a lado na memoria, eles ocupam qualquer espaço disponivel. Então, para acharmos esses elementos, associaremos ponteiros ao endereço deles, esse conjunto será chamado de nó. 
+
+para organizarmos, ao invés de uma variavel k, teremos um ponteiro chamado topo. Quando a pilha está vazia, topo aponta pra null, caso contrário, aponta pro elemento mais recentemente adicionado. 
+
+EXEMPLO : digamos que empilhamos X, depois Y e depois Z. a estrutura fica : 
+topo
+ |
+ v
+[ 'Z' | * ]  ---&#62;  [ 'Y' | * ]  ---&#62;  [ 'X' | NULL ]
+ (Topo atual)       (Embaixo do Z)     (Base da pilha)
+
+
+ Agora, vamos trazer as funções em C que fazem oque foi previamente explicado (nesse caso estaremos empilhando caracteres) : 
+
+
+ typedef <span class="tipo">struct</span> No {
+    <span class="tipo">char</span> dado;
+    <span class="tipo">struct</span> No* proximo;
+} No; 
+
+cria um molde chamado No, que tem 2 variáveis internas : 
+char dado : guarda o caractere.
+struct No* proximo : guarda o endereço do struct No abaixo dele. 
+
+
+<span class="tipo">void</span> empilha(<span class="tipo">char</span> y) {
+    No* novo <span class="igual">=</span> (No*) malloc(sizeof(No));
+    novo-&#62;dado <span class="igual">=</span> y;
+    novo-&#62;proximo <span class="igual">=</span> topo;
+    topo <span class="igual">=</span> novo;
+}  
+
+sizeof(No) calcula quantos bytes um Nó precisa na memória.
+
+malloc(...) reserva o espaço calculado na memoria.
+
+No* novo guarda o endereço desse espaço.
+
+(-&#62;)  serve para acessar o que está dentro de um ponteiro de estrutura. Aqui, guardamos a letra y dentro do espaço novo, depois, fazemos a seta proximo da nova caixinha apontar para quem era o topo antigo.
+
+Agora que o novo nó já está conectado ao antigo topo, atualizamos o ponteiro topo oficial para apontar para esse novo nó. Ele passa a ser o topo da pilha.
+
+
+<span class="tipo">char</span> desempilha(<span class="tipo">void</span>) {
+    <span class="comando">if</span> (topo <span class="igual">=</span><span class="igual">=</span> NULL) {
+        printf(<span class="string">"Erro: A pilha esta vazia!\n"</span>);
+        <span class="comando">return</span> '\0';
+    }
+    
+    No* temp <span class="igual">=</span> topo;
+    <span class="tipo">char</span> letra <span class="igual">=</span> temp-&#62;dado;
+    topo <span class="igual">=</span> temp-&#62;proximo;
+    free(temp);
+    
+    <span class="comando">return</span> letra;
+}
+<span class="comando">if</span> (topo <span class="igual">=</span><span class="igual">=</span> NULL) { ... }
+
+
+Verifica se a pilha está vazia antes de tentar tirar algo. Se tentarmos acessar dados de um ponteiro NULL, o programa sofre uma falha de segmentação e fecha sozinho. Se estiver vazia, avisa o erro e retorna um caractere nulo.
+
+
+No* temp <span class="igual">=</span> topo;
+
+
+Criamos um ponteiro que segura o endereço do nó do topo atual. Precisamos dele porque vamos mudar o topo para o elemento de baixo, mas ainda precisamos saber onde estava o nó antigo para apagá-lo da memória.
+
+
+<span class="tipo">char</span> letra <span class="igual">=</span> temp-&#62;dado;
+
+
+Copiamos a letra que está guardada no topo para uma variável, pois na linha 5 vamos destruir o nó da memória e perderíamos a letra se não a salvássemos antes.
+
+
+topo <span class="igual">=</span> temp-&#62;proximo;
+
+
+O topo oficial desce um degrau, passando a apontar para quem estava embaixo dele (temp-&#62;proximo).
+
+Depois, devolvemos a letra salva e a memoria guardada.
+
+</pre>
+</body>
+</html>

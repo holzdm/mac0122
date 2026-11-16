@@ -60,9 +60,32 @@ void gera_html(FILE *entrada, FILE *saida) {
     fputs("<html lang=\"pt-br\">\n", saida);
     fputs("<head>\n", saida);
     fputs("  <meta charset=\"utf-8\">\n", saida);
-    fputs("  <link rel=\"stylesheet\" href=\"estilo.css\">\n", saida);
+    fputs("  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n", saida);
+    fputs("  <title>Texto - MAC0122</title>\n", saida);
+    fputs("  <link rel=\"stylesheet\" href=\"../../estilo.css\">\n", saida);
     fputs("</head>\n", saida);
-    fputs("<body>\n<pre>\n", saida);
+    fputs("<body>\n"
+          "  <nav class=\"navbar\" aria-label=\"Navegação principal\">\n"
+          "    <div class=\"navbar-conteudo\">\n"
+          "      <a class=\"navbar-marca\" href=\"../../output/index.html\"><span class=\"chave\">{</span> MAC0122 <span class=\"chave\">}</span></a>\n"
+          "      <input type=\"checkbox\" id=\"navbar-toggle\" class=\"navbar-toggle\">\n"
+          "      <label for=\"navbar-toggle\" class=\"navbar-botao\" aria-label=\"Abrir menu\">&#9776;</label>\n"
+          "      <ul class=\"navbar-menu\">\n"
+          "        <li><a href=\"../../output/index.html\">Início</a></li>\n"
+          "        <li><a href=\"../../output/tecnicas.html\">Técnicas</a></li>\n"
+          "        <li><a href=\"../../output/complexidades.html\">Complexidade</a></li>\n"
+          "        <li><a href=\"../../output/algoritmos.html\">Algoritmos</a></li>\n"
+          "        <li><a href=\"../../output/definicoes.html\">Definições</a></li>\n"
+          "        <li><a href=\"../../output/autores.html\">Autores</a></li>\n"
+          "        <li><a href=\"../../output/datas.html\">Datas</a></li>\n"
+          "        <li><a href=\"../../output/conceitos.html\">Conceitos</a></li>\n"
+          "        <li><a href=\"../../output/problemas.html\">Problemas</a></li>\n"
+          "        <li><a href=\"../../output/referencias.html\">Referências</a></li>\n"
+          "      </ul>\n"
+          "    </div>\n"
+          "  </nav>\n"
+          "  <a class=\"voltar pagina-voltar\" href=\"../../output/index.html\">&larr; Voltar ao índice</a>\n"
+          "<pre>\n", saida);
 
     while ((c = fgetc(entrada)) != EOF) {
         if (c == '@') {

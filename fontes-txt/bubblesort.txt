@@ -1,9 +1,10 @@
-1. Tecnica: Guloso
-2. Algoritmo: Bubblesort (implementação em vetores) 
+1. Técnica: Método Guloso
+2. Algoritmo: Bubblesort (Implementação em Vetores)
 3. Autores: Edward Harry Friend (primeira menção formal na literatura)
 4. Data: 1956
-5. Conceitos: vetor
-6. Problema: Dada uma sequência de números, obter um vetor ordenado que contenha todos os índices da sequência (qualquer índice do vetor é menor ou igual ao próximo, se houver).
+5. Conceitos: Vetor
+6. Problema: Ordenação: Dada uma sequência de números, obter um vetor ordenado que contenha todos os índices da sequência (qualquer índice do vetor é menor ou igual ao próximo, se houver).
+7. Complexidade: O(n²)
 
 
 O algorítmo bubblesort funciona por meio de iterações. A cada iteração, o elemento de indice i do vetor v é comparado com o próximo. Se esse elemento é maior que o próximo, então os dois trocam de lugar, e o iterador avança uma posição no vetor (i++) até chegar ao fim do vetor. Ao final de cada iteração, o invariante é que o maior elemento do vetor está na última posição dele. Assim, repete-se o processo, agora observando o vetor apenas até a penúltima posição (fim--), de forma que ao fim da iteração o penúltimo índice será o segundo maior. Esse processo se repete até que o tamanho do vetor seja unitário. Nesse momento, o vetor estará perfeitamente ordenado.

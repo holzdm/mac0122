@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto - MAC0122</title>
+  <link rel="stylesheet" href="../../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="../../output/index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="../../output/index.html">Início</a></li>
+        <li><a href="../../output/tecnicas.html">Técnicas</a></li>
+        <li><a href="../../output/complexidades.html">Complexidade</a></li>
+        <li><a href="../../output/algoritmos.html">Algoritmos</a></li>
+        <li><a href="../../output/definicoes.html">Definições</a></li>
+        <li><a href="../../output/autores.html">Autores</a></li>
+        <li><a href="../../output/datas.html">Datas</a></li>
+        <li><a href="../../output/conceitos.html">Conceitos</a></li>
+        <li><a href="../../output/problemas.html">Problemas</a></li>
+        <li><a href="../../output/referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a class="voltar pagina-voltar" href="../../output/index.html">&larr; Voltar ao índice</a>
+<pre>
+1. Técnica: Outro
+2. Algoritmo: Busca em Largura (BFS)
+3. Autores: Sem atribuição histórica nesta ficha
+4. Data: Não especificada nesta ficha
+5. Conceitos: Grafo, Matriz, Fila, Distância, Predecessores
+6. Problema: Busca: Encontrar os vértices alcançáveis e a menor quantidade de arestas entre uma origem e cada um deles.
+7. Complexidade: O(V²)
+
+A busca em largura visita primeiro a origem, depois os vértices a uma aresta dela, depois os que estão a duas arestas, e assim por diante. Para manter essa ordem, usamos uma fila: o primeiro vértice que entra é o primeiro a sair.
+
+Quando descobrimos um vizinho y de x, registramos dist[y] = dist[x] + 1, guardamos pai[y] = x e colocamos y no fim da fila. Marcamos y nesse momento, antes de retirá-lo da fila, para impedir inserções repetidas.
+
+Implementação em C: grafo[x][y] vale 1 quando há uma aresta de x para y. Os vértices vão de 0 até V-1, e todas as arestas têm o mesmo custo.
+
+
+<span class="pragma">#define V 6</span>
+
+<span class="tipo">void</span> busca_largura(<span class="tipo">int</span> grafo<span class="colchete">[</span><span class="conteudo_colchete">V</span><span class="colchete">]</span><span class="colchete">[</span><span class="conteudo_colchete">V</span><span class="colchete">]</span>, <span class="tipo">int</span> origem, <span class="tipo">int</span> dist<span class="colchete">[</span><span class="conteudo_colchete">V</span><span class="colchete">]</span>, <span class="tipo">int</span> pai<span class="colchete">[</span><span class="conteudo_colchete">V</span><span class="colchete">]</span>){
+    <span class="tipo">int</span> fila<span class="colchete">[</span><span class="conteudo_colchete">V</span><span class="colchete">]</span>;
+    <span class="tipo">int</span> inicio <span class="igual">=</span> 0, fim <span class="igual">=</span> 0;
+    <span class="comando">for</span> (<span class="tipo">int</span> x <span class="igual">=</span> 0; x &#60; V; x++) {
+        dist<span class="colchete">[</span><span class="conteudo_colchete">x</span><span class="colchete">]</span> <span class="igual">=</span> -1;
+        pai<span class="colchete">[</span><span class="conteudo_colchete">x</span><span class="colchete">]</span> <span class="igual">=</span> -1;
+    }
+    <span class="comando">if</span>(origem &#60; 0 || origem &#62;<span class="igual">=</span> V)<span class="comando">return</span>;
+    dist<span class="colchete">[</span><span class="conteudo_colchete">origem</span><span class="colchete">]</span> <span class="igual">=</span> 0;
+    fila<span class="colchete">[</span><span class="conteudo_colchete">fim++</span><span class="colchete">]</span> <span class="igual">=</span> origem;
+    <span class="comando">while</span>(inicio &#60; fim){
+        <span class="tipo">int</span> x <span class="igual">=</span> fila<span class="colchete">[</span><span class="conteudo_colchete">inicio++</span><span class="colchete">]</span>;
+        <span class="comando">for</span>(<span class="tipo">int</span> y <span class="igual">=</span> 0; y &#60; V; y++){
+            <span class="comando">if</span>(grafo<span class="colchete">[</span><span class="conteudo_colchete">x</span><span class="colchete">]</span><span class="colchete">[</span><span class="conteudo_colchete">y</span><span class="colchete">]</span> &#38;&#38; dist<span class="colchete">[</span><span class="conteudo_colchete">y</span><span class="colchete">]</span> <span class="igual">=</span><span class="igual">=</span> -1){
+                dist<span class="colchete">[</span><span class="conteudo_colchete">y</span><span class="colchete">]</span> <span class="igual">=</span> dist<span class="colchete">[</span><span class="conteudo_colchete">x</span><span class="colchete">]</span> + 1;
+                pai<span class="colchete">[</span><span class="conteudo_colchete">y</span><span class="colchete">]</span> <span class="igual">=</span> x;
+                fila<span class="colchete">[</span><span class="conteudo_colchete">fim++</span><span class="colchete">]</span> <span class="igual">=</span> y;
+            }
+        }
+    }
+}
+
+
+inicio aponta para o próximo elemento a sair, e fim aponta para a próxima posição livre. Como cada vértice entra uma única vez, um vetor com V posições basta para esta execução; não precisamos de uma fila circular.
+
+dist[x] igual a -1 significa que x ainda não foi descoberto. Ao final, significa que ele não é alcançável a partir da origem. pai[x] permite reconstruir um caminho voltando do destino até a origem; para imprimi-lo no sentido correto, podemos guardar essa sequência em uma pilha.
+
+Por exemplo, com arestas não dirigidas 0-1, 0-2, 1-3, 2-4 e 4-5, as distâncias a partir de 0 são {0, 1, 1, 2, 2, 3}. Um caminho até 5 é 0, 2, 4, 5.
+
+O invariante é que a fila mantém os vértices em ordem não decrescente de distância. Assim, a primeira descoberta de um vértice já determina sua menor distância em número de arestas. Para pesos diferentes, essa garantia não resolve o problema geral de menor custo.
+
+Com matriz de adjacência, o pior caso custa O(V²). Com listas de adjacência, custa O(V+E). A fila e os vetores auxiliares usam O(V) de memória, além da representação do grafo.
+
+Referência:
+Paulo Feofiloff — Busca em largura.
+https://www.ime.usp.br/~pf/algoritmos_para_grafos/aulas/bfs.html
+
+</pre>
+</body>
+</html>

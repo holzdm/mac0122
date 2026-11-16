@@ -1,9 +1,10 @@
-1. Tecnica: First-In-First-Out (FIFO) 
-2. Algoritmo:Fila (implementação em vetores) 
+1. Técnica: Outro
+2. Algoritmo: Fila (Implementação em Vetores)
 3. Autores: Agner Krarup Erlang / David G. Kendall
 4. Data: 1909/1953 
-5. Conceitos: vetor. 
-6. Problema: criar um metodo de estrutura de dados em que o primeiro elemento a entrar deve ser o primeiro a sair (FIFO)
+5. Conceitos: Vetor
+6. Problema: Estruturas: criar um metodo de estrutura de dados em que o primeiro elemento a entrar deve ser o primeiro a sair (FIFO)
+7. Complexidade: O(1)
 
 Começaremos definindo oque é fila. Fila é uma estrutura de dados dinâmica que admite adição e remoção de novos elementos, de maneira que a remoção sempre ocorra com o elemento mais antigo da fila.
 

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto - MAC0122</title>
+  <link rel="stylesheet" href="../../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="../../output/index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="../../output/index.html">Início</a></li>
+        <li><a href="../../output/tecnicas.html">Técnicas</a></li>
+        <li><a href="../../output/complexidades.html">Complexidade</a></li>
+        <li><a href="../../output/algoritmos.html">Algoritmos</a></li>
+        <li><a href="../../output/definicoes.html">Definições</a></li>
+        <li><a href="../../output/autores.html">Autores</a></li>
+        <li><a href="../../output/datas.html">Datas</a></li>
+        <li><a href="../../output/conceitos.html">Conceitos</a></li>
+        <li><a href="../../output/problemas.html">Problemas</a></li>
+        <li><a href="../../output/referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a class="voltar pagina-voltar" href="../../output/index.html">&larr; Voltar ao índice</a>
+<pre>
+1. Técnica: Tentativa e Erro
+2. Algoritmo: Pilha (Implementação em Grafos)
+3. Autores: John Hopcroft e Robert Tarjan
+4. Data: 1971
+5. Conceitos: Pilha, Grafo, Fila
+6. Problema: Caminhos: Achar o caminho mais curto em grafos não ponderados.
+7. Complexidade: O(V²)
+
+Enquanto a fila atende os vértices por ordem de chegada, a pilha prioriza sempre o último vértice que acabou de ser descoberto.
+
+Avanço em Profundidade: Sempre que o algoritmo descobre um novo vizinho, esse vizinho vai para o topo da pilha e é explorado no passo seguinte, deixando os outros caminhos no fundo da pilha.
+Backtracking: Quando o algoritmo chega a um vértice que não possui mais vizinhos inéditos, ele desempilha, voltando automaticamente para a encruzilhada mais recente que ainda tinha caminhos pendentes na pilha.
+
+Como explicado na parte de filas,pilhas não calculam a distância mínima.
+
+Em compensação, a pilha resolve problemas que a fila não consegue resolver facilmente:
+
+Detecção de Ciclos e Dependências Circulares: Descobrir se uma rede ou conjunto de tarefas possui um loop fechado.
+
+Exploração de Labirintos e Jogos (Backtracking): Avançar até o fim de uma tentativa e voltar exatamente para a última bifurcação caso dê errado.
+
+Ordenação Topológica: Definir a ordem em que tarefas devem ser realizadas respeitando os pré-requisitos.
+
+Para controlar a Busca em Profundidade sem misturar outras estruturas, utilizamos três vetores:
+
+pilha : (com o índice t de topo): Controla os caminhos pendentes usando pilha[t++] para empilhar e pilha[--t] para desempilhar.
+visitado : Marca com 0 quem ainda não foi descoberto e com 1 quem já entrou na pilha, impedindo que o programa entre em loop infinito.
+pai : Guarda quem descobriu quem (pai[y] = x), permitindo rastrear o caminho percorrido do destino de volta até a origem.
+
+Codigo: 
+
+
+<span class="tipo">int</span> grafo<span class="colchete">[</span><span class="conteudo_colchete">6</span><span class="colchete">]</span><span class="colchete">[</span><span class="conteudo_colchete">6</span><span class="colchete">]</span> <span class="igual">=</span> {
+    {  0, 1, 1, 0, 0, 0 }, 
+    {  0, 0, 0, 0, 0, 1 }, 
+    {  0, 0, 0, 1, 0, 0 }, 
+    {  0, 0, 0, 0, 1, 0 }, 
+    {  0, 0, 0, 0, 0, 1 }, 
+    {  0, 0, 0, 0, 0, 0 }  
+};
+
+<span class="tipo">int</span> pilha<span class="colchete">[</span><span class="conteudo_colchete">6</span><span class="colchete">]</span>;
+<span class="tipo">int</span> t <span class="igual">=</span> 0; 
+
+<span class="tipo">int</span> visitado<span class="colchete">[</span><span class="conteudo_colchete">6</span><span class="colchete">]</span>; 
+<span class="tipo">int</span> pai<span class="colchete">[</span><span class="conteudo_colchete">6</span><span class="colchete">]</span>;
+
+<span class="tipo">void</span> busca_em_profundidade(<span class="tipo">int</span> origem) {
+    <span class="comando">for</span> (<span class="tipo">int</span> i <span class="igual">=</span> 0; i &#60; 6; i++) {
+        visitado<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span> <span class="igual">=</span> 0;
+        pai<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span> <span class="igual">=</span> -1;
+    }
+
+    visitado<span class="colchete">[</span><span class="conteudo_colchete">origem</span><span class="colchete">]</span> <span class="igual">=</span> 1;
+    pai<span class="colchete">[</span><span class="conteudo_colchete">origem</span><span class="colchete">]</span> <span class="igual">=</span> origem;
+    pilha<span class="colchete">[</span><span class="conteudo_colchete">t++</span><span class="colchete">]</span> <span class="igual">=</span> origem;
+
+    printf(<span class="string">"Ordem em que os vertices sairam da pilha (DFS): "</span>);
+
+    <span class="comando">while</span> (t !<span class="igual">=</span> 0) {
+        <span class="tipo">int</span> x <span class="igual">=</span> pilha<span class="colchete">[</span><span class="conteudo_colchete">--t</span><span class="colchete">]</span>;
+        printf(<span class="string">"%d "</span>, x);
+
+        <span class="comando">for</span> (<span class="tipo">int</span> y <span class="igual">=</span> 0; y &#60; V; y++) {
+            
+            <span class="comando">if</span> (grafo<span class="colchete">[</span><span class="conteudo_colchete">x</span><span class="colchete">]</span><span class="colchete">[</span><span class="conteudo_colchete">y</span><span class="colchete">]</span> <span class="igual">=</span><span class="igual">=</span> 1 &#38;&#38; visitado<span class="colchete">[</span><span class="conteudo_colchete">y</span><span class="colchete">]</span> <span class="igual">=</span><span class="igual">=</span> 0) {
+                visitado<span class="colchete">[</span><span class="conteudo_colchete">y</span><span class="colchete">]</span> <span class="igual">=</span> 1; 
+                pai<span class="colchete">[</span><span class="conteudo_colchete">y</span><span class="colchete">]</span> <span class="igual">=</span> x;     
+                pilha<span class="colchete">[</span><span class="conteudo_colchete">t++</span><span class="colchete">]</span> <span class="igual">=</span> y;  
+            }
+        }
+    }
+    printf(<span class="string">"\n\n"</span>);
+}
+
+<span class="tipo">void</span> imprime_caminho_direto(<span class="tipo">int</span> origem, <span class="tipo">int</span> destino) {
+    <span class="comando">if</span> (visitado<span class="colchete">[</span><span class="conteudo_colchete">destino</span><span class="colchete">]</span> <span class="igual">=</span><span class="igual">=</span> 0) {
+        printf(<span class="string">"Nao existe caminho de %d ate %d.\n"</span>, origem, destino);
+        <span class="comando">return</span>;
+    }
+
+    printf(<span class="string">"Caminho encontrado pela Pilha (voltando de %d ate %d): "</span>, destino, origem);
+
+    <span class="tipo">int</span> atual <span class="igual">=</span> destino;
+    <span class="comando">while</span> (atual !<span class="igual">=</span> origem) {
+        printf(<span class="string">"%d &#60;- "</span>, atual);
+        atual <span class="igual">=</span> pai<span class="colchete">[</span><span class="conteudo_colchete">atual</span><span class="colchete">]</span>;
+    }
+    printf(<span class="string">"%d\n"</span>, origem);
+}
+
+Como já comentamos grande parte do código na parte de listas, focaremos nas diferenças entre eles. 
+
+int pilha[6]; e int t = 0;: Em vez de dois índices (p e u) andando em pontas opostas, temos apenas o marcador de topo t.
+
+pilha[t++] = origem;: Coloca a origem na gaveta 0 e sobe o topo t para 1.
+
+while (t != 0): Na fila, a condição de parada era p != u. Na pilha, a busca continua enquanto o topo t não voltar para a base 0.
+
+int x = pilha[--t];: Em vez de pegar o elemento mais antigo (fila[p++]), o pré-decremento --t recua para o elemento que acabou de ser inserido no passo anterior. 
+
+if (grafo[x][y] == 1 &#38;&#38; visitado[y] == 0): Verifica se há ligação de x para y e se y nunca entrou na pilha antes.
+
+pilha[t++] = y;: Empilha o novo vizinho no topo para ser processado imediatamente na próxima volta do while.
+
+</pre>
+</body>
+</html>

@@ -1,9 +1,10 @@
-1. Tecnica: Last in First Out (LIFO) 
-2. Algoritmo:Pilha (implementação em vetores) 
+1. Técnica: Outro
+2. Algoritmo: Pilha (Implementação em Vetores)
 3. Autores: Alan Turing (primeiro a tratar de pilhas ) / Friedrich L. Bauer e Klaus Samelson (Isolaram o conceito de pilha como uma estrutura de dados abstrata e autônoma)
 4. Data: 1945–1946 / 1957
-5. Conceitos: vetor. 
-6. Problema: criar um metodo de estrutura de dados em que o ultimo elemento a entrar deve ser o primeiro a sair (LIFO)
+5. Conceitos: Vetor
+6. Problema: Estruturas: criar um metodo de estrutura de dados em que o ultimo elemento a entrar deve ser o primeiro a sair (LIFO)
+7. Complexidade: O(1)
 
 Primeiro, devemos definir oque é pilha. Pilha é uma estrutura de dados que permite inserção ou remoção de novos elementos, de maneira que, o último elemento a entrar é, nescessariamente, o primeiro a sair.
 

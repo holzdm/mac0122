@@ -1,9 +1,10 @@
-1. Tecnica: Guloso
-2. Algoritmo: Insertion Sort (implementação em vetores) 
+1. Técnica: Outro
+2. Algoritmo: Insertion Sort (Implementação em Vetores)
 3. Autores: Konrad Zuse 
 4. Data: 1945
-5. Conceitos: vetor
-6. Problema: Dada uma sequência de números, obter um vetor ordenado que contenha todos os índices da sequência (qualquer índice do vetor é menor ou igual ao próximo, se houver).
+5. Conceitos: Vetor
+6. Problema: Ordenação: Dada uma sequência de números, obter um vetor ordenado que contenha todos os índices da sequência (qualquer índice do vetor é menor ou igual ao próximo, se houver).
+7. Complexidade: O(n²)
 
 O algorítmo Insertion Sort parte do seguinte princípio: Se eu tenho um vetor ordenado e um elemento que eu quero inserir no vetor mantendo a ordem crescente, basta que eu "empurre" todos os elementos maiores que ele uma casa para a frente e insira o elemento na casa vazia que apareceu ao empurrar os elementos. 
 Portanto, seu invariante é: a cada início de iteração, o meu subvetor, que vai da primeira posição do vetor até a posição anterior ao meu índice, já está ordenado.

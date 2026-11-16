@@ -1,9 +1,10 @@
-1. Tecnica: Divisão e Conquista
-2. Algoritmo: Quick Sort (implementação em vetores) 
+1. Técnica: Divisão e Conquista
+2. Algoritmo: Quick Sort (Implementação em Vetores)
 3. Autores: C.A.R. Hoare
 4. Data: 1960
-5. Conceitos: vetor
-6. Problema: Dada uma sequência de números, obter um vetor ordenado que contenha todos os índices da sequência (qualquer índice do vetor é menor ou igual ao próximo, se houver).
+5. Conceitos: Vetor
+6. Problema: Ordenação: Dada uma sequência de números, obter um vetor ordenado que contenha todos os índices da sequência (qualquer índice do vetor é menor ou igual ao próximo, se houver).
+7. Complexidade: O(n²)
 
 O quicksort é um algorítmo que usa da divisão e conquista de uma forma variável: o divisor do vetor (onde o vetor maior será quebrado em subvetores) pode ser escolhido, e com isso, pode se ganhar muita agilidade ou perder desempenho. 
 O algorítmo começa escolhendo um determinado elemento dentro do vetor que será o divisor (nesse texto, ele será chamado de pivô). Com o pivô escolhido, a ideia é reorganizar o vetor de forma que todos os elementos à direita do pivô sejam menores que ele, e todos à esquerda sejam maiores. Dessa forma, teremos dois subvetores ordenados que podem ser divididos em mais subvetores ordenados até que eles tenham tamanho unitário (portanto, o vetor completo estará ordenado).

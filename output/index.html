@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Início - EP de MAC0122</title>
+  <link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="index.html" aria-current="page">Início</a></li>
+        <li><a href="tecnicas.html">Técnicas</a></li>
+        <li><a href="complexidades.html">Complexidade</a></li>
+        <li><a href="algoritmos.html">Algoritmos</a></li>
+        <li><a href="definicoes.html">Definições</a></li>
+        <li><a href="autores.html">Autores</a></li>
+        <li><a href="datas.html">Datas</a></li>
+        <li><a href="conceitos.html">Conceitos</a></li>
+        <li><a href="problemas.html">Problemas</a></li>
+        <li><a href="referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <main class="capa">
+
+    <header class="capa-instituicao">
+      <div class="capa-universidade">Universidade de São Paulo</div>
+      <div class="capa-instituto">Instituto de Matemática e Estatística</div>
+      <hr class="capa-filete">
+    </header>
+
+    <section class="capa-centro">
+
+      <div class="capa-disciplina">
+        <span class="capa-selo">MAC0122</span>
+        <h2>Princípios de Desenvolvimento de Algoritmos</h2>
+      </div>
+
+      <div class="capa-titulo">
+        <h1><span class="chave">{</span> EP de MAC0122 <span class="chave">}</span></h1>
+        <p class="capa-subtitulo">Gerador de páginas para um curso de MAC0122 (com códigos)</p>
+        <p class="capa-fase">Entrega 1</p>
+      </div>
+
+<pre class="trecho" aria-hidden="true"><span class="pragma">#include &lt;stdio.h&gt;</span>
+
+<span class="comentario">/* fontes TXT  -&gt;  páginas HTML indexadas */</span>
+<span class="tipo">int</span> main(<span class="tipo">void</span>) {
+    gera_paginas(<span class="string">"fontes-txt"</span>, <span class="string">"output/index.html"</span>);
+    <span class="comando">return</span> <span class="numero">0</span>;
+}</pre>
+
+      <div class="capa-pessoas">
+        <div>
+          <span class="capa-rotulo">Professor</span>
+          <a href="https://edisciplinas.usp.br/user/view.php?id=283030&amp;course=1" target="_blank" rel="noopener">Leonidas de Oliveira Brandao</a>
+        </div>
+
+        <div>
+          <span class="capa-rotulo">Alunos</span>
+          <ul class="capa-alunos">
+            <li><a href="http://lattes.cnpq.br/0751939551083019" target="_blank" rel="noopener">Eduardo Barbosa de Santana Neto</a></li>
+            <li><a href="http://lattes.cnpq.br/7521737568558052" target="_blank" rel="noopener">Mateus Sperandio Mendonça</a></li>
+            <li>Rafael R. B. C. Leão</li>
+            <li><a href="http://lattes.cnpq.br/4246181614309623" target="_blank" rel="noopener">Vítor Holz de Martin</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <a class="capa-chamada" href="#navegar">Explorar algoritmos &darr;</a>
+    </section>
+
+    <footer class="capa-rodape">
+      <div class="local">São Paulo</div>
+      <div>15 de novembro de 2026</div>
+    </footer>
+
+  </main>
+  <section id="navegar" class="conteudo">
+    <h1>Explore o acervo</h1>
+    <p>Consulte as páginas produzidas pelo filtro e navegue pelos índices.</p>
+    <div class="grade-indices">
+      <a class="resumo-indice" href="tecnicas.html"><h2>Técnicas</h2><p>4 categorias</p></a>
+      <a class="resumo-indice" href="complexidades.html"><h2>Complexidades</h2><p>10 categorias</p></a>
+      <a class="resumo-indice" href="autores.html"><h2>Autores</h2><p>25 categorias</p></a>
+      <a class="resumo-indice" href="datas.html"><h2>Datas</h2><p>12 categorias</p></a>
+      <a class="resumo-indice" href="conceitos.html"><h2>Conceitos</h2><p>24 categorias</p></a>
+      <a class="resumo-indice" href="problemas.html"><h2>Problemas</h2><p>7 categorias</p></a>
+      <a class="resumo-indice" href="algoritmos.html"><h2>Algoritmos</h2><p>21 páginas</p></a>
+      <a class="resumo-indice" href="definicoes.html"><h2>Definições</h2><p>4 páginas</p></a>
+      <a class="resumo-indice" href="referencias.html"><h2>Referências</h2><p>Fontes consultadas</p></a>
+    </div>
+    <h2>Algoritmos (21)</h2>
+    <ul class="indice">
+      <li><a href="../processing/filter-output/bubblesort.txt.html">Bubblesort (Implementação em Vetores)</a><span class="contagem">Método Guloso</span></li>
+      <li><a href="../processing/filter-output/bubblesort%28nomes%29.txt.html">Bubblesort (Ordenação de Nomes)</a><span class="contagem">Método Guloso</span></li>
+      <li><a href="../processing/filter-output/buscabinaria%28vetor%29.txt.html">Busca Binária (Implementação em Vetores)</a><span class="contagem">Divisão e Conquista</span></li>
+      <li><a href="../processing/filter-output/buscalargura%28grafos%29.txt.html">Busca em Largura (BFS)</a><span class="contagem">Outro</span></li>
+      <li><a href="../processing/filter-output/buscaprofundidade%28grafos%29.txt.html">Busca em Profundidade (DFS)</a><span class="contagem">Tentativa e Erro</span></li>
+      <li><a href="../processing/filter-output/frequencia%28nomes%29.txt.html">Contagem de Frequência de Nomes</a><span class="contagem">Outro</span></li>
+      <li><a href="../processing/filter-output/countingsort.txt.html">Counting Sort (Implementação em Vetores)</a><span class="contagem">Outro</span></li>
+      <li><a href="../processing/filter-output/fila%28grafos%29.txt.html">Fila (Implementação em Grafos)</a><span class="contagem">Outro</span></li>
+      <li><a href="../processing/filter-output/fila%28lista-ligada%29.txt.html">Fila (Implementação em Listas Ligadas)</a><span class="contagem">Outro</span></li>
+      <li><a href="../processing/filter-output/fila%28vetor%29.html">Fila (Implementação em Vetores)</a><span class="contagem">Outro</span></li>
+      <li><a href="../processing/filter-output/heapsort.txt.html">Heapsort (Implementação em Vetores)</a><span class="contagem">Método Guloso</span></li>
+      <li><a href="../processing/filter-output/insertionsort.txt.html">Insertion Sort (Implementação em Vetores)</a><span class="contagem">Outro</span></li>
+      <li><a href="../processing/filter-output/kruskal.txt.html">Kruskal (Árvore Espalhada Mínima)</a><span class="contagem">Método Guloso</span></li>
+      <li><a href="../processing/filter-output/mergesort.txt.html">Merge Sort (Implementação em Vetores)</a><span class="contagem">Divisão e Conquista</span></li>
+      <li><a href="../processing/filter-output/pilha%28grafos%29.txt.html">Pilha (Implementação em Grafos)</a><span class="contagem">Tentativa e Erro</span></li>
+      <li><a href="../processing/filter-output/pilha%28lista-ligada%29.txt.html">Pilha (Implementação em Listas Ligadas)</a><span class="contagem">Outro</span></li>
+      <li><a href="../processing/filter-output/pilha%28vetor%29.txt.html">Pilha (Implementação em Vetores)</a><span class="contagem">Outro</span></li>
+      <li><a href="../processing/filter-output/quicksort.txt.html">Quick Sort (Implementação em Vetores)</a><span class="contagem">Divisão e Conquista</span></li>
+      <li><a href="../processing/filter-output/selectionsort.txt.html">Selection Sort (Implementação em Vetores)</a><span class="contagem">Método Guloso</span></li>
+      <li><a href="../processing/filter-output/hashing%28strings%29.txt.html">Tabela Hash de Strings com Contagem de Frequência</a><span class="contagem">Outro</span></li>
+      <li><a href="../processing/filter-output/hanoi.txt.html">Torre de Hanoi</a><span class="contagem">Divisão e Conquista</span></li>
+    </ul>
+    <h2>Definições (4)</h2>
+    <ul class="indice">
+      <li><a href="../processing/filter-output/estruturas_grafos.txt.html">Estruturas de Grafos</a></li>
+      <li><a href="../processing/filter-output/grafo.txt.html">Grafo</a></li>
+      <li><a href="../processing/filter-output/lista_ligada.txt.html">Lista Ligada</a></li>
+      <li><a href="../processing/filter-output/struct.txt.html">Struct</a></li>
+    </ul>
+  </section>
+  <footer class="rodape-site">MAC0122 · Princípios de Desenvolvimento de Algoritmos</footer>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto - MAC0122</title>
+  <link rel="stylesheet" href="../../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="../../output/index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="../../output/index.html">Início</a></li>
+        <li><a href="../../output/tecnicas.html">Técnicas</a></li>
+        <li><a href="../../output/complexidades.html">Complexidade</a></li>
+        <li><a href="../../output/algoritmos.html">Algoritmos</a></li>
+        <li><a href="../../output/definicoes.html">Definições</a></li>
+        <li><a href="../../output/autores.html">Autores</a></li>
+        <li><a href="../../output/datas.html">Datas</a></li>
+        <li><a href="../../output/conceitos.html">Conceitos</a></li>
+        <li><a href="../../output/problemas.html">Problemas</a></li>
+        <li><a href="../../output/referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a class="voltar pagina-voltar" href="../../output/index.html">&larr; Voltar ao índice</a>
+<pre>
+1. Técnica: Método Guloso
+2. Algoritmo: Kruskal (Árvore Espalhada Mínima)
+3. Autores: Joseph Kruskal
+4. Data: 1956
+5. Conceitos: Grafo, Árvore, Recursão
+6. Problema: Árvores: Dado um grafo não direcionado com custos nas arestas, determinar a árvore geradora de menor custo
+7. Complexidade: O(E log E + V²)
+
+Se temos um grafo não direcionado com pesos nas suas arestas, queremos descobrir a árvore geradora de menor custo (ou seja, cuja soma
+dos custos das arestas é mínimo). Para isso, vamos analisar a construção de um grafo por um algoritmo guloso em que, a cada passo, 
+escolhemos uma aresta para adicionar no grafo. 
+Para fazer essa escolha, vamos utilizar o seguinte raciocínio:
+1) Toda árvore tem exatamente n-1 arestas, onde n é o número de vértices;
+2) A árvore tem que ser conexa;
+Isso nos permite concluir que, em um determinado passo, a melhor decisão é escolher a aresta de menor custo que une duas componentes conexas. Isso porque, primeiro, se tenho uma aresta que não liga duas componentes conexas, então ela é descartável (já que, necessariamente, conecta dois vértices da mesma componente). Segundo, se tenho um conjunto de opções de arestas que liga duas componentes conexa, posso minimizar o custo tomando simplesmente a de menor custo.
+Desse modo, a ideia do algoritmo é a seguinte:
+1) Ordenamos as arestas em ordem crescente de custo;
+2) Em um dado passo do algoritmo, escolhemos a aresta de menor custo que liga duas componentes conexas para adicionar;
+Ordenar as arestas é simples. Precisamos, agora, identificar uma boa forma de encontrar componentes conexas. Vamos, então, adicionar a estrutura de dados Union-Find. A ideia da estrutura se baseia nas funções Union e Find, que funcionam da seguinte forma:
+a) Find: Para um certo vértice v, ao utilizar find(v), a função deve devolver o nome da componente conexa a que v pertence.
+b) Union: Para conjuntos A e B (ou seja, componentes conexas A e B), ao utilizar union(A, B), a função deve mudar a estrutura de modo que os conjuntos A e B sejam unidos em um só.
+Vamos implementar isso definindo um vetor "Famílias" de n posições em que, na posição i, damos o nome do conjunto do vértice i. De início, definimos que para todo i o conjunto de i é chamado de i (pois as componentes conexas são todas de um vértice, tem tamanho 1). Então, de modo bem simples, a função find(v) vai devolver a posição v do vetor. 
+Já union vai comparar os conjuntos A e B: como a única ação que toma mais do que O(1) numa união é a mudança dos valores no vetor, faz sentido minimizar essa ação definindo que, dados conjuntos A e B, se |A|&#62;|B|, mudamos todos os vértices em B para em A, pois realizamos o menor número de operações. Como o tamanho é demorado para calcular na hora (precisaríamos fazer uma busca), vamos fazer um vetor "tamanho" que guarda o tamanho de cada componente conexa, de modo que tamanho[c] representa o tamanho da componente c. Então, union é uma operação que muda nosso vetor. É interessante, também, fazer uma função que inicializa o nosso vetor com familia[i] = i para todo i.
+Veja a implementação das funções em C:
+
+
+<span class="comentario">//Essa função inicializa o vetor:</span>
+
+<span class="tipo">void</span> inicializa(<span class="tipo">int</span> familia<span class="colchete">[</span><span class="conteudo_colchete"></span><span class="colchete">]</span>, <span class="tipo">int</span> tamanho<span class="colchete">[</span><span class="conteudo_colchete"></span><span class="colchete">]</span>, <span class="tipo">int</span> n) {
+    <span class="comando">for</span> (<span class="tipo">int</span> i <span class="igual">=</span> 0; i &#60; n; i++) {
+        familia<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span> <span class="igual">=</span> i; <span class="comentario">// no começo, cada vértice é sua própria família</span>
+        tamanho<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span> <span class="igual">=</span> 1;  <span class="comentario">// cada componente começa com tamanho 1</span>
+    }
+}
+
+
+
+<span class="comentario">//Já para o find podemos só tomar a família de v:</span>
+
+familia <span class="colchete">[</span><span class="conteudo_colchete">v</span><span class="colchete">]</span>
+
+
+
+<span class="comentario">//Por fim, a union:</span>
+
+<span class="tipo">void</span> union_f(<span class="tipo">int</span> familia<span class="colchete">[</span><span class="conteudo_colchete"></span><span class="colchete">]</span>, <span class="tipo">int</span> tamanho<span class="colchete">[</span><span class="conteudo_colchete"></span><span class="colchete">]</span>, <span class="tipo">int</span> n, <span class="tipo">int</span> A, <span class="tipo">int</span> B) { <span class="comentario">//union é palavra reservada</span>
+    <span class="comando">if</span> (A <span class="igual">=</span><span class="igual">=</span> B) <span class="comando">return</span>;
+    <span class="tipo">int</span> maior, menor;
+    <span class="comando">if</span> (tamanho<span class="colchete">[</span><span class="conteudo_colchete">A</span><span class="colchete">]</span> &#62;<span class="igual">=</span> tamanho<span class="colchete">[</span><span class="conteudo_colchete">B</span><span class="colchete">]</span>) {
+        maior <span class="igual">=</span> A;
+        menor <span class="igual">=</span> B;
+    } <span class="comando">else</span> {
+        maior <span class="igual">=</span> B;
+        menor <span class="igual">=</span> A;
+    }
+<span class="comentario">//aqui em cima já conseguimos quem é maior ou menor</span>
+    <span class="comando">for</span> (<span class="tipo">int</span> i <span class="igual">=</span> 0; i &#60; n; i++) {
+        <span class="comando">if</span> (familia<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span> <span class="igual">=</span><span class="igual">=</span> menor) {
+            familia<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span> <span class="igual">=</span> maior;
+        }
+    }
+<span class="comentario">//aqui varremos o vetor todo e mudamos quem é do menor para ser do maior</span>
+<span class="comentario">//na próxima, vamos só mudar os tamanhos, pois somamos os dois agora, já que unimos</span>
+    tamanho<span class="colchete">[</span><span class="conteudo_colchete">maior</span><span class="colchete">]</span> +<span class="igual">=</span> tamanho<span class="colchete">[</span><span class="conteudo_colchete">menor</span><span class="colchete">]</span>;
+    tamanho<span class="colchete">[</span><span class="conteudo_colchete">menor</span><span class="colchete">]</span> <span class="igual">=</span> 0;
+}
+
+
+Por fim, podemos implementar o algoritmo de Kruskal da seguinte forma:
+
+1) Ordenar as arestas em custo, podemos usar qualquer ordenador aqui;
+2) Inicializar o vetor do union-find;
+3) Percorrendo as arestas (seja A(v, w) a aresta que liga v e w) em ordem crescente de custo, até adicionar n-1 arestas no grafo, faça: 
+  3.1) Se familia[v] != familia[w]:
+    3.1.1) Adicione A(v, w) no grafo;
+    3.1.2) Faça union_f(familia[v], familia[w]);
+
+Para facilitar a implementação, faz sentido definir um struct com a aresta e seu custo;
+Implementação em C completa:
+
+
+<span class="pragma">#include &#60;stdio.h&#62;</span>
+<span class="pragma">#include &#60;stdlib.h&#62;</span>
+typedef <span class="tipo">struct</span> {
+    <span class="tipo">int</span> v;
+    <span class="tipo">int</span> w;
+    <span class="tipo">int</span> custo;
+} Aresta;
+
+<span class="tipo">int</span> comparar_arestas(<span class="tipo">const</span> <span class="tipo">void</span> *a, <span class="tipo">const</span> <span class="tipo">void</span> *b) {
+    Aresta *arestaA <span class="igual">=</span> (Aresta *)a;
+    Aresta *arestaB <span class="igual">=</span> (Aresta *)b;
+    <span class="comando">return</span> arestaA-&#62;custo - arestaB-&#62;custo;
+} <span class="comentario">//a ideia aqui é trazer os custos das arestas. Como esse comparador é usado na qsort, ele precisa do const void. Porém, o foco do código não é a ordenação, e sim o Kruskal abaixo</span>
+
+<span class="tipo">void</span> kruskal(<span class="tipo">int</span> n, <span class="tipo">int</span> m, Aresta arestas<span class="colchete">[</span><span class="conteudo_colchete"></span><span class="colchete">]</span>) { <span class="comentario">// Aresta arestas[] é um vetor de arestas</span>
+    <span class="tipo">int</span> familia<span class="colchete">[</span><span class="conteudo_colchete">n</span><span class="colchete">]</span>;
+    <span class="tipo">int</span> tamanho<span class="colchete">[</span><span class="conteudo_colchete">n</span><span class="colchete">]</span>;
+    Aresta arv_min<span class="colchete">[</span><span class="conteudo_colchete">n - 1</span><span class="colchete">]</span>; <span class="comentario">// guarda as arestas da árvore geradora mínima</span>
+
+    <span class="comentario">// 1) Ordenar as arestas em ordem crescente de custo</span>
+    qsort(arestas, m, sizeof(Aresta), comparar_arestas); <span class="comentario">//como no caso o foco não é a ordenação em si, ao invés de montar um algoritmo (que poderia ser o de escolha do usuário), utilizei a função nativa do C qsort, que já resolve o problema</span>
+
+    <span class="comentario">// 2) Inicializar o vetor do union-find</span>
+    inicializa(familia, tamanho, n);
+
+    <span class="comentario">// 3) Percorrer as arestas em ordem crescente até adicionar n-1 arestas</span>
+    <span class="tipo">int</span> arestas_adicionadas <span class="igual">=</span> 0;
+    <span class="tipo">int</span> custo_total <span class="igual">=</span> 0;
+
+    <span class="comando">for</span> (<span class="tipo">int</span> i <span class="igual">=</span> 0; i &#60; m &#38;&#38; arestas_adicionadas &#60; n - 1; i++) {
+        <span class="tipo">int</span> v <span class="igual">=</span> arestas<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>.v;
+        <span class="tipo">int</span> w <span class="igual">=</span> arestas<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>.w;
+
+        <span class="tipo">int</span> fam_v <span class="igual">=</span> familia<span class="colchete">[</span><span class="conteudo_colchete">v</span><span class="colchete">]</span>;
+        <span class="tipo">int</span> fam_w <span class="igual">=</span> familia<span class="colchete">[</span><span class="conteudo_colchete">w</span><span class="colchete">]</span>;
+
+        <span class="comentario">// 3.1) Se familia[v] != familia[w]</span>
+        <span class="comando">if</span> (fam_v !<span class="igual">=</span> fam_w) {
+            <span class="comentario">// 3.1.1) Adicione A(v, w) no grafo (árvore resultante)</span>
+            arv_min<span class="colchete">[</span><span class="conteudo_colchete">arestas_adicionadas</span><span class="colchete">]</span> <span class="igual">=</span> arestas<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>;
+            arestas_adicionadas++;
+            custo_total +<span class="igual">=</span> arestas<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>.custo;
+
+            <span class="comentario">// 3.1.2) Faça union_f(familia[v], familia[w])</span>
+            union_f(familia, tamanho, n, fam_v, fam_w);
+        }
+    }
+
+<span class="comando">if</span> (arestas_adicionadas &#60; n - 1) {
+        printf(<span class="string">"O grafo original nao e conexo; nao existe arvore geradora.\n"</span>);
+    } <span class="comando">else</span> {
+        printf(<span class="string">"Arestas da Arvore Geradora de Menor Custo:\n"</span>);
+        <span class="comando">for</span> (<span class="tipo">int</span> i <span class="igual">=</span> 0; i &#60; n - 1; i++) {
+            printf(<span class="string">"(%d, %d) - custo: %d\n"</span>, arv_min<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>.v, arv_min<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>.w, arv_min<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>.custo);
+        }
+        printf(<span class="string">"Custo total minimo: %d\n"</span>, custo_total);
+    }
+}
+
+<span class="tipo">int</span> main() {
+    <span class="tipo">int</span> n, m;
+
+    <span class="comando">if</span> (scanf(<span class="string">"%d %d"</span>, &#38;n, &#38;m) !<span class="igual">=</span> 2 || n &#60;<span class="igual">=</span> 0 || m &#60; 0) {
+        printf(<span class="string">"Entrada invalida.\n"</span>);
+        <span class="comando">return</span> 1;
+    }
+
+    Aresta *arestas <span class="igual">=</span> (Aresta *)malloc(m * sizeof(Aresta));
+    <span class="comando">if</span> (m &#62; 0 &#38;&#38; !arestas) {
+        printf(<span class="string">"Erro ao alocar memoria para as arestas.\n"</span>);
+        <span class="comando">return</span> 1;
+    }
+
+    <span class="comando">for</span> (<span class="tipo">int</span> i <span class="igual">=</span> 0; i &#60; m; i++) {
+        <span class="comando">if</span> (scanf(<span class="string">"%d %d %d"</span>, &#38;arestas<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>.v, &#38;arestas<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>.w, &#38;arestas<span class="colchete">[</span><span class="conteudo_colchete">i</span><span class="colchete">]</span>.custo) !<span class="igual">=</span> 3) {
+            printf(<span class="string">"Erro na leitura da aresta %d.\n"</span>, i + 1);
+            free(arestas);
+            <span class="comando">return</span> 1;
+        }
+    }
+
+    kruskal(n, m, arestas);
+
+    free(arestas);
+
+        <span class="comando">return</span> 0;
+}
+
+
+Referências:
+
+Projeto de Algoritmos em Linguagem C - Paulo Feofiloff
+Disponível em: https://users.ime.usp.br/~pf/algoritmos_em_grafos/aulas/grafos.html
+
+Algorithm Design - Kleinberg &#38; Tardos
+
+</pre>
+</body>
+</html>

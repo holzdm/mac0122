@@ -1,0 +1,15 @@
+Aqui, colocamos todas as referências que utilizamos para fazer o EP.
+
+Introdução às Estruturas de Dados: grafos e Arvores - Leônidas Brandão
+Disponível em: https://edisciplinas.usp.br/pluginfile.php/9699769/mod_resource/content/3/grafos_arvores_v1_4_2026_11_11.pdf
+
+Projeto de Algoritmos em Linguagem C - Paulo Feofiloff
+Disponível em: https://users.ime.usp.br/~pf/algoritmos_em_grafos/aulas/grafos.html
+
+Teoria dos Grafos Semana Olímpica 2025 - Rafael Filipe
+Disponível em: https://www.obm.org.br/content/uploads/2025/01/28_SO_Combinatoria_Teoria_dos_Grafos_N3_Rafael_Filipe.pdf
+
+Algorithm Design - Kleinberg & Tardos
+
+Programação em C/C++ - Márcio Pinho
+Disponível em: https://www.inf.pucrs.br/~pinho/LaproI/Structs/Structs.htm

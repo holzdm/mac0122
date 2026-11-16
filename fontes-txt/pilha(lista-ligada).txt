@@ -1,9 +1,10 @@
-1. Tecnica: Last in First Out (LIFO) 
-2. Algoritmo:Pilha (implementação em listas ligadas) 
+1. Técnica: Outro
+2. Algoritmo: Pilha (Implementação em Listas Ligadas)
 3. Autores: Allen Newell, J. Clifford Shaw e Herbert A. Simon
 4. Data: 1955 - 1956
-5. Conceitos: pilhas (vetor), lista ligada. 
-6. Problema: criar um metodo de estrutura de dados em que o ultimo elemento a entrar deve ser o primeiro a sair sem um limite fixo nem desperdiçar memória.
+5. Conceitos: Pilha, Lista
+6. Problema: Estruturas: criar um metodo de estrutura de dados em que o ultimo elemento a entrar deve ser o primeiro a sair sem um limite fixo nem desperdiçar memória.
+7. Complexidade: O(1)
 
 Vamos começar tratando de 2 limitações muito claras da aplicação anterior em vetores. 
 1 limite fixo : no documento anterior, o vetor precisa ter um tamanho fixo (pilha[0...N-1]), que, por exemplo, para N = 100, só podemos armazenar 100 itens, passando disso, causaria overflow.

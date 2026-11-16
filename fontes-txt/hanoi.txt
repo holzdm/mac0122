@@ -1,0 +1,46 @@
+1. Tecnica: Divisão e Conquista
+2. Algoritmo: Torre de Hanoi
+3. Autores: Édouard Lucas
+4. Data: 1883
+5. Conceitos: Recursão, indução, jogo
+6. Problema: Descobrir uma sequência mínima de movimentos que soluciona a torre de Hanoi
+7. Complexidade: O(2^n)
+
+O problema da torre de Hanoi consiste no seguinte: temos uma base com três pinos e n discos de raio crescente estão no primeiro pino. Em uma jogada, é permitido mover o disco mais em cima de alguma pilha para qualquer outra pilha contanto que um disco maior nunca fique sobre um disco menor.
+O objetivo do jogador é levar todos os discos para algum outro pino (do meio ou da direita) e queremos descobrir quantas jogadas são necessárias para completar, encontrando um algoritmo para esse número.
+Esse problema será resolvido com uma técnica recursiva a partir de uma série de observações espertas: 
+1) Para mover a pilha inteira, em particular preciso mover o maior disco da pilha.
+2) Para mover o maior disco, preciso tirar todos os discos em cima dele.
+3) Para mover o maior disco, preciso de um lugar livre para colocar ele (pois não pode ficar em cima dos menores).
+Conclusão: Para mover a pilha, preciso mover todos os discos em cima do maior disco para um mesmo pino. Ou seja, se H(n) representa o número de jogadas para resolver Hanoi com n discos, então até o momento preciso de H(n-1) jogadas.
+Após mover o maior disco, preciso ter todos os outros discos em cima dele. Porém, note que temos uma pilha de tamanho n-1 em um pino e o maior disco em outro. Daí, basta mover toda essa pilha para o pino do maior disco, o que precisa, analogamente, de H(n-1) movimentos.
+Portanto, no total, temos que H(n) = 2H(n-1) + 1. Como H(1) é claramente 1, pois podemos mover o disco diretamente, podemos provar por indução que H(n) = 2^n-1, veja:
+Já temos o caso base para n=1. Suponha que H(n) = 2^n-1 para algum n. Então, H(n+1) = 2H(n) + 1 = 2(2^n - 1) + 1 = 2^n+1 - 1. Assim fechamos a indução.
+
+O algoritmo é exatamente aquele que construí acima. Vamos fazer uma implementação recursiva em C:
+
+@c
+void hanoi(int n, int origem, int destino, int auxiliar) {
+    if (n == 1) {
+        printf("%d -> %d\n", origem, destino);
+        return; //caso base n = 1
+    }
+    hanoi(n - 1, origem, auxiliar, destino); // passa os n-1 pro auxiliar
+    printf("%d -> %d\n", origem, destino); // move o disco grande para o destino
+    hanoi(n - 1, auxiliar, destino, origem); // move os demais n-1 para o final
+}
+
+int main() {
+    int n;
+    if (scanf("%d", &n) != 1 || n <= 0) { // pega o numero de discos
+        printf("Entrada invalida. Informe um numero inteiro positivo de discos.\n");
+        return 1;
+    }
+    hanoi(n, 1, 3, 2);
+    unsigned long long total_jogadas = (1ULL << n) - 1; //o deslocamento de bit permite que a gente não utilize a math.h, o que é uma vantagem
+  // além disso, a função de potência exige muitas operações
+    printf("Total de jogadas: %llu\n", total_jogadas);
+
+    return 0;
+}
+@c

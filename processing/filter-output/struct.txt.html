@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto - MAC0122</title>
+  <link rel="stylesheet" href="../../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="../../output/index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="../../output/index.html">Início</a></li>
+        <li><a href="../../output/tecnicas.html">Técnicas</a></li>
+        <li><a href="../../output/complexidades.html">Complexidade</a></li>
+        <li><a href="../../output/algoritmos.html">Algoritmos</a></li>
+        <li><a href="../../output/definicoes.html">Definições</a></li>
+        <li><a href="../../output/autores.html">Autores</a></li>
+        <li><a href="../../output/datas.html">Datas</a></li>
+        <li><a href="../../output/conceitos.html">Conceitos</a></li>
+        <li><a href="../../output/problemas.html">Problemas</a></li>
+        <li><a href="../../output/referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a class="voltar pagina-voltar" href="../../output/index.html">&larr; Voltar ao índice</a>
+<pre>
+1. Técnica: Outro
+2. Definição: Struct
+Uma struct (abreviação de structure, inglês para estrutura) funciona em C como um pacote de variáveis, que podem até mesmo ter 
+tipos diferentes. Podemos, por exemplo, armazenar dados de uma pessoa em um struct: no mesmo "pacote", podemos armazenar CPF, endereço,
+idade e quaisquer dados tiver interesse, mesmo sendo de tipos diferentes. Isso é bastante útil na organização de informações e permite 
+usos mais sofisticados.
+
+Em C, declara-se uma struct da seguinte forma:
+
+
+<span class="tipo">struct</span> pessoa {
+<span class="tipo">int</span> NUSP;
+<span class="tipo">int</span> CPF;
+<span class="tipo">char</span> Letra;
+};
+
+
+As structs do tipo "pessoa" agora vão representar pacotes como descrito acima:
+
+
+<span class="tipo">struct</span> pessoa {
+<span class="tipo">int</span> NUSP;
+<span class="tipo">int</span> CPF;
+<span class="tipo">char</span> Letra;
+};
+<span class="tipo">struct</span> pessoa Mateus; <span class="comentario">//cria uma struct da forma mostrada acima, com nome Mateus</span>
+<span class="tipo">struct</span> pessoa x; <span class="comentario">// cria uma struct da forma mostrada acima, com nome x</span>
+
+
+Para acessar uma variável dentro do struct, chamo a struct seguida de um ponto e qual variável quero atualizar:
+
+
+Mateus.NUSP <span class="igual">=</span> 12345678;
+
+
+Para facilitar a escrita, posso definir a struct que criei como um tipo de dados específico (ficha, por exemplo). Veja:
+
+
+typedef <span class="tipo">struct</span> pessoa ficha; <span class="comentario">//cria um tipo de dados com a struct que foi construída</span>
+ficha Mateus; <span class="comentario">//cria uma ficha (tipo de dados) chamada "Mateus"</span>
+
+
+Uma estrutura muito útil quando se trabalha com structs é o uso de ponteiros. Podemos definir por exemplo:
+
+
+ficha *p; <span class="comentario">//definimos um ponteiro p que aponta para uma struct</span>
+ficha Mateus;
+p <span class="igual">=</span> &#38;Mateus; <span class="comentario">//agora, p aponta para a ficha Mateus</span>
+<span class="comentario">//posso usar o ponto para acessar variáveis da mesma forma:</span>
+(*p).NUSP <span class="igual">=</span> 12345678; <span class="comentario">//define o NUSP de Mateus como 12345678</span>
+
+
+Uma observação importante é que o ponto tem prioridade sobre o asterisco, então é necessário o uso de parênteses.
+
+Temos uma ferramenta muito útil e visualmente muito intuitiva para trabalhar com ponteiros em structs, que é a seta -&#62;.
+Vale que:
+(*p).NUSP é equivalente a p-&#62;NUSP
+Não só o p-&#62;NUSP é mais curto como também permite uma visão intuitiva de "p aponta para NUSP" que facilita muito a execução do código!
+Essa notação será muito usada daqui pra frente.
+
+Referências:
+
+Projeto de Algoritmos em Linguagem C - Paulo Feofiloff
+Disponível em: https://users.ime.usp.br/~pf/algoritmos_em_grafos/aulas/grafos.html
+
+Programação em C/C++ - Márcio Pinho
+Disponível em: https://www.inf.pucrs.br/~pinho/LaproI/Structs/Structs.htm
+
+</pre>
+</body>
+</html>

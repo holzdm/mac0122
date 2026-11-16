@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto - MAC0122</title>
+  <link rel="stylesheet" href="../../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="../../output/index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="../../output/index.html">Início</a></li>
+        <li><a href="../../output/tecnicas.html">Técnicas</a></li>
+        <li><a href="../../output/complexidades.html">Complexidade</a></li>
+        <li><a href="../../output/algoritmos.html">Algoritmos</a></li>
+        <li><a href="../../output/definicoes.html">Definições</a></li>
+        <li><a href="../../output/autores.html">Autores</a></li>
+        <li><a href="../../output/datas.html">Datas</a></li>
+        <li><a href="../../output/conceitos.html">Conceitos</a></li>
+        <li><a href="../../output/problemas.html">Problemas</a></li>
+        <li><a href="../../output/referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a class="voltar pagina-voltar" href="../../output/index.html">&larr; Voltar ao índice</a>
+<pre>
+1. Técnica: Outro
+2. Algoritmo: Pilha (Implementação em Vetores)
+3. Autores: Alan Turing (primeiro a tratar de pilhas ) / Friedrich L. Bauer e Klaus Samelson (Isolaram o conceito de pilha como uma estrutura de dados abstrata e autônoma)
+4. Data: 1945–1946 / 1957
+5. Conceitos: Vetor
+6. Problema: Estruturas: criar um metodo de estrutura de dados em que o ultimo elemento a entrar deve ser o primeiro a sair (LIFO)
+7. Complexidade: O(1)
+
+Primeiro, devemos definir oque é pilha. Pilha é uma estrutura de dados que permite inserção ou remoção de novos elementos, de maneira que, o último elemento a entrar é, nescessariamente, o primeiro a sair.
+
+Para mostrar a aplicação em um vetor, vamos supor que nossa pilha está em um vetor pilha[0...N-1] e ocupa a parte  pilha[0...k-1]. Logicamente, k-1 indica o topo da lista e, se k = 0 a pilha está vazia, e se k = N, a pilha está cheia.
+
+Para remover um item da pilha, realizaremos a operação desempilhar ( pop ), dada por  : 
+
+   <span class="comando">return</span> pilha<span class="colchete">[</span><span class="conteudo_colchete">--t</span><span class="colchete">]</span>;
+
+
+O codigo, basicamente, diminui o valor de t em 1 casa, fazendo com que o ultimo elemento da pilha não faça mais parte dela. 
+
+Para adicionar um item na pilha, usa-se a operação empilhar (push), dada por : 
+
+   pilha<span class="colchete">[</span><span class="conteudo_colchete">t++</span><span class="colchete">]</span> <span class="igual">=</span> y;
+
+
+O codigo aumenta o valor de t em uma casa, e, nesse novo elemento da pilha, coloca y.
+
+</pre>
+</body>
+</html>

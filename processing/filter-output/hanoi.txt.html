@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto - MAC0122</title>
+  <link rel="stylesheet" href="../../estilo.css">
+</head>
+<body>
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar-conteudo">
+      <a class="navbar-marca" href="../../output/index.html"><span class="chave">{</span> MAC0122 <span class="chave">}</span></a>
+      <input type="checkbox" id="navbar-toggle" class="navbar-toggle">
+      <label for="navbar-toggle" class="navbar-botao" aria-label="Abrir menu">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="../../output/index.html">Início</a></li>
+        <li><a href="../../output/tecnicas.html">Técnicas</a></li>
+        <li><a href="../../output/complexidades.html">Complexidade</a></li>
+        <li><a href="../../output/algoritmos.html">Algoritmos</a></li>
+        <li><a href="../../output/definicoes.html">Definições</a></li>
+        <li><a href="../../output/autores.html">Autores</a></li>
+        <li><a href="../../output/datas.html">Datas</a></li>
+        <li><a href="../../output/conceitos.html">Conceitos</a></li>
+        <li><a href="../../output/problemas.html">Problemas</a></li>
+        <li><a href="../../output/referencias.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a class="voltar pagina-voltar" href="../../output/index.html">&larr; Voltar ao índice</a>
+<pre>
+1. Tecnica: Divisão e Conquista
+2. Algoritmo: Torre de Hanoi
+3. Autores: Édouard Lucas
+4. Data: 1883
+5. Conceitos: Recursão, indução, jogo
+6. Problema: Descobrir uma sequência mínima de movimentos que soluciona a torre de Hanoi
+7. Complexidade: O(2^n)
+
+O problema da torre de Hanoi consiste no seguinte: temos uma base com três pinos e n discos de raio crescente estão no primeiro pino. Em uma jogada, é permitido mover o disco mais em cima de alguma pilha para qualquer outra pilha contanto que um disco maior nunca fique sobre um disco menor.
+O objetivo do jogador é levar todos os discos para algum outro pino (do meio ou da direita) e queremos descobrir quantas jogadas são necessárias para completar, encontrando um algoritmo para esse número.
+Esse problema será resolvido com uma técnica recursiva a partir de uma série de observações espertas: 
+1) Para mover a pilha inteira, em particular preciso mover o maior disco da pilha.
+2) Para mover o maior disco, preciso tirar todos os discos em cima dele.
+3) Para mover o maior disco, preciso de um lugar livre para colocar ele (pois não pode ficar em cima dos menores).
+Conclusão: Para mover a pilha, preciso mover todos os discos em cima do maior disco para um mesmo pino. Ou seja, se H(n) representa o número de jogadas para resolver Hanoi com n discos, então até o momento preciso de H(n-1) jogadas.
+Após mover o maior disco, preciso ter todos os outros discos em cima dele. Porém, note que temos uma pilha de tamanho n-1 em um pino e o maior disco em outro. Daí, basta mover toda essa pilha para o pino do maior disco, o que precisa, analogamente, de H(n-1) movimentos.
+Portanto, no total, temos que H(n) = 2H(n-1) + 1. Como H(1) é claramente 1, pois podemos mover o disco diretamente, podemos provar por indução que H(n) = 2^n-1, veja:
+Já temos o caso base para n=1. Suponha que H(n) = 2^n-1 para algum n. Então, H(n+1) = 2H(n) + 1 = 2(2^n - 1) + 1 = 2^n+1 - 1. Assim fechamos a indução.
+
+O algoritmo é exatamente aquele que construí acima. Vamos fazer uma implementação recursiva em C:
+
+
+<span class="tipo">void</span> hanoi(<span class="tipo">int</span> n, <span class="tipo">int</span> origem, <span class="tipo">int</span> destino, <span class="tipo">int</span> auxiliar) {
+    <span class="comando">if</span> (n <span class="igual">=</span><span class="igual">=</span> 1) {
+        printf(<span class="string">"%d -&#62; %d\n"</span>, origem, destino);
+        <span class="comando">return</span>; <span class="comentario">//caso base n = 1</span>
+    }
+    hanoi(n - 1, origem, auxiliar, destino); <span class="comentario">// passa os n-1 pro auxiliar</span>
+    printf(<span class="string">"%d -&#62; %d\n"</span>, origem, destino); <span class="comentario">// move o disco grande para o destino</span>
+    hanoi(n - 1, auxiliar, destino, origem); <span class="comentario">// move os demais n-1 para o final</span>
+}
+
+<span class="tipo">int</span> main() {
+    <span class="tipo">int</span> n;
+    <span class="comando">if</span> (scanf(<span class="string">"%d"</span>, &#38;n) !<span class="igual">=</span> 1 || n &#60;<span class="igual">=</span> 0) { <span class="comentario">// pega o numero de discos</span>
+        printf(<span class="string">"Entrada invalida. Informe um numero inteiro positivo de discos.\n"</span>);
+        <span class="comando">return</span> 1;
+    }
+    hanoi(n, 1, 3, 2);
+    <span class="tipo">unsigned</span> <span class="tipo">long</span> <span class="tipo">long</span> total_jogadas <span class="igual">=</span> (1ULL &#60;&#60; n) - 1; <span class="comentario">//o deslocamento de bit permite que a gente não utilize a math.h, o que é uma vantagem</span>
+  <span class="comentario">// além disso, a função de potência exige muitas operações</span>
+    printf(<span class="string">"Total de jogadas: %llu\n"</span>, total_jogadas);
+
+    <span class="comando">return</span> 0;
+}
+
+
+</pre>
+</body>
+</html>
